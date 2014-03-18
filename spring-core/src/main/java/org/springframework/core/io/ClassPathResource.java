@@ -27,14 +27,14 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
 /**
- * {@link Resource} implementation for class path resources.
- * Uses either a given ClassLoader or a given Class for loading resources.
+ * <p>只代表在 ClassPath 中的资源。</p>
+ * <hr>
+ * <p>{@link Resource} implementation for class path resources.
+ * Uses either a given ClassLoader or a given Class for loading resources.</p>
  *
  * <p>Supports resolution as {@code java.io.File} if the class path
  * resource resides in the file system, but not for resources in a JAR.
- * Always supports resolution as URL.
- * 
- * <p>在Java中，不同的资源
+ * Always supports resolution as URL.</p>
  *
  * @author Juergen Hoeller
  * @author Sam Brannen
