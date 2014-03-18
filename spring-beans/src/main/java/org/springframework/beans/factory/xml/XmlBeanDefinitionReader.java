@@ -50,13 +50,18 @@ import org.springframework.util.xml.SimpleSaxErrorHandler;
 import org.springframework.util.xml.XmlValidationModeDetector;
 
 /**
- * Bean definition reader for XML bean definitions.
+ * <p>读取 XML 配置文件的是 Spring 的重要的的功能，因为 Spring 的大部分功能都被配置在 XML 配置文件。</p>
+ * 
+ * <p>读取 XML 配置文件的是 Spring 的重要的的功能，因为 Spring 的大部分功能都被配置在 XML 配置文件。</p>
+ * 
+ * <hr />
+ * <p>Bean definition reader for XML bean definitions.
  * Delegates the actual XML document reading to an implementation
- * of the {@link BeanDefinitionDocumentReader} interface.
+ * of the {@link BeanDefinitionDocumentReader} interface.</p>
  *
  * <p>Typically applied to a
  * {@link org.springframework.beans.factory.support.DefaultListableBeanFactory}
- * or a {@link org.springframework.context.support.GenericApplicationContext}.
+ * or a {@link org.springframework.context.support.GenericApplicationContext}.</p>
  *
  * <p>This class loads a DOM document and applies the BeanDefinitionDocumentReader to it.
  * The document reader will register each bean definition with the given bean factory,
