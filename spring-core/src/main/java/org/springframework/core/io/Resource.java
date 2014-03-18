@@ -32,6 +32,11 @@ import java.net.URL;
  * <li>包含一些基本的方法，比如资源是否被打开；可以在 {@link java.net.URL URL}、{@link java.net.URI URI}、
  * {@link java.io.File File} 之间转换等。</li>
  * </ul>
+ * <p>
+ * 有一些实用的实现类：{@link ByteArrayResource}（ Byte 数组资源）、{@link ClassPathResource}（类路径资源）、
+ * {@link FileSystemResource}（磁盘文件资源）、{@link InputStreamResource}（ InputStream 资源）、
+ * {@link UrlResource}（ URL 资源）。
+ * </p>
  * <hr>
  * <p>
  * Interface for a resource descriptor that abstracts from the actual type of underlying
@@ -163,8 +168,12 @@ public interface Resource extends InputStreamSource {
 	File getFile() throws IOException;
 
 	/**
-	 * <p>Determine the content length for this resource.</p>
-	 * <p>确定这个资源的内容长度。</p>
+	 * <p>
+	 * Determine the content length for this resource.
+	 * </p>
+	 * <p>
+	 * 确定这个资源的内容长度。
+	 * </p>
 	 * 
 	 * @throws IOException if the resource cannot be resolved (in the file system or as
 	 *         some other known physical resource type)
@@ -172,8 +181,12 @@ public interface Resource extends InputStreamSource {
 	long contentLength() throws IOException;
 
 	/**
-	 * <p>Determine the last-modified timestamp for this resource.</p>
-	 * <p>确定这个资源的最后一次修改的时间戳。</p>
+	 * <p>
+	 * Determine the last-modified timestamp for this resource.
+	 * </p>
+	 * <p>
+	 * 确定这个资源的最后一次修改的时间戳。
+	 * </p>
 	 * 
 	 * @throws IOException if the resource cannot be resolved (in the file system or as
 	 *         some other known physical resource type)
@@ -181,10 +194,16 @@ public interface Resource extends InputStreamSource {
 	long lastModified() throws IOException;
 
 	/**
-	 * <p>或者以相对路径去理解相对资源。</p>
+	 * <p>
+	 * 或者以相对路径去理解相对资源。
+	 * </p>
 	 * <hr>
-	 * <p>Create a resource relative to this resource.</p>
-	 * <p>创建基于该资源的相对资源。</p>
+	 * <p>
+	 * Create a resource relative to this resource.
+	 * </p>
+	 * <p>
+	 * 创建基于该资源的相对资源。
+	 * </p>
 	 * 
 	 * @param relativePath the relative path (relative to this resource)
 	 * @return the resource handle for the relative resource
@@ -193,9 +212,13 @@ public interface Resource extends InputStreamSource {
 	Resource createRelative(String relativePath) throws IOException;
 
 	/**
-	 * <p>Determine a filename for this resource, i.e. typically the last part of the path:
-	 * for example, "myfile.txt".</p>
-	 * <p>确定这个资源的文件名，不是路径，而是其最后一部分：例如，“myfile.txt”。</p>
+	 * <p>
+	 * Determine a filename for this resource, i.e. typically the last part of the path:
+	 * for example, "myfile.txt".
+	 * </p>
+	 * <p>
+	 * 确定这个资源的文件名，不是路径，而是其最后一部分：例如，“myfile.txt”。
+	 * </p>
 	 * 
 	 * <p>
 	 * Returns {@code null} if this type of resource does not have a filename.
@@ -203,9 +226,13 @@ public interface Resource extends InputStreamSource {
 	String getFilename();
 
 	/**
-	 * <p>Return a description for this resource, to be used for error output when working
-	 * with the resource.</p>
-	 * <p>返回这个资源的描述信息，在资源工作时，将用于错误输出。</p>
+	 * <p>
+	 * Return a description for this resource, to be used for error output when working
+	 * with the resource.
+	 * </p>
+	 * <p>
+	 * 返回这个资源的描述信息，在资源工作时，将用于错误输出。
+	 * </p>
 	 * <p>
 	 * Implementations are also encouraged to return this value from their
 	 * {@code toString} method.
