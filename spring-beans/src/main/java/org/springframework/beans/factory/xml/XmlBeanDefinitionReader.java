@@ -298,17 +298,20 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 
 
 	/**
-	 * Load bean definitions from the specified XML file.
-	 * @param resource the resource descriptor for the XML file
-	 * @return the number of bean definitions found
+	 * <p>en°Load bean definitions from the specified XML file.</p>
+	 * <p>zh°从指定的XML文件加载 bean 定义。</p>
+	 * @param resource <p>param.en°the resource descriptor for the XML file.<p>param.zh°XML 配置文件。
+	 * @return <p>param.en°the number of bean definitions found.<p>param.zh°发现的bean定义的数。
 	 * @throws BeanDefinitionStoreException in case of loading or parsing errors
 	 */
 	public int loadBeanDefinitions(Resource resource) throws BeanDefinitionStoreException {
+		// 使用 EncodedResource 对资源再进行封装，这个封装是为了处理编码。
 		return loadBeanDefinitions(new EncodedResource(resource));
 	}
 
 	/**
-	 * Load bean definitions from the specified XML file.
+	 * <p>en°Load bean definitions from the specified XML file.</p>
+	 * <p>zh°从指定的XML文件加载 bean 定义。</p>
 	 * @param encodedResource the resource descriptor for the XML file,
 	 * allowing to specify an encoding to use for parsing the file
 	 * @return the number of bean definitions found
@@ -329,13 +332,19 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 			throw new BeanDefinitionStoreException(
 					"Detected cyclic loading of " + encodedResource + " - check your import definitions!");
 		}
+		
+		
 		try {
+			// 这里开始主要的业务，共3步：
+			// 1. 获取资源的 InputStream。
 			InputStream inputStream = encodedResource.getResource().getInputStream();
 			try {
+				// 2. 封装资源的 InputStream 成为 InputSource 。
 				InputSource inputSource = new InputSource(inputStream);
 				if (encodedResource.getEncoding() != null) {
 					inputSource.setEncoding(encodedResource.getEncoding());
 				}
+				// 3. 真正的从 XML 文件加载 bean 定义。
 				return doLoadBeanDefinitions(inputSource, encodedResource.getResource());
 			}
 			finally {

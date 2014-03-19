@@ -22,12 +22,10 @@ import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.core.io.Resource;
 
 /**
- * <p>
- * 这个类能注册并加载 Bean，但这些能力都是从父类
- * {@link org.springframework.beans.factory.support.DefaultListableBeanFactory
- * DefaultListableBeanFactory} 继承而来的，区别在于 bean 的配置来源不同，这个类是是从 Spring 的 XML 配置文件获取配置的。
+ * <p>zh°本类能注册并加载 bean，但这些能力都是从父类
+ * {@link DefaultListableBeanFactory} 继承而来的，区别在于 bean 的配置信息（资源，由 {@link Resource} 封装）的格式的要求不同，父类对此没作限定，本类要求是具有配置信息的 XML 文件。
  * 
- * <p>只是简单的拥有一个私有的 {@link XmlBeanDefinitionReader} 对象，它能读取 XML 文件，在其初始化时将资源（ XML 配置文件）传递给 loadBeanDefinitions 执行处理。
+ * <p>zh°比其父类多出来的部分是拥有一个私有的 {@link XmlBeanDefinitionReader} 对象，在初始化时使用它读取 XML 文件，将资源（ XML 配置文件）传递给 {@link XmlBeanDefinitionReader#loadBeanDefinitions(Resource) loadBeanDefinitions()} 执行处理。
  * 
  * <hr />
  * Convenience extension of {@link DefaultListableBeanFactory} that reads bean definitions
@@ -69,8 +67,13 @@ public class XmlBeanFactory extends DefaultListableBeanFactory {
 	private final XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(this);
 
 	/**
-	 * Create a new XmlBeanFactory with the given resource, which must be parsable using
-	 * DOM.
+	 * <h3>参考资料：</h3>
+	 * <ul>
+	 * <li>使用到父类的初始化，可参考 {@link #AbstractAutowireCapableBeanFactory() AbstractAutowireCapableBeanFactory()} 。</li>
+	 * </ul>
+	 * <hr>
+	 * <p>en°Create a new XmlBeanFactory with the given resource, which must be parsable using DOM.</p>
+	 * <p>zh°创建一个新的对象，依据传递给的参数创建，这个参数必须是能被解析成可用的 DOM 。</p>
 	 * 
 	 * @param resource XML resource to load bean definitions from
 	 * @throws BeansException in case of loading or parsing errors
@@ -80,8 +83,15 @@ public class XmlBeanFactory extends DefaultListableBeanFactory {
 	}
 
 	/**
-	 * Create a new XmlBeanFactory with the given input stream, which must be parsable
-	 * using DOM.
+	 * <p>zh°这是本类唯一增加业务的地方，读取 XML 文件： this.reader.loadBeanDefinitions(resource); 。
+	 * <h3>zh°参考资料：</h3>
+	 * <ul>
+	 * <li>zh°使用到父类的初始化，可参考 {@link org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory#AbstractAutowireCapableBeanFactory() AbstractAutowireCapableBeanFactory()} 。</li>
+	 * <li>zh°读取配置文件，可参考 {@link XmlBeanDefinitionReader#loadBeanDefinitions(Resource) loadBeanDefinitions()} 。</li>
+	 * </ul>
+	 * <hr>
+	 * <p>en°Create a new XmlBeanFactory with the given input stream, which must be parsable using DOM.</p>
+	 * <p>zh°创建一个新的对象，依据传递给的参数创建，这个参数必须是能被解析成可用的 DOM 。</p>
 	 * 
 	 * @param resource XML resource to load bean definitions from
 	 * @param parentBeanFactory parent bean factory
@@ -89,7 +99,9 @@ public class XmlBeanFactory extends DefaultListableBeanFactory {
 	 */
 	public XmlBeanFactory(Resource resource, BeanFactory parentBeanFactory)
 			throws BeansException {
+		// 主要是父类 AbstractAutowireCapableBeanFactory 初始化。
 		super(parentBeanFactory);
+		// 加载 XML 配置文件。
 		this.reader.loadBeanDefinitions(resource);
 	}
 

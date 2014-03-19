@@ -143,8 +143,8 @@ public class ClassPathResource extends AbstractFileResolvingResource {
 	}
 
 	/**
-	 * <p>This implementation opens an InputStream for the given class path resource.</p>
-	 * <p>此实现打开一个属于给定的类路径资源的 {@link java.io.InputStream InputStream} 。</p>
+	 * <p>en°This implementation opens an InputStream for the given class path resource.</p>
+	 * <p>zh°此实现打开一个属于给定的类路径资源的 {@link java.io.InputStream InputStream} 。</p>
 	 * 
 	 * @see java.lang.ClassLoader#getResourceAsStream(String)
 	 * @see java.lang.Class#getResourceAsStream(String)

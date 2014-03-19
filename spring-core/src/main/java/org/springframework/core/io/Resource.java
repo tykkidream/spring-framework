@@ -104,7 +104,7 @@ public interface Resource extends InputStreamSource {
 	 * resource leaks.
 	 * </p>
 	 * <p>
-	 * 返回这个资源是否有已打开流的句柄。如果为true，InputStream的不能被读取多次，并且必须读取和关闭，以避免资源泄漏。
+	 * 返回这个资源是否有已打开流的句柄。如果为 true ，InputStream 的不能被读取多次，并且必须读取和关闭，以避免资源泄漏。
 	 * </p>
 	 * 
 	 * <p>
@@ -115,7 +115,7 @@ public interface Resource extends InputStreamSource {
 
 	/**
 	 * <p>
-	 * {@link #getURL}、{@link #getURI}、{@link #getFile} 这3个方法可以实现为在 {@link java.net.URL
+	 * {@link #getURL()}、{@link #getURI()}、{@link #getFile()} 这3个方法可以实现为在 {@link java.net.URL
 	 * URL}、{@link java.net.URI URI}、{@link java.io.File File} 之间转换 。
 	 * </p>
 	 * <hr>
@@ -133,7 +133,7 @@ public interface Resource extends InputStreamSource {
 
 	/**
 	 * <p>
-	 * {@link #getURL}、{@link #getURI}、{@link #getFile} 这3个方法可以实现为在 {@link java.net.URL
+	 * {@link #getURL()}、{@link #getURI()}、{@link #getFile()} 这3个方法可以实现为在 {@link java.net.URL
 	 * URL}、{@link java.net.URI URI}、{@link java.io.File File} 之间转换 。
 	 * </p>
 	 * <hr>
@@ -151,7 +151,7 @@ public interface Resource extends InputStreamSource {
 
 	/**
 	 * <p>
-	 * {@link #getURL}、{@link #getURI}、{@link #getFile} 这3个方法可以实现为在 {@link java.net.URL
+	 * {@link #getURL()}、{@link #getURI()}、{@link #getFile()} 这3个方法可以实现为在 {@link java.net.URL
 	 * URL}、{@link java.net.URI URI}、{@link java.io.File File} 之间转换 。
 	 * </p>
 	 * <hr>

@@ -106,7 +106,10 @@ public class FileSystemResource extends AbstractResource implements WritableReso
 	}
 
 	/**
-	 * This implementation opens a FileInputStream for the underlying file.
+	 * <p>zh°很简单的功能，仅仅是：new FileInputStream(this.file); ，可以看出每次得到的值都不相同，所以和其相关的 {@link #isOpen()} 总是 false。</p>
+	 * <hr>
+	 * <p>en°This implementation opens a FileInputStream for the underlying file.</p>
+	 * <p>zh°此实现是打开了一个相关的底层文件（{@link #getFile() this.getFile()}）的 {@link java.io.FileInputStream FileInputStream}。</p>
 	 * @see java.io.FileInputStream
 	 */
 	public InputStream getInputStream() throws IOException {
@@ -114,7 +117,10 @@ public class FileSystemResource extends AbstractResource implements WritableReso
 	}
 
 	/**
-	 * This implementation returns a URL for the underlying file.
+	 * <p>zh°很简单的功能，仅仅是：this.file.toURI().toURL(); 。</p>
+	 * <hr>
+	 * <p>This implementation returns a URL for the underlying file.</p>
+	 * <p>此实现是打开一个相关的底层文件（{@link #getFile() this.getFile()}）的 {@link java.net.URL URL}。</p>
 	 * @see java.io.File#toURI()
 	 */
 	@Override
@@ -123,7 +129,10 @@ public class FileSystemResource extends AbstractResource implements WritableReso
 	}
 
 	/**
-	 * This implementation returns a URI for the underlying file.
+	 * <p>zh°很简单的功能，仅仅是：this.file.toURI(); 。</p>
+	 * <hr>
+	 * <p>en°This implementation returns a URI for the underlying file.</p>
+	 * <p>zh°此实现是打开一个相关的底层文件（{@link #getFile() this.getFile()}）的 {@link java.net.URI URI}。</p>
 	 * @see java.io.File#toURI()
 	 */
 	@Override
@@ -132,7 +141,8 @@ public class FileSystemResource extends AbstractResource implements WritableReso
 	}
 
 	/**
-	 * This implementation returns the underlying File reference.
+	 * <p>en°This implementation returns the underlying File reference.</p>
+	 * <p>zh°此实现是返回相关的底层文件的引用。</p>
 	 */
 	@Override
 	public File getFile() {
@@ -140,7 +150,11 @@ public class FileSystemResource extends AbstractResource implements WritableReso
 	}
 
 	/**
-	 * This implementation returns the underlying File's length.
+	 * <p>zh°很简单的功能，仅仅是：this.file.length(); 。</p>
+	 * <hr>
+	 * <p>en°This implementation returns the underlying File's length.</p>
+	 * <p>zh°此实现是返回相关的底层文件的长度。</p>
+	 * @see java.io.File#length()
 	 */
 	@Override
 	public long contentLength() throws IOException {
@@ -148,8 +162,9 @@ public class FileSystemResource extends AbstractResource implements WritableReso
 	}
 
 	/**
-	 * This implementation creates a FileSystemResource, applying the given path
-	 * relative to the path of the underlying file of this resource descriptor.
+	 * <p>en°This implementation creates a FileSystemResource, applying the given path
+	 * relative to the path of the underlying file of this resource descriptor.</p>
+	 * <p>zh°此实现是创建一个 {@link FileSystemResource} 类型的资源。以本资源位置为参考，获取于相对于本资源位置（传递的参数是相对路径）的资源。</p>
 	 * @see org.springframework.util.StringUtils#applyRelativePath(String, String)
 	 */
 	@Override
@@ -158,8 +173,11 @@ public class FileSystemResource extends AbstractResource implements WritableReso
 		return new FileSystemResource(pathToUse);
 	}
 
-	/**
-	 * This implementation returns the name of the file.
+	/**                                                                                                                         
+	 * <p>zh°很简单的功能，仅仅是：this.file.getName(); 。</p>
+	 * <hr>
+	 * <p>en°This implementation returns the name of the file.</p>
+	 * <p>zh°此实现是返回的文件的名称。</p>
 	 * @see java.io.File#getName()
 	 */
 	@Override
@@ -168,8 +186,11 @@ public class FileSystemResource extends AbstractResource implements WritableReso
 	}
 
 	/**
-	 * This implementation returns a description that includes the absolute
-	 * path of the file.
+	 * <p>zh°很简单的功能，主要是：this.file.getName(); ，在其前后分别增加了“file [”和“]”。</p>
+	 * <hr>
+	 * <p>en°This implementation returns a description that includes the absolute
+	 * path of the file.</p> 
+	 * <p>zh°此实现是返回该文件的绝对路径。</p>
 	 * @see java.io.File#getAbsolutePath()
 	 */
 	public String getDescription() {
