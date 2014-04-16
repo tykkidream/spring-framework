@@ -33,10 +33,30 @@ import java.net.URL;
  * {@link java.io.File File} 之间转换等。</li>
  * </ul>
  * <p>
- * 有一些实用的实现类：{@link ByteArrayResource}（ Byte 数组资源）、{@link ClassPathResource}（类路径资源）、
- * {@link FileSystemResource}（磁盘文件资源）、{@link InputStreamResource}（ InputStream 资源）、
- * {@link UrlResource}（ URL 资源）。
+ * 实现类：
  * </p>
+ * <ul>
+ * <li>
+ * {@link AbstractResource}
+ * <ul>
+ * <li>{@link VfsResource} 用于描述 VFS 资源</li>
+ * <li>{@link DescriptiveResource}</li>
+ * <li>{@link ByteArrayResource} 用于描述 Byte 数组资源</li>
+ * <li>{@link InputStreamResource} 用于描述 InputStream 资源</li>
+ * <li>{@link FileSystemResource} 用于描述磁盘文件资源</li>
+ * <li>{@link AbstractFileResolvingResource }</li>
+ * <ul>
+ * <li>{@link ClassPathResource} 用于描述 ClassPath 资源</li>
+ * <li>{@link UrlResource} 用于描述 URL 资源</li>
+ * </ul>
+ * </li>
+ * </ul>
+ * </li> </ul>
+ * <p>
+ * 可以从上面的实现类看出，资源种类多样，为了在任何地方能方便地使用这些资源，
+ * 并且不用关心资源是哪一种只管使用资源，所以本接口把共性的地方进行了抽象定义。
+ * </p>
+ * 
  * <hr>
  * <p>
  * Interface for a resource descriptor that abstracts from the actual type of underlying
@@ -115,8 +135,8 @@ public interface Resource extends InputStreamSource {
 
 	/**
 	 * <p>
-	 * {@link #getURL()}、{@link #getURI()}、{@link #getFile()} 这3个方法可以实现为在 {@link java.net.URL
-	 * URL}、{@link java.net.URI URI}、{@link java.io.File File} 之间转换 。
+	 * {@link #getURL()}、{@link #getURI()}、{@link #getFile()} 这3个方法可以实现为在
+	 * {@link java.net.URL URL}、{@link java.net.URI URI}、{@link java.io.File File} 之间转换 。
 	 * </p>
 	 * <hr>
 	 * <p>
@@ -133,8 +153,8 @@ public interface Resource extends InputStreamSource {
 
 	/**
 	 * <p>
-	 * {@link #getURL()}、{@link #getURI()}、{@link #getFile()} 这3个方法可以实现为在 {@link java.net.URL
-	 * URL}、{@link java.net.URI URI}、{@link java.io.File File} 之间转换 。
+	 * {@link #getURL()}、{@link #getURI()}、{@link #getFile()} 这3个方法可以实现为在
+	 * {@link java.net.URL URL}、{@link java.net.URI URI}、{@link java.io.File File} 之间转换 。
 	 * </p>
 	 * <hr>
 	 * <p>
@@ -151,8 +171,8 @@ public interface Resource extends InputStreamSource {
 
 	/**
 	 * <p>
-	 * {@link #getURL()}、{@link #getURI()}、{@link #getFile()} 这3个方法可以实现为在 {@link java.net.URL
-	 * URL}、{@link java.net.URI URI}、{@link java.io.File File} 之间转换 。
+	 * {@link #getURL()}、{@link #getURI()}、{@link #getFile()} 这3个方法可以实现为在
+	 * {@link java.net.URL URL}、{@link java.net.URI URI}、{@link java.io.File File} 之间转换 。
 	 * </p>
 	 * <hr>
 	 * <p>

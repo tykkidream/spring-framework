@@ -52,9 +52,8 @@ import org.springframework.util.xml.XmlValidationModeDetector;
 /**
  * <p>读取 XML 配置文件的是 Spring 的重要的的功能，因为 Spring 的大部分功能都被配置在 XML 配置文件。</p>
  * 
- * <p>读取 XML 配置文件的是 Spring 的重要的的功能，因为 Spring 的大部分功能都被配置在 XML 配置文件。</p>
  * 
- * <hr />
+ * <hr>
  * <p>Bean definition reader for XML bean definitions.
  * Delegates the actual XML document reading to an implementation
  * of the {@link BeanDefinitionDocumentReader} interface.</p>
@@ -253,14 +252,17 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 	}
 
 	/**
-	 * Return the EntityResolver to use, building a default resolver
-	 * if none specified.
+	 * <p>Return the EntityResolver to use, building a default resolver if none specified.</p>
+	 * <p>返回可用的 {@link EntityResolver}，如果未指定则构建一个默认的解析器。</p>
 	 */
 	protected EntityResolver getEntityResolver() {
 		if (this.entityResolver == null) {
 			// Determine default EntityResolver to use.
+			// 如果当前 entityResolver 实体解析器不存在，那就定义一个默认的使用。
+			// 获取资源加载器
 			ResourceLoader resourceLoader = getResourceLoader();
 			if (resourceLoader != null) {
+				// 根据
 				this.entityResolver = new ResourceEntityResolver(resourceLoader);
 			}
 			else {

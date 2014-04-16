@@ -66,12 +66,16 @@ import org.springframework.util.StringUtils;
 /**
  * <p>
  * 这个类是 Spring 注册并加载 Bean 的默认实现，常见的工厂比如
- * {@link org.springframework.beans.factory.xml.XmlBeanFactory XmlBeanFactory} （特别处理 bean 配置在 XMl 中的工厂），都是它的子类。</p>
+ * {@link org.springframework.beans.factory.xml.XmlBeanFactory XmlBeanFactory} （特别处理 bean
+ * 配置在 XMl 中的工厂），都是它的子类。
+ * </p>
  * <h3>继承的类和接口：</h3>
  * <ul>
- * <li>{@link org.springframework.beans.factory.ListableBeanFactory ListableBeanFactory} 类：根据各种条件获取  bean r 配置清单。</li>
+ * <li>{@link org.springframework.beans.factory.ListableBeanFactory ListableBeanFactory}
+ * 类：根据各种条件获取 bean r 配置清单。</li>
  * <li>{@link BeanDefinitionRegistry} 接口：定义对 BeanDefainition 的各种增删改操作。</li>
- * <li>{@link org.springframework.beans.factory.config.ConfigurableListableBeanFactory ConfigurableListableBeanFactory} 接口：BeanFactory 配置清单，指定的忽略类型及接口。</li>
+ * <li>{@link org.springframework.beans.factory.config.ConfigurableListableBeanFactory
+ * ConfigurableListableBeanFactory} 接口：BeanFactory 配置清单，指定的忽略类型及接口。</li>
  * </ul>
  * <hr>
  * Default implementation of the
@@ -79,27 +83,32 @@ import org.springframework.util.StringUtils;
  * {@link BeanDefinitionRegistry} interfaces: a full-fledged bean factory based on bean
  * definition objects.
  * <p>
- * 是一个默认实现，主要实现了 {@link org.springframework.beans.factory.ListableBeanFactory ListableBeanFactory} 类和 {@link BeanDefinitionRegistry} 接口。是一个完整的 bean 工厂，可以生产 bean
- * 所定义的对象。</p>
+ * 是一个默认实现，主要实现了 {@link org.springframework.beans.factory.ListableBeanFactory
+ * ListableBeanFactory} 类和 {@link BeanDefinitionRegistry} 接口。是一个完整的 bean 工厂，可以生产 bean
+ * 所定义的对象。
+ * </p>
  * 
  * <p>
  * Typical usage is registering all bean definitions first (possibly read from a bean
  * definition file), before accessing beans. Bean definition lookup is therefore an
  * inexpensive operation in a local bean definition table, operating on pre-built bean
- * definition metadata objects.</p>
+ * definition metadata objects.
+ * </p>
  * 
  * <p>
  * Can be used as a standalone bean factory, or as a superclass for custom bean factories.
  * Note that readers for specific bean definition formats are typically implemented
  * separately rather than as bean factory subclasses: see for example
  * {@link PropertiesBeanDefinitionReader} and
- * {@link org.springframework.beans.factory.xml.XmlBeanDefinitionReader}.</p>
+ * {@link org.springframework.beans.factory.xml.XmlBeanDefinitionReader}.
+ * </p>
  * 
  * <p>
  * For an alternative implementation of the
  * {@link org.springframework.beans.factory.ListableBeanFactory} interface, have a look at
  * {@link StaticListableBeanFactory}, which manages existing bean instances rather than
- * creating new ones based on bean definitions.</p>
+ * creating new ones based on bean definitions.
+ * </p>
  * 
  * @author Rod Johnson
  * @author Juergen Hoeller

@@ -27,7 +27,8 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
 /**
- * <p>只代表在 ClassPath 中的资源。</p>
+ * <h3>描述 ClassPath 中的资源。</h3>
+ * 
  * <hr>
  * <p>{@link Resource} implementation for class path resources.
  * Uses either a given ClassLoader or a given Class for loading resources.</p>

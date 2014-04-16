@@ -121,6 +121,9 @@ public abstract class AbstractBeanDefinitionReader implements EnvironmentCapable
 		this.resourceLoader = resourceLoader;
 	}
 
+	/**
+	 * <h3>得到资源加载器</h3>
+	 */
 	public ResourceLoader getResourceLoader() {
 		return this.resourceLoader;
 	}
