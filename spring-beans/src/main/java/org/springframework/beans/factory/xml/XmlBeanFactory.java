@@ -25,12 +25,12 @@ import org.springframework.core.io.Resource;
 /**
  * <h3>基于 XML 配置的 Bean 工厂</h3>
  * <p>
- * 专为处理基于 XML 的 Spring 应用，所以创建本类实例时，至少要传递描述了 Bean 定义文件的 Resource 实例的，定义文件必须是 XML 配置文件。
+ * 专为处理基于 XML 的 Spring 应用，所以创建本类实例时，至少要传递描述了 Bean 定义的 Resource 实例的，定义必须在 XML 配置文件中。
  * </p>
  * <p>
- * 本类并没有定义具有功能的方法，仅是父类 DefaultListableBeanFactory 和 XmlBeanDefinitionReader 的结合。实现方面，内部只拥有一个私有的
+ * 实现方面，本类并没有定义自己独有逻辑的方法，仅是父类 DefaultListableBeanFactory 和 XmlBeanDefinitionReader 的结合。内部只拥有一个私有的
  * XmlBeanDefinitionReader 对象，它所需的 BeanDefinitionRegistry 参数就为本类实例自身， 只在初始化时执行解析 XML 文件夹的功能 ；注册 Bean 的能力是从父类
- * DefaultListableBeanFactory 继承而来，所以本类已被标记为Deprecated 废弃的。
+ * DefaultListableBeanFactory 继承而来，所以本类已被标记为 Deprecated 废弃的。
  * </p>
  * <h4>参考：</h4>
  * <ul>
@@ -103,12 +103,15 @@ public class XmlBeanFactory extends DefaultListableBeanFactory {
 	/**
 	 * <h3>初始化 XmlBeanFactory</h3>
 	 * <p>
-	 * 本类唯一运行功能的地方，初始化父类、加载定义 Bean 的 XML 资源文件 。
+	 * 本类唯一运行功能的地方，只有两步：1、传递 {@link BeanFactory} 参数调用父类的初始化；2、内部 {@link XmlBeanDefinitionReader}
+	 * 实例加载具有 Bean 定义的 {@link Resource} 参数。
 	 * </p>
 	 * <p>
-	 * 这里的 {@link Resource} 参数必须是 Bean 定义文件的 Resource 实例的，定义文件必须是 XML 配置文件。
+	 * 需要注意的是，内部 XmlBeanDefinitionReader 实例是其定义时同时声明实例化的，并传递了当前实例自身，这样就建立了和父类
+	 * {@link DefaultListableBeanFactory} 的关联，所以初始化中不再需要创建。另外这里的 Resource 参数必须是 Bean 定义文件的
+	 * Resource 实例的，定义文件必须是 XML 配置文件。
 	 * </p>
-	 * <h3>参考：</h3>
+	 * <h4>参考：</h4>
 	 * <ul>
 	 * <li>父类的初始化：{@link DefaultListableBeanFactory#DefaultListableBeanFactory(BeanFactory)}</li>
 	 * <li>加载定义 Bean 的 XML 资源文件 ： {@link XmlBeanDefinitionReader#loadBeanDefinitions(Resource)} 。</li>

@@ -27,12 +27,25 @@ import org.springframework.util.Assert;
 import org.springframework.util.ObjectUtils;
 
 /**
- * Holder that combines a {@link org.springframework.core.io.Resource}
- * with a specific encoding to be used for reading from the resource.
- *
- * <p>Used as argument for operations that support to read content with
- * a specific encoding (usually through a {@code java.io.Reader}.
- *
+ * <h3>编码资源</h3>
+ * <p>
+ * 包装一个 {@link Resource} ，对其编码进行处理、转换。
+ * </p>
+ * <p>
+ * 实现方面，虽然名称中有 Resource ，但它不是 Resource 接口的实现，内部有一个对其的私有的、不可修改（final）的引用，也没实现其它接口。
+ * </p>
+ * 
+ * <hr>
+ * <p>
+ * Holder that combines a {@link org.springframework.core.io.Resource} with a specific
+ * encoding to be used for reading from the resource.
+ * </p>
+ * 
+ * <p>
+ * Used as argument for operations that support to read content with a specific encoding
+ * (usually through a {@code java.io.Reader}.
+ * </p>
+ * 
  * @author Juergen Hoeller
  * @since 1.2.6
  * @see java.io.Reader
@@ -45,10 +58,10 @@ public class EncodedResource {
 
 	private Charset charset;
 
-
 	/**
-	 * Create a new EncodedResource for the given Resource,
-	 * not specifying a specific encoding.
+	 * Create a new EncodedResource for the given Resource, not specifying a specific
+	 * encoding.
+	 * 
 	 * @param resource the Resource to hold
 	 */
 	public EncodedResource(Resource resource) {
@@ -57,8 +70,8 @@ public class EncodedResource {
 	}
 
 	/**
-	 * Create a new EncodedResource for the given Resource,
-	 * using the specified encoding.
+	 * Create a new EncodedResource for the given Resource, using the specified encoding.
+	 * 
 	 * @param resource the Resource to hold
 	 * @param encoding the encoding to use for reading from the resource
 	 */
@@ -69,8 +82,8 @@ public class EncodedResource {
 	}
 
 	/**
-	 * Create a new EncodedResource for the given Resource,
-	 * using the specified encoding.
+	 * Create a new EncodedResource for the given Resource, using the specified encoding.
+	 * 
 	 * @param resource the Resource to hold
 	 * @param charset the charset to use for reading from the resource
 	 */
@@ -80,7 +93,6 @@ public class EncodedResource {
 		this.charset = charset;
 	}
 
-
 	/**
 	 * Return the Resource held.
 	 */
@@ -89,25 +101,25 @@ public class EncodedResource {
 	}
 
 	/**
-	 * Return the encoding to use for reading from the resource,
-	 * or {@code null} if none specified.
+	 * Return the encoding to use for reading from the resource, or {@code null} if none
+	 * specified.
 	 */
 	public final String getEncoding() {
 		return this.encoding;
 	}
 
 	/**
-	 * Return the charset to use for reading from the resource,
-	 * or {@code null} if none specified.
+	 * Return the charset to use for reading from the resource, or {@code null} if none
+	 * specified.
 	 */
 	public final Charset getCharset() {
 		return this.charset;
 	}
 
-
 	/**
-	 * Determine whether a {@link Reader} is required as opposed to an {@link InputStream},
-	 * i.e. whether an encoding or a charset has been specified.
+	 * Determine whether a {@link Reader} is required as opposed to an {@link InputStream}
+	 * , i.e. whether an encoding or a charset has been specified.
+	 * 
 	 * @see #getReader()
 	 * @see #getInputStream()
 	 */
@@ -116,8 +128,9 @@ public class EncodedResource {
 	}
 
 	/**
-	 * Open a {@code java.io.Reader} for the specified resource,
-	 * using the specified encoding (if any).
+	 * Open a {@code java.io.Reader} for the specified resource, using the specified
+	 * encoding (if any).
+	 * 
 	 * @throws IOException if opening the Reader failed
 	 * @see #requiresReader()
 	 */
@@ -134,15 +147,15 @@ public class EncodedResource {
 	}
 
 	/**
-	 * Open an {@code java.io.InputStream} for the specified resource,
-	 * typically assuming that there is no specific encoding to use.
+	 * Open an {@code java.io.InputStream} for the specified resource, typically assuming
+	 * that there is no specific encoding to use.
+	 * 
 	 * @throws IOException if opening the InputStream failed
 	 * @see #requiresReader()
 	 */
 	public InputStream getInputStream() throws IOException {
 		return this.resource.getInputStream();
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -151,8 +164,8 @@ public class EncodedResource {
 		}
 		if (obj instanceof EncodedResource) {
 			EncodedResource otherRes = (EncodedResource) obj;
-			return (this.resource.equals(otherRes.resource) &&
-					ObjectUtils.nullSafeEquals(this.encoding, otherRes.encoding));
+			return (this.resource.equals(otherRes.resource) && ObjectUtils.nullSafeEquals(
+					this.encoding, otherRes.encoding));
 		}
 		return false;
 	}
