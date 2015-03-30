@@ -19,6 +19,16 @@ package org.springframework.beans.factory;
 import org.springframework.beans.BeansException;
 
 /**
+ *<p>整个Spring IOC容器核心接口，定义获取Bean及Bean的各种属性。
+ *<p>Spring作为一种IOC容器，最大的作用就是降低组件与组件之间的依赖关系。
+ *而BeanFactory作为整个Spring IOC容器的核心，使用了一种统一的方法来装配所有
+ *的应用对象，通过Java的反射机制和依赖注入（Dependency Injection）来实现这一
+ *装配过程，使受之管理的对象无需知道Spring的存在（受管对象甚至不用import 任何
+ *Spring的Class)，同时也降低了组件间的依赖程度，同时受管对象的生命周期由BeanFactory
+ *来统一管理，开发者就不用实现大量的自制的工厂Singleton。 
+ *<p>那些受Spring IOC容器即BeanFactory控制管理的对象简称bean对象。
+ *<hr>
+ * 
  * The root interface for accessing a Spring bean container.
  * This is the basic client view of a bean container;
  * further interfaces such as {@link ListableBeanFactory} and
@@ -107,6 +117,9 @@ import org.springframework.beans.BeansException;
 public interface BeanFactory {
 
 	/**
+	 *<p>对FactoryBean的转义定义，因为如果使用bean的名字检索FactoryBean得到的对象
+	 *是工厂生成的对象。
+	 *<hr>
 	 * Used to dereference a {@link FactoryBean} instance and distinguish it from
 	 * beans <i>created</i> by the FactoryBean. For example, if the bean named
 	 * {@code myJndiObject} is a FactoryBean, getting {@code &myJndiObject}
@@ -115,7 +128,11 @@ public interface BeanFactory {
 	String FACTORY_BEAN_PREFIX = "&";
 
 	/**
+	 *<p>这里根据Bean的名字，在IOC容器中得到Bean实例。
+	 *<hr>
+	 *
 	 * Return an instance, which may be shared or independent, of the specified bean.
+	 * 返回一个指定Bean的实例，其可以共享或独立的。
 	 * <p>This method allows a Spring BeanFactory to be used as a replacement for the
 	 * Singleton or Prototype design pattern. Callers may retain references to
 	 * returned objects in the case of Singleton beans.
@@ -130,7 +147,12 @@ public interface BeanFactory {
 	Object getBean(String name) throws BeansException;
 
 	/**
+	 * <p>根据String类型的名称来寻找受BeanFactory的Bean对象，检测取得Bean对象
+	 *是否为所需的类型，如果类型不符将抛出一个BeanNotOfRequiredTypeException的异常。
+	 * <hr>
+	 * 
 	 * Return an instance, which may be shared or independent, of the specified bean.
+	 * 返回一个指定Bean的实例，其可以共享或独立的。
 	 * <p>Behaves the same as {@link #getBean(String)}, but provides a measure of type
 	 * safety by throwing a BeanNotOfRequiredTypeException if the bean is not of the
 	 * required type. This means that ClassCastException can't be thrown on casting
@@ -150,7 +172,11 @@ public interface BeanFactory {
 	<T> T getBean(String name, Class<T> requiredType) throws BeansException;
 
 	/**
+	 *<p>
+	 *<hr>
+	 *
 	 * Return the bean instance that uniquely matches the given object type, if any.
+	 * 返回一个Bean实例，它唯一匹配给定对象的类型，如果有的话。
 	 * @param requiredType type the bean must match; can be an interface or superclass.
 	 * {@code null} is disallowed.
 	 * <p>This method goes into {@link ListableBeanFactory} by-type lookup territory
@@ -166,7 +192,11 @@ public interface BeanFactory {
 	<T> T getBean(Class<T> requiredType) throws BeansException;
 
 	/**
+	 *<p>
+	 *<hr>
+	 *
 	 * Return an instance, which may be shared or independent, of the specified bean.
+	 * 返回一个指定Bean的实例，其可以共享或独立的。
 	 * <p>Allows for specifying explicit constructor arguments / factory method arguments,
 	 * overriding the specified default arguments (if any) in the bean definition.
 	 * @param name the name of the bean to retrieve
@@ -182,8 +212,12 @@ public interface BeanFactory {
 	Object getBean(String name, Object... args) throws BeansException;
 
 	/**
+	 *<p>提供对Bean的查找，是否在IOC容器有指定名字的Bean。
+	 *<hr>
+	 *
 	 * Does this bean factory contain a bean definition or externally registered singleton
 	 * instance with the given name?
+	 * 这个Bean工厂是否包含一个给定的名字的实例。
 	 * <p>If the given name is an alias, it will be translated back to the corresponding
 	 * canonical bean name.
 	 * <p>If this factory is hierarchical, will ask any parent factory if the bean cannot
@@ -199,8 +233,14 @@ public interface BeanFactory {
 	boolean containsBean(String name);
 
 	/**
+	 *<p>判断BeanFactory的Bean对象是否被定义为Singleton。
+	 *如果被定义为Singleton的话，在BeanFactory的生命周期内，所有对getBean的调用
+	 *将返回一个Bean对象的实例引用。
+	 *<hr>
+	 *
 	 * Is this bean a shared singleton? That is, will {@link #getBean} always
 	 * return the same instance?
+	 * 指定的Bean是否是共享单例 ？也就是说，将{@link#getBean}总是返回相同的实例？
 	 * <p>Note: This method returning {@code false} does not clearly indicate
 	 * independent instances. It indicates non-singleton instances, which may correspond
 	 * to a scoped bean as well. Use the {@link #isPrototype} operation to explicitly
@@ -216,8 +256,14 @@ public interface BeanFactory {
 	boolean isSingleton(String name) throws NoSuchBeanDefinitionException;
 
 	/**
+	 *<p>判断BeanFactory的Bean对象是否被定义为Prototype。
+	 *如果被定义为Prototype的话，在BeanFactory的生命周期内，所有对getBean的调用
+	 *将创建并返回一个独立的对象实例。
+	 *<hr>
+	 *
 	 * Is this bean a prototype? That is, will {@link #getBean} always return
 	 * independent instances?
+	 * 指定的Bean是否是原型单例？也就是说，将{@link#getBean}总是返回独立的实例？
 	 * <p>Note: This method returning {@code false} does not clearly indicate
 	 * a singleton object. It indicates non-independent instances, which may correspond
 	 * to a scoped bean as well. Use the {@link #isSingleton} operation to explicitly
@@ -234,9 +280,15 @@ public interface BeanFactory {
 	boolean isPrototype(String name) throws NoSuchBeanDefinitionException;
 
 	/**
+	 *<p>
+	 *<hr>
+	 *
 	 * Check whether the bean with the given name matches the specified type.
 	 * More specifically, check whether a {@link #getBean} call for the given name
 	 * would return an object that is assignable to the specified target type.
+	 * 检查给定名称的Beans是否匹配指定类型。更具体地说，
+	 * 检查{@link#getBean}传递给定的名称时是否会返回一个对象，
+	 * 并且返回对象是匹配给指定的目标类型。
 	 * <p>Translates aliases back to the corresponding canonical bean name.
 	 * Will ask the parent factory if the bean cannot be found in this factory instance.
 	 * @param name the name of the bean to query
@@ -251,8 +303,13 @@ public interface BeanFactory {
 	boolean isTypeMatch(String name, Class<?> targetType) throws NoSuchBeanDefinitionException;
 
 	/**
+	 *<p>通过Bean的名字得到Bean的类型对象。
+	 *<hr>
+	 *
 	 * Determine the type of the bean with the given name. More specifically,
 	 * determine the type of object that {@link #getBean} would return for the given name.
+	 * 获取给定名称的Bean的类型。更具体地说，
+	 * 将返回{@link#getBean}指定名称的Bean的类型。
 	 * <p>For a {@link FactoryBean}, return the type of object that the FactoryBean creates,
 	 * as exposed by {@link FactoryBean#getObjectType()}.
 	 * <p>Translates aliases back to the corresponding canonical bean name.
@@ -267,8 +324,14 @@ public interface BeanFactory {
 	Class<?> getType(String name) throws NoSuchBeanDefinitionException;
 
 	/**
+	 *<p>如果一个Bean对象被定义了别名，那么函数getAliases就可以用来
+	 *取得该Bean对象的所有别名。 
+	 *<hr>
+	 *
 	 * Return the aliases for the given bean name, if any.
 	 * All of those aliases point to the same bean when used in a {@link #getBean} call.
+	 * 返回指定名称Bean的别名，如果有的话。
+	 * 所有这些别名指向同一个bean的{@link#getBean}调用时使用。
 	 * <p>If the given name is an alias, the corresponding original bean name
 	 * and other aliases (if any) will be returned, with the original bean name
 	 * being the first element in the array.

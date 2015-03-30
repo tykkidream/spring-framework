@@ -50,6 +50,9 @@ import org.springframework.util.xml.SimpleSaxErrorHandler;
 import org.springframework.util.xml.XmlValidationModeDetector;
 
 /**
+ * <p>Spring的配置资源的读取、解析、注册。
+ * <hr>
+ * 
  * Bean definition reader for XML bean definitions.
  * Delegates the actual XML document reading to an implementation
  * of the {@link BeanDefinitionDocumentReader} interface.
@@ -474,6 +477,11 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 	}
 
 	/**
+	 * <p>对XML的文档Document进行解析。
+	 * <p>面向对象单一职责原则。将逻辑处理委托给单一的类进行处理。这个类是{@link BeanDefinitionDocumentReader}接口，
+	 * 而真正工作的实现类是{@link DefaultBeanDefinitionDocumentReader}类。
+	 * <hr>
+	 * 
 	 * Register the bean definitions contained in the given DOM document.
 	 * Called by {@code loadBeanDefinitions}.
 	 * <p>Creates a new instance of the parser class and invokes
@@ -487,11 +495,24 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 	 * @see BeanDefinitionDocumentReader#registerBeanDefinitions
 	 */
 	public int registerBeanDefinitions(Document doc, Resource resource) throws BeanDefinitionStoreException {
+		// 一、 创建BeanDefinitionDocumentReader的实例。实际类是DefaultBeanDefinitionDocumentReader类。
 		BeanDefinitionDocumentReader documentReader = createBeanDefinitionDocumentReader();
-		documentReader.setEnvironment(this.getEnvironment());
-		int countBefore = getRegistry().getBeanDefinitionCount();
+		
+			// 设置环境变量。
+			documentReader.setEnvironment(this.getEnvironment());
+			// 记录统计前BeanDefinition的加载个数。
+			int countBefore = getRegistry().getBeanDefinitionCount();
+			/*
+			 * getRegistry()说明：返回BeanDefinitionRegistry接口实例，这个方法在BeanDefinitionReader接口中定义，
+			 * 而这个实例，是在实例化BeanDefinitionReader（父类继承了此接口）的时候传入的，默认使用
+			 * DefaultListableBeanFactory的子类。
+			 */
+		
+		// 二、加载注册Bean。
 		documentReader.registerBeanDefinitions(doc, createReaderContext(resource));
-		return getRegistry().getBeanDefinitionCount() - countBefore;
+		
+			// 记录本次加载BeanDefinition的个数。
+			return getRegistry().getBeanDefinitionCount() - countBefore;
 	}
 
 	/**

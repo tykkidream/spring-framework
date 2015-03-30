@@ -20,6 +20,17 @@ import org.springframework.util.Assert;
 import org.springframework.util.ObjectUtils;
 
 /**
+ *<p>
+ *<pre>
+ *&lt;bean id="aBean" class="demo.ABean">
+ *	&lt;meta key="name" value="john"/>
+ *&lt;/bean>
+ *</pre>
+ *对于这段代码，其中有个meta元素，名为name值为john，这是一个属性。
+ *本类用于表示这种meta属性在Spring内部的表示。
+ *<p>
+ *<hr>
+ *
  * Holder for a key-value style attribute that is part of a bean definition.
  * Keeps track of the definition source in addition to the key-value pair.
  *

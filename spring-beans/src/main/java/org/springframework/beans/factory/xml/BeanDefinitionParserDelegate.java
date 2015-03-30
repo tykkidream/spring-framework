@@ -440,6 +440,9 @@ public class BeanDefinitionParserDelegate {
 
 
 	/**
+	 * <p>对元素进行解析，得到bdHolder，包含配置中的各自属性，如class、name、id、alias等。
+	 * <p>实际执行的是{@link #parseBeanDefinitionElement(Element,BeanDefinition) parseBeanDefinitionElement(ele, null)}。
+	 * <hr>
 	 * Parses the supplied {@code &lt;bean&gt;} element. May return {@code null}
 	 * if there were errors during parse. Errors are reported to the
 	 * {@link org.springframework.beans.factory.parsing.ProblemReporter}.
@@ -449,20 +452,26 @@ public class BeanDefinitionParserDelegate {
 	}
 
 	/**
+	 * <p>对元素进行解析，得到bdHolder，包含配置中的各自属性，如class、name、id、alias等。
+	 * <hr>
 	 * Parses the supplied {@code &lt;bean&gt;} element. May return {@code null}
 	 * if there were errors during parse. Errors are reported to the
 	 * {@link org.springframework.beans.factory.parsing.ProblemReporter}.
 	 */
 	public BeanDefinitionHolder parseBeanDefinitionElement(Element ele, BeanDefinition containingBean) {
+		// 解析id属性。
 		String id = ele.getAttribute(ID_ATTRIBUTE);
+		// 解析name属性。
 		String nameAttr = ele.getAttribute(NAME_ATTRIBUTE);
 
+		// 分割name属性。
 		List<String> aliases = new ArrayList<String>();
 		if (StringUtils.hasLength(nameAttr)) {
 			String[] nameArr = StringUtils.tokenizeToStringArray(nameAttr, MULTI_VALUE_ATTRIBUTE_DELIMITERS);
 			aliases.addAll(Arrays.asList(nameArr));
 		}
 
+		// beanName属性
 		String beanName = id;
 		if (!StringUtils.hasText(beanName) && !aliases.isEmpty()) {
 			beanName = aliases.remove(0);
@@ -476,10 +485,12 @@ public class BeanDefinitionParserDelegate {
 			checkNameUniqueness(beanName, aliases, ele);
 		}
 
+		// 进一步解析其他所有属性并统一封装至GenericBeanDefinition类型的实例中。
 		AbstractBeanDefinition beanDefinition = parseBeanDefinitionElement(ele, beanName, containingBean);
 		if (beanDefinition != null) {
 			if (!StringUtils.hasText(beanName)) {
 				try {
+					// 如果不存在beanName，那么根据Spring中提供的命名规则为当前bean生成对应的beanName。
 					if (containingBean != null) {
 						beanName = BeanDefinitionReaderUtils.generateBeanName(
 								beanDefinition, this.readerContext.getRegistry(), true);
@@ -507,6 +518,7 @@ public class BeanDefinitionParserDelegate {
 				}
 			}
 			String[] aliasesArray = StringUtils.toStringArray(aliases);
+			// 将获取到的信息封装到BeanDefinitionHolder的实例中。
 			return new BeanDefinitionHolder(beanDefinition, beanName, aliasesArray);
 		}
 
@@ -516,6 +528,7 @@ public class BeanDefinitionParserDelegate {
 	/**
 	 * Validate that the specified bean name and aliases have not been used already
 	 * within the current level of beans element nesting.
+	 * 验证指定的bean的名称及别名在当前beans元素嵌套层内是否被使用过。
 	 */
 	protected void checkNameUniqueness(String beanName, List<String> aliases, Element beanElement) {
 		String foundName = null;
@@ -535,6 +548,9 @@ public class BeanDefinitionParserDelegate {
 	}
 
 	/**
+	 * <p>
+	 * <hr>
+	 * 
 	 * Parse the bean definition itself, without regard to name or aliases. May return
 	 * {@code null} if problems occurred during the parsing of the bean definition.
 	 */
@@ -543,27 +559,38 @@ public class BeanDefinitionParserDelegate {
 
 		this.parseState.push(new BeanEntry(beanName));
 
+		// 解析class属性。
 		String className = null;
 		if (ele.hasAttribute(CLASS_ATTRIBUTE)) {
 			className = ele.getAttribute(CLASS_ATTRIBUTE).trim();
 		}
 
 		try {
+			// 解析parent属性。
 			String parent = null;
 			if (ele.hasAttribute(PARENT_ATTRIBUTE)) {
 				parent = ele.getAttribute(PARENT_ATTRIBUTE);
 			}
+			// 创建用于承载属性的AbstractBeanDefainition类型的GenericBeanDefinition。
 			AbstractBeanDefinition bd = createBeanDefinition(className, parent);
 
+			// 硬编码解析 默认bean的各种属性。
 			parseBeanDefinitionAttributes(ele, beanName, containingBean, bd);
+			// 提取description。
 			bd.setDescription(DomUtils.getChildElementValueByTagName(ele, DESCRIPTION_ELEMENT));
 
+			// 解析元数据。
 			parseMetaElements(ele, bd);
+			// 解析lookup-method属性。
 			parseLookupOverrideSubElements(ele, bd.getMethodOverrides());
+			// 解析replaced-metod属性。
 			parseReplacedMethodSubElements(ele, bd.getMethodOverrides());
 
+			// 解析构造函数参数。
 			parseConstructorArgElements(ele, bd);
+			// 解析property子元素。
 			parsePropertyElements(ele, bd);
+			// 解析qualifier子元素。
 			parseQualifierElements(ele, bd);
 
 			bd.setResource(this.readerContext.getResource());
@@ -597,6 +624,7 @@ public class BeanDefinitionParserDelegate {
 	public AbstractBeanDefinition parseBeanDefinitionAttributes(Element ele, String beanName,
 			BeanDefinition containingBean, AbstractBeanDefinition bd) {
 
+		// 解析scope属性。
 		if (ele.hasAttribute(SCOPE_ATTRIBUTE)) {
 			// Spring 2.x "scope" attribute
 			bd.setScope(ele.getAttribute(SCOPE_ATTRIBUTE));
@@ -604,6 +632,7 @@ public class BeanDefinitionParserDelegate {
 				error("Specify either 'scope' or 'singleton', not both", ele);
 			}
 		}
+		// 解析singletion属性。
 		else if (ele.hasAttribute(SINGLETON_ATTRIBUTE)) {
 			// Spring 1.x "singleton" attribute
 			bd.setScope(TRUE_VALUE.equals(ele.getAttribute(SINGLETON_ATTRIBUTE)) ?
@@ -614,27 +643,34 @@ public class BeanDefinitionParserDelegate {
 			bd.setScope(containingBean.getScope());
 		}
 
+		// 解析abstract属性。
 		if (ele.hasAttribute(ABSTRACT_ATTRIBUTE)) {
 			bd.setAbstract(TRUE_VALUE.equals(ele.getAttribute(ABSTRACT_ATTRIBUTE)));
 		}
 
+		// 解析lazy-init属性。
 		String lazyInit = ele.getAttribute(LAZY_INIT_ATTRIBUTE);
 		if (DEFAULT_VALUE.equals(lazyInit)) {
 			lazyInit = this.defaults.getLazyInit();
 		}
+		// 若没有设置或设置成其它字符都会被设置为false。
 		bd.setLazyInit(TRUE_VALUE.equals(lazyInit));
 
+		// 解析autowire属性。
 		String autowire = ele.getAttribute(AUTOWIRE_ATTRIBUTE);
 		bd.setAutowireMode(getAutowireMode(autowire));
 
+		// 解析dependency-check属性。
 		String dependencyCheck = ele.getAttribute(DEPENDENCY_CHECK_ATTRIBUTE);
 		bd.setDependencyCheck(getDependencyCheck(dependencyCheck));
 
+		// 解析depends-on属性。
 		if (ele.hasAttribute(DEPENDS_ON_ATTRIBUTE)) {
 			String dependsOn = ele.getAttribute(DEPENDS_ON_ATTRIBUTE);
 			bd.setDependsOn(StringUtils.tokenizeToStringArray(dependsOn, MULTI_VALUE_ATTRIBUTE_DELIMITERS));
 		}
 
+		// 解析autowire-candidate属性。
 		String autowireCandidate = ele.getAttribute(AUTOWIRE_CANDIDATE_ATTRIBUTE);
 		if ("".equals(autowireCandidate) || DEFAULT_VALUE.equals(autowireCandidate)) {
 			String candidatePattern = this.defaults.getAutowireCandidates();
@@ -647,10 +683,12 @@ public class BeanDefinitionParserDelegate {
 			bd.setAutowireCandidate(TRUE_VALUE.equals(autowireCandidate));
 		}
 
+		// 解析primary属性。
 		if (ele.hasAttribute(PRIMARY_ATTRIBUTE)) {
 			bd.setPrimary(TRUE_VALUE.equals(ele.getAttribute(PRIMARY_ATTRIBUTE)));
 		}
 
+		// 解析init-method属性。
 		if (ele.hasAttribute(INIT_METHOD_ATTRIBUTE)) {
 			String initMethodName = ele.getAttribute(INIT_METHOD_ATTRIBUTE);
 			if (!"".equals(initMethodName)) {
@@ -664,6 +702,7 @@ public class BeanDefinitionParserDelegate {
 			}
 		}
 
+		// 解析destroy-method属性。
 		if (ele.hasAttribute(DESTROY_METHOD_ATTRIBUTE)) {
 			String destroyMethodName = ele.getAttribute(DESTROY_METHOD_ATTRIBUTE);
 			if (!"".equals(destroyMethodName)) {
@@ -677,9 +716,11 @@ public class BeanDefinitionParserDelegate {
 			}
 		}
 
+		// 解析factory-method属性。
 		if (ele.hasAttribute(FACTORY_METHOD_ATTRIBUTE)) {
 			bd.setFactoryMethodName(ele.getAttribute(FACTORY_METHOD_ATTRIBUTE));
 		}
+		// 解析factory-bean属性。
 		if (ele.hasAttribute(FACTORY_BEAN_ATTRIBUTE)) {
 			bd.setFactoryBeanName(ele.getAttribute(FACTORY_BEAN_ATTRIBUTE));
 		}
@@ -688,6 +729,10 @@ public class BeanDefinitionParserDelegate {
 	}
 
 	/**
+	 * <p>创建用于承载&lt;bean>属性的BeanDefinition实例，也就是
+	 * {@link org.springframework.beans.factory.support.GenericBeanDefinition GenericBeanDefinition}实例。
+	 * <hr>
+	 * 
 	 * Create a bean definition for the given class name and parent name.
 	 * @param className the name of the bean class
 	 * @param parentName the name of the bean's parent bean
@@ -701,14 +746,32 @@ public class BeanDefinitionParserDelegate {
 				parentName, className, this.readerContext.getBeanClassLoader());
 	}
 
+	/**
+	 *<p>
+	 *<pre>
+	 *&lt;bean id="aBean" class="demo.ABean">
+	 *	&lt;meta key="name" value="john"/>
+	 *&lt;/bean>
+	 *</pre>
+	 *对于这段代码，其中有个meta元素，名为name值为john，这是一个属性。
+	 *获取它是通过{@link org.springframework.core.AttributeAccessor AttributeAccessor}的
+	 *{@link org.springframework.core.AttributeAccessor#getAttribute(String) getAttribute(String)}方法进行获取的。
+	 *本方法就是用于解析这种属性的。
+	 *</p>
+	 * @param ele
+	 * @param attributeAccessor
+	 */
 	public void parseMetaElements(Element ele, BeanMetadataAttributeAccessor attributeAccessor) {
+		// 获取当前节点的所有子元素。
 		NodeList nl = ele.getChildNodes();
 		for (int i = 0; i < nl.getLength(); i++) {
 			Node node = nl.item(i);
+			// 找到meta元素。
 			if (isCandidateElement(node) && nodeNameEquals(node, META_ELEMENT)) {
 				Element metaElement = (Element) node;
 				String key = metaElement.getAttribute(KEY_ATTRIBUTE);
 				String value = metaElement.getAttribute(VALUE_ATTRIBUTE);
+				// 使用key、value构造BeanMetadataAttribute
 				BeanMetadataAttribute attribute = new BeanMetadataAttribute(key, value);
 				attribute.setSource(extractSource(metaElement));
 				attributeAccessor.addMetadataAttribute(attribute);
@@ -1505,6 +1568,8 @@ public class BeanDefinitionParserDelegate {
 
 
 	/**
+	 * <p>获取指定节点的命名空间。
+	 * <hr>
 	 * Get the namespace URI for the supplied node. The default implementation uses {@link Node#getNamespaceURI}.
 	 * Subclasses may override the default implementation to provide a different namespace identification mechanism.
 	 * @param node the node
@@ -1535,10 +1600,22 @@ public class BeanDefinitionParserDelegate {
 		return desiredName.equals(node.getNodeName()) || desiredName.equals(getLocalName(node));
 	}
 
+	/**
+	 * <p>判断指定的命名空间是否是默认的命名空间。
+	 * <hr>
+	 * @param namespaceUri
+	 * @return
+	 */
 	public boolean isDefaultNamespace(String namespaceUri) {
 		return (!StringUtils.hasLength(namespaceUri) || BEANS_NAMESPACE_URI.equals(namespaceUri));
 	}
 
+	/**
+	 * <p>判断指定节点的命名空间是否是默认的命名空间。
+	 * <hr>
+	 * @param node
+	 * @return
+	 */
 	public boolean isDefaultNamespace(Node node) {
 		return isDefaultNamespace(getNamespaceURI(node));
 	}

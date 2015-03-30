@@ -32,6 +32,9 @@ import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.util.Assert;
 
 /**
+ * <p>对EnvironmentCapable、BeanDefinitionReader接口定义的功能进行实现。
+ * <hr>
+ * 
  * Abstract base class for bean definition readers which implement
  * the {@link BeanDefinitionReader} interface.
  *
@@ -196,6 +199,7 @@ public abstract class AbstractBeanDefinitionReader implements EnvironmentCapable
 	 * @see #loadBeanDefinitions(org.springframework.core.io.Resource[])
 	 */
 	public int loadBeanDefinitions(String location, Set<Resource> actualResources) throws BeanDefinitionStoreException {
+		// 1、获取资源加载器
 		ResourceLoader resourceLoader = getResourceLoader();
 		if (resourceLoader == null) {
 			throw new BeanDefinitionStoreException(
@@ -203,10 +207,14 @@ public abstract class AbstractBeanDefinitionReader implements EnvironmentCapable
 		}
 
 		if (resourceLoader instanceof ResourcePatternResolver) {
+			// 如果资源加载器属于ResourcePatternResolver类型。
 			// Resource pattern matching available.
 			try {
+				// 2、根据资源路径，获取资源文件。
 				Resource[] resources = ((ResourcePatternResolver) resourceLoader).getResources(location);
+				// 3、加载资源文件。
 				int loadCount = loadBeanDefinitions(resources);
+				// 4、将资源文件保存到集合中。
 				if (actualResources != null) {
 					for (Resource resource : resources) {
 						actualResources.add(resource);
@@ -223,9 +231,13 @@ public abstract class AbstractBeanDefinitionReader implements EnvironmentCapable
 			}
 		}
 		else {
+			// 如果资源加载器是其它类型。
 			// Can only load single resources by absolute URL.
+			// 2、根据资源路径，获取资源文件。
 			Resource resource = resourceLoader.getResource(location);
+			// 3、加载资源文件。
 			int loadCount = loadBeanDefinitions(resource);
+			// 4、将资源文件保存到集合中。
 			if (actualResources != null) {
 				actualResources.add(resource);
 			}

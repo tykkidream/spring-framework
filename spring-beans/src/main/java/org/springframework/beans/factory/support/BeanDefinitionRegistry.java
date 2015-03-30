@@ -22,6 +22,13 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.core.AliasRegistry;
 
 /**
+ *<p>用于注册（保存）{@link BeanDefinition}，定义对{@link BeanDefinition}的各种增删改操作。
+ *<p>BeanDefinitionRegistry就像是Spring配置信息的内存数据库，主要是以map的
+ *形式保存，注册{@link BeanDefinition}后，以后直接从BeanDefinitionRegistry中读取
+ *配置信息。
+ *<p>
+ * <hr>
+ * 
  * Interface for registries that hold bean definitions, for example RootBeanDefinition
  * and ChildBeanDefinition instances. Typically implemented by BeanFactories that
  * internally work with the AbstractBeanDefinition hierarchy.

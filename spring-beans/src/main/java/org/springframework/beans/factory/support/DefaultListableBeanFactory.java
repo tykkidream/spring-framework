@@ -63,6 +63,10 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
 /**
+ * <p>综合AbstractAutowireCapableBeanFactory、ConfigurableListableBeanFactory、BeanDefinitionRegistry的所有功能，
+ * 主要是对Bean注册后的处理。
+ * <hr>
+ * 
  * Default implementation of the
  * {@link org.springframework.beans.factory.ListableBeanFactory} and
  * {@link BeanDefinitionRegistry} interfaces: a full-fledged bean factory

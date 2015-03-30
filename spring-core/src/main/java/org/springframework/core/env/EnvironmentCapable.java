@@ -17,6 +17,9 @@
 package org.springframework.core.env;
 
 /**
+ * <p>定义获取Environment的方法。
+ * <hr>
+ * 
  * Interface indicating a component that contains and exposes an {@link Environment} reference.
  *
  * <p>All Spring application contexts are EnvironmentCapable, and the interface is used primarily

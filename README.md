@@ -1,3 +1,15 @@
+## Spring Framework 源码分析
+Spring的版本为3.2.8。
+
+分析时使用了《Spring源码深度解析》的说明，网上一些Blog中的分析，以及少部分的个人理解。
+
+目前分析的主要内容是Spring的IOC容器，spring-core和spring-bean。分析以在重要的代码处添加
+//中文解释。类说明、方法说明、字段说明一般在原英文注释前添加段落，并以横线&lt;hr&gt;作为分
+隔。原英文注释后的中文是用Google翻译的，会有一些不通顺。
+
+如果想阅读中文注释，最好是将源码在eclipse中，使用javadoc视图阅读（将鼠标移动到类名、方法
+等上时会自动弹出浮动窗口），而且能快速地跳转到相关代码处（Ctrl+鼠标左键点击）。
+
 ## Spring Framework
 The Spring Framework provides a comprehensive programming and configuration
 model for modern Java-based enterprise applications - on any kind of deployment

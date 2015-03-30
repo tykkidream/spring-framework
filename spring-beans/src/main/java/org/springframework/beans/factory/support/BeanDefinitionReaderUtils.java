@@ -44,8 +44,13 @@ public class BeanDefinitionReaderUtils {
 
 
 	/**
+	 *<p>对于XML配置文件，创建表示某个&lt;bean>标签的GenericBeanDefinition实例，根据给定的&lt;bean>标签的name属性
+	 *（parentName）。如果有指定的className：包含包名的类全名class属性，则使用类加载器（classLoader）加载它的Class类实例。
+	 * <hr>
+	 * 
 	 * Create a new GenericBeanDefinition for the given parent name and class name,
 	 * eagerly loading the bean class if a ClassLoader has been specified.
+	 * 创建一个GenericBeanDefinition实例，根据给定的parentName和className，急切地加载，如果有指定的className。
 	 * @param parentName the name of the parent bean, if any
 	 * @param className the name of the bean class, if any
 	 * @param classLoader the ClassLoader to use for loading bean classes
@@ -57,12 +62,15 @@ public class BeanDefinitionReaderUtils {
 			String parentName, String className, ClassLoader classLoader) throws ClassNotFoundException {
 
 		GenericBeanDefinition bd = new GenericBeanDefinition();
+		// parentName可能为空。
 		bd.setParentName(parentName);
 		if (className != null) {
 			if (classLoader != null) {
+				// 如果classLoader不为空，则使用以传入的classLoader同一虚拟机加载类对象。
 				bd.setBeanClass(ClassUtils.forName(className, classLoader));
 			}
 			else {
+				// 否则只是记录className
 				bd.setBeanClassName(className);
 			}
 		}

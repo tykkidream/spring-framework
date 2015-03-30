@@ -21,6 +21,28 @@ import org.springframework.beans.MutablePropertyValues;
 import org.springframework.core.AttributeAccessor;
 
 /**
+ *<h3>Bean的定义</h3>
+ *
+ *<p>BeanDefinition是&lt;bean>元素标签在容器中的内部表现形式。&lt;bean>元素标签拥有
+ *class、scope、lazy-init等配置属性，BeanDefinition则提供了相应的beanClass、scope、lazyInit
+ *属性。BeanDefinition的属性和&lt;bean>元素标签的属性是一一对应的。
+ *
+ *<p>描述了一个bean的实例，包括属性值，构造方法参数值和继承自它的类的更多信息。
+ *提供了检索、修改属性值（&lt;bean>元素标签元数据）的方法。
+ *
+ *<p>在Spring中主要存在三种实现，{@link org.springframework.beans.factory.support.ChildBeanDefinition ChildBeanDefinition}
+ *、{@link org.springframework.beans.factory.support.GenericBeanDefinition GenericBeanDefinition}
+ *、{@link org.springframework.beans.factory.support.RootBeanDefinition RootBeanDefinition}，而这三个都继承自
+ *{@link org.springframework.beans.factory.support.AbstractBeanDefinition AbstractBeanDefinition}。在Spring的Xml
+ *配置文件中，可以定义父&lt;bean>包含子&lt;bean>。父&lt;bean>就用RootBeanDefinition表示，是最常用的；子
+ *&lt;bean>就用ChildBeanDefinition表示；AbstractBeanDefinition对两者共有的类信息抽象。
+ *
+ *<p>Spring通过BeanDefinition将配置文件中的&lt;bean>配置信息转换为容器的内部表示，
+ *并将这些BeanDefinition注册到{@link org.springframework.beans.factory.support.BeanDefinitionRegistry
+ *BeanDefinitionRegistry}中。后续操作直接从BeanDefinitionRegistry中所取配置信息。
+ *
+ * <hr>
+ * 
  * A BeanDefinition describes a bean instance, which has property values,
  * constructor argument values, and further information supplied by
  * concrete implementations.

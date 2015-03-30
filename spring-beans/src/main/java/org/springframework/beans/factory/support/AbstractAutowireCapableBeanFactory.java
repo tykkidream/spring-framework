@@ -79,6 +79,9 @@ import org.springframework.util.ReflectionUtils;
 import org.springframework.util.StringUtils;
 
 /**
+ * <p>综合AbstractBeanFactory并对接口AutowireCapableBeanFactory进行实现。
+ * <hr>
+ * 
  * Abstract bean factory superclass that implements default bean creation,
  * with the full capabilities specified by the {@link RootBeanDefinition} class.
  * Implements the {@link org.springframework.beans.factory.config.AutowireCapableBeanFactory}

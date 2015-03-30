@@ -26,6 +26,8 @@ package org.springframework.beans;
 public interface BeanMetadataElement {
 
 	/**
+	 * <p>获得一个可配置的源对象。
+	 * <hr>
 	 * Return the configuration source {@code Object} for this metadata element
 	 * (may be {@code null}).
 	 */

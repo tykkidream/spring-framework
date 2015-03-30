@@ -142,6 +142,7 @@ public abstract class StringUtils {
 	}
 
 	/**
+	 * 
 	 * Check whether the given String has actual text.
 	 * More specifically, returns {@code true} if the string not {@code null},
 	 * its length is greater than 0, and it contains at least one non-whitespace character.
@@ -175,6 +176,19 @@ public abstract class StringUtils {
 	}
 
 	/**
+	 * <p>ÊÇ·ñ°üº¬¿Õ°××Ö·û¡£</p>
+	 * <p><pre>
+	 * StringUtils.containsWhitespace(null)	= false;
+	 * StringUtils.containsWhitespace("")		= false;
+	 * StringUtils.containsWhitespace("a")		= false;
+	 * StringUtils.containsWhitespace("abc")	= false;
+	 * StringUtils.containsWhitespace("abc")	= false;
+	 * StringUtils.containsWhitespace(" ")		= true;
+	 * StringUtils.containsWhitespace(" a")	= true;
+	 * StringUtils.containsWhitespace("abc ")	= true;
+	 * StringUtils.containsWhitespace("a b")	= true
+	 * </pre></p>
+	 * <hr>
 	 * Check whether the given String contains any whitespace characters.
 	 * @param str the String to check (may be {@code null})
 	 * @return {@code true} if the String is not empty and

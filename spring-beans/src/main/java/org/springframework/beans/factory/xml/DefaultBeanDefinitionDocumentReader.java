@@ -72,6 +72,24 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 
 	public static final String RESOURCE_ATTRIBUTE = "resource";
 
+	/**
+	 * <p>profile的用法：
+	 * <p>当Spring的XML配置文件中有这样的两人beans：
+	 * <pre>
+	 * &lt;beans profile="dev">......&lt;/beans>
+	 * &lt;beans profile="pro">......&lt;/beans>
+	 * </pre>
+	 * 这时，在web.xml中可以这样配置：
+	 * <pre>
+	 * &lt;context-param>
+	 * &#9;&lt;param-name>Spring.profiles.active&lt;/param-name>
+	 * &#9;&lt;param-value>dev&lt;/param-value>
+	 * &lt;/context-param>
+	 * </pre>
+	 * 表示使用Spring的XML配置中名为dev的配置，其它忽略。这样就可以配置多个版本，比如用于生产环境的、开发环境的，
+	 * 能方便地切换不同配置。
+	 * <p>
+	 */
 	public static final String PROFILE_ATTRIBUTE = "profile";
 
 
@@ -95,6 +113,9 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 	}
 
 	/**
+	 * <p>加载注册Bean。
+	 * <hr>
+	 * 
 	 * {@inheritDoc}
 	 * <p>This implementation parses bean definitions according to the "spring-beans" XSD
 	 * (or DTD, historically).
@@ -104,24 +125,36 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 	public void registerBeanDefinitions(Document doc, XmlReaderContext readerContext) {
 		this.readerContext = readerContext;
 		logger.debug("Loading bean definitions");
+		// 提取XML的根结点。
 		Element root = doc.getDocumentElement();
+		// 将根结点作为参数继续注册。这里算是真正的开始解析了。
 		doRegisterBeanDefinitions(root);
 	}
 
 
 	/**
+	 * <p>真正地解析Bean。
+	 * <hr>
+	 * 
 	 * Register each bean definition within the given root {@code <beans/>} element.
 	 * @throws IllegalStateException if {@code <beans profile="..."} attribute is present
 	 * and Environment property has not been set
 	 * @see #setEnvironment
 	 */
 	protected void doRegisterBeanDefinitions(Element root) {
+		// 一、处理profile属性。
 		String profileSpec = root.getAttribute(PROFILE_ATTRIBUTE);
+		// 1.1 检测beans节点是否定义了profile属性。
 		if (StringUtils.hasText(profileSpec)) {
+			// 如果定义了profile属性。
+			// 1.2 检查环境变量是否可用。
 			Assert.state(this.environment != null, "Environment must be set for evaluating profiles");
+			// 1.3 在web.xml中，profile是参数是可以指定多个的，这里对其拆分。
 			String[] specifiedProfiles = StringUtils.tokenizeToStringArray(
 					profileSpec, BeanDefinitionParserDelegate.MULTI_VALUE_ATTRIBUTE_DELIMITERS);
+			// 1.4 检查当前处理的XML结点Element的profile是否同环境变量相同。
 			if (!this.environment.acceptsProfiles(specifiedProfiles)) {
+				// 如果不是web.xml中指定的配置，则退出解析，不浪费性能。
 				return;
 			}
 		}
@@ -132,11 +165,14 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 		// the new (child) delegate with a reference to the parent for fallback purposes,
 		// then ultimately reset this.delegate back to its original (parent) reference.
 		// this behavior emulates a stack of delegates without actually necessitating one.
+		// 专门处理解析。
 		BeanDefinitionParserDelegate parent = this.delegate;
 		this.delegate = createDelegate(this.readerContext, root, parent);
 
+		// 解析前处理，留给子类实现。
 		preProcessXml(root);
 		parseBeanDefinitions(root, this.delegate);
+		// 解析后处理，留给子类 实现。
 		postProcessXml(root);
 
 		this.delegate = parent;
@@ -177,41 +213,60 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 
 
 	/**
+	 * <p>
+	 * <hr>
+	 * 
 	 * Parse the elements at the root level in the document:
 	 * "import", "alias", "bean".
 	 * @param root the DOM root element of the document
 	 */
 	protected void parseBeanDefinitions(Element root, BeanDefinitionParserDelegate delegate) {
 		if (delegate.isDefaultNamespace(root)) {
+			// 如果根节点是默认的命名空间。
+			// 获取根节点的子节点。
 			NodeList nl = root.getChildNodes();
 			for (int i = 0; i < nl.getLength(); i++) {
+				// 迭代得到一个子节点。
 				Node node = nl.item(i);
 				if (node instanceof Element) {
 					Element ele = (Element) node;
 					if (delegate.isDefaultNamespace(ele)) {
+						// 如果根节点、子节点是默认的命名空间。使用Spring自己所了解（默认）的方式解析。
 						parseDefaultElement(ele, delegate);
 					}
 					else {
+						// 对于Spring不认识的非默认的命名空间，使用自定义的方式解析（自定义的命名空间）。
 						delegate.parseCustomElement(ele);
 					}
 				}
 			}
 		}
 		else {
+			// 对于Spring不认识的非默认的命名空间，使用自定义的方式解析（自定义的命名空间）。
 			delegate.parseCustomElement(root);
 		}
 	}
 
+	/**
+	 * <p>解析Spring的默认标签。分别是import、alias、bean、beans标签。
+	 * 
+	 * @param ele
+	 * @param delegate
+	 */
 	private void parseDefaultElement(Element ele, BeanDefinitionParserDelegate delegate) {
+		// 对import标签处理。
 		if (delegate.nodeNameEquals(ele, IMPORT_ELEMENT)) {
 			importBeanDefinitionResource(ele);
 		}
+		// 对alias标签处理。
 		else if (delegate.nodeNameEquals(ele, ALIAS_ELEMENT)) {
 			processAliasRegistration(ele);
 		}
+		// 对bean标签处理。
 		else if (delegate.nodeNameEquals(ele, BEAN_ELEMENT)) {
 			processBeanDefinition(ele, delegate);
 		}
+		// 对beans标签处理。
 		else if (delegate.nodeNameEquals(ele, NESTED_BEANS_ELEMENT)) {
 			// recurse
 			doRegisterBeanDefinitions(ele);
@@ -315,14 +370,19 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 	}
 
 	/**
+	 * <p>对bean标签处理解析。
+	 * <hr>
 	 * Process the given bean element, parsing the bean definition
 	 * and registering it with the registry.
 	 */
 	protected void processBeanDefinition(Element ele, BeanDefinitionParserDelegate delegate) {
+		// （一）对元素进行解析，得到bdHolder，包含配置中的各自属性，如class、name、id、alias等。
 		BeanDefinitionHolder bdHolder = delegate.parseBeanDefinitionElement(ele);
 		if (bdHolder != null) {
+			// （二）当bdHolder不为空的情况下，子节点下若存在自定义属性，还需要对自定义标签进行解析。
 			bdHolder = delegate.decorateBeanDefinitionIfRequired(ele, bdHolder);
 			try {
+				// （三）解析完成后，需要对解析后的bdHolder进行注册。
 				// Register the final decorated instance.
 				BeanDefinitionReaderUtils.registerBeanDefinition(bdHolder, getReaderContext().getRegistry());
 			}
@@ -330,6 +390,7 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 				getReaderContext().error("Failed to register bean definition with name '" +
 						bdHolder.getBeanName() + "'", ele, ex);
 			}
+			// （四）发出事件，通知相关的监听器，这个bean已经加载完成。
 			// Send registration event.
 			getReaderContext().fireComponentRegistered(new BeanComponentDefinition(bdHolder));
 		}
@@ -337,6 +398,9 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 
 
 	/**
+	 * <p>解析前处理，留给子类实现。模版方法模式。
+	 * <hr>
+	 * 
 	 * Allow the XML to be extensible by processing any custom element types first,
 	 * before we start to process the bean definitions. This method is a natural
 	 * extension point for any other custom pre-processing of the XML.
@@ -350,6 +414,9 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 	}
 
 	/**
+	 * <p>解析后处理，留给子类 实现。模版方法模式。
+	 * <hr>
+	 * 
 	 * Allow the XML to be extensible by processing any custom element types last,
 	 * after we finished processing the bean definitions. This method is a natural
 	 * extension point for any other custom post-processing of the XML.

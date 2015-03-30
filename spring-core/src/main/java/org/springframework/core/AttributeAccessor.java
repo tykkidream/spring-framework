@@ -17,6 +17,8 @@
 package org.springframework.core;
 
 /**
+ * <p>定义对任意对象进行修改、获取最基本元数据的方法。
+ * <hr>
  * Interface defining a generic contract for attaching and accessing metadata
  * to/from arbitrary objects.
  *
