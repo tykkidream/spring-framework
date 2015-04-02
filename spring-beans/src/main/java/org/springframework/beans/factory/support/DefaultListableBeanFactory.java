@@ -648,6 +648,11 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 
 		if (beanDefinition instanceof AbstractBeanDefinition) {
 			try {
+				/*
+				 * 注册前的最后一次校验，这里的校验不同于解析XML时的文件校验，
+				 * 主要是对于AbstractBeanDefinition属性中的methodOverrides校验，
+				 * 校验methodOverride
+				 */
 				((AbstractBeanDefinition) beanDefinition).validate();
 			}
 			catch (BeanDefinitionValidationException ex) {
@@ -656,9 +661,13 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 			}
 		}
 
+		// 因为beanDefinitionMap是全局变量，这里定会存在并发访问的情况。
 		synchronized (this.beanDefinitionMap) {
 			Object oldBeanDefinition = this.beanDefinitionMap.get(beanName);
+			// 处理注册已经注册的beanName情况。
 			if (oldBeanDefinition != null) {
+				// 如果对应的BeanName已经注册且在配置中配置了bean不允许被覆盖，
+				// 则抛出异常。
 				if (!this.allowBeanDefinitionOverriding) {
 					throw new BeanDefinitionStoreException(beanDefinition.getResourceDescription(), beanName,
 							"Cannot register bean definition [" + beanDefinition + "] for bean '" + beanName +
@@ -672,12 +681,15 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 				}
 			}
 			else {
+				// 记录beanName
 				this.beanDefinitionNames.add(beanName);
 				this.frozenBeanDefinitionNames = null;
 			}
+			// 注册beanDefinition
 			this.beanDefinitionMap.put(beanName, beanDefinition);
 		}
 
+		// 重置所有beanName对应的缓存。
 		resetBeanDefinition(beanName);
 	}
 

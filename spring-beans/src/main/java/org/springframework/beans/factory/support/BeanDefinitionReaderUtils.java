@@ -142,6 +142,10 @@ public class BeanDefinitionReaderUtils {
 	}
 
 	/**
+	 * <p>对解析后得到的BeanDefinition进行注册。
+	 * 将其注册到BeanDefinitionRegistry类型的实例registry中。
+	 * 注册包含两部分，通过BeanDefinition的名称和别名注册。
+	 * <hr>
 	 * Register the given bean definition with the given bean factory.
 	 * @param definitionHolder the bean definition including name and aliases
 	 * @param registry the bean factory to register with
@@ -152,10 +156,12 @@ public class BeanDefinitionReaderUtils {
 			throws BeanDefinitionStoreException {
 
 		// Register bean definition under primary name.
+		// 使用beanName做唯一标识注册。
 		String beanName = definitionHolder.getBeanName();
 		registry.registerBeanDefinition(beanName, definitionHolder.getBeanDefinition());
 
 		// Register aliases for bean name, if any.
+		// 注册所有别名
 		String[] aliases = definitionHolder.getAliases();
 		if (aliases != null) {
 			for (String aliase : aliases) {

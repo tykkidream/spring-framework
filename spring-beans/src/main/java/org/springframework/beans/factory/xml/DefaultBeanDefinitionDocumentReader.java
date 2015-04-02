@@ -62,17 +62,61 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 
 	public static final String NESTED_BEANS_ELEMENT = "beans";
 
+	/**
+	 * <h3>alias元素名称</h3>
+	 * <p>
+	 * 在对bean定义时，除了使用id属性来指定名称外，为了提供多个名称，可以使用alias标签来指定。
+	 * 而所有的这些名称都指向同一个，在某些情况下别名非常有用 ，比如为了让应用的每一个组件能
+	 * 更容易地对公共组件进行引用。
+	 * </p>
+	 * <p>
+	 * 然而，在定义bean时就指定所有的别名并不总是恰当的。有时，我们期望能在当前位置为那些在别
+	 * 处定义的bean引入别名。在XML配置文件中，可用单独的&lt;alias>元素来完成bean别名的定义。如：
+	 * <pre>
+	 * &lt;bean id="testBean" class="com.test"/>
+	 * </pre>
+	 * 要给这个JavaBean增加别名，以方便不同对象来调用。我们就可以直接使用bean标签中的name属性：
+	 * <pre>
+	 * &lt;bean id="testBean" class="com.test" name="testBean,testBean2"/>
+	 * </pre>
+	 * 同样，Spring还有另外一种声明别名的方式：
+	 * <pre>
+	 * &lt;bean id="testBean" class="com.test"/>
+	 * &lt;alias name="testBean" alias="testBean,testBean2"/>
+	 * </pre>
+	 * 考虑一个更为具体的例子，组件A在XML配置文件中定义了一个名为componetA的DataSource类型的bean，
+	 * 但组件B却想在其XML文件中以componentB全名来引用此bean。而且在主程序MyApp的XML配置文件中，
+	 * 希望以myApp的名字来引用此bean。最后容器加载3个XML来生成最终的ApplicationContext。在此情况下，
+	 * 可通过在配置文件中添加下列alias元素来实现：
+	 * <pre>
+	 * &lt;alias name="componentA" alias="componentB"/>
+	 * &lt;alias name="componentA" alias="myApp"/>
+	 * </pre>
+	 * 这样一来，每个组件及主程序就可通过唯一名字来引用同一个数据源而互不干扰。
+	 * </p>
+	 * <p>所以别名的定义有两种方式，一种是bean元素的name属性，一种是alias元素。</p>
+	 */
 	public static final String ALIAS_ELEMENT = "alias";
 
 	public static final String NAME_ATTRIBUTE = "name";
 
 	public static final String ALIAS_ATTRIBUTE = "alias";
 
+	/**
+	 * <h3>import元素名称</h3>
+	 * <p>当项目变得庞大时，会有太多的配置文件。可以分成多个模块多个配置文件，
+	 * 而import元素可将多个文件联系在一起，集中到一个上下文中。
+	 * <pre>
+	 * &lt;import resource="customerContext.xml" />
+	 * </pre>
+	 * </p>
+	 */
 	public static final String IMPORT_ELEMENT = "import";
 
 	public static final String RESOURCE_ATTRIBUTE = "resource";
 
 	/**
+	 * <h3>profile元素名称</h3>
 	 * <p>profile的用法：
 	 * <p>当Spring的XML配置文件中有这样的两人beans：
 	 * <pre>
@@ -269,27 +313,34 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 		// 对beans标签处理。
 		else if (delegate.nodeNameEquals(ele, NESTED_BEANS_ELEMENT)) {
 			// recurse
+			// 递归到前面的解析beans的方法，进行另一次解析。
 			doRegisterBeanDefinitions(ele);
 		}
 	}
 
 	/**
+	 * <p>对import元素进行解析。
+	 * <hr>
 	 * Parse an "import" element and load the bean definitions
 	 * from the given resource into the bean factory.
 	 */
 	protected void importBeanDefinitionResource(Element ele) {
+		// 获取resource属性
 		String location = ele.getAttribute(RESOURCE_ATTRIBUTE);
+		// 如果不存在resource属性则不做任何处理。
 		if (!StringUtils.hasText(location)) {
 			getReaderContext().error("Resource location must not be empty", ele);
 			return;
 		}
 
 		// Resolve system properties: e.g. "${user.dir}"
+		// 解析系统属性，格式如：“${user.dir}”。
 		location = environment.resolveRequiredPlaceholders(location);
 
 		Set<Resource> actualResources = new LinkedHashSet<Resource>(4);
 
 		// Discover whether the location is an absolute or relative URI
+		// 判定location是绝对URI还时相对URI。
 		boolean absoluteLocation = false;
 		try {
 			absoluteLocation = ResourcePatternUtils.isUrl(location) || ResourceUtils.toURI(location).isAbsolute();
@@ -300,8 +351,10 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 		}
 
 		// Absolute or relative?
+		// 如果是绝对UIR则直接根据地址加载对应的配置文件。
 		if (absoluteLocation) {
 			try {
+				// 递归调用bean的解析过程，进行另一次解析。
 				int importCount = getReaderContext().getReader().loadBeanDefinitions(location, actualResources);
 				if (logger.isDebugEnabled()) {
 					logger.debug("Imported " + importCount + " bean definitions from URL location [" + location + "]");
@@ -314,14 +367,19 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 		}
 		else {
 			// No URL -> considering resource location as relative to the current file.
+			// 如果是相对URI则根据相对地址计算出绝对地址。
 			try {
 				int importCount;
+				// Resource存在多个子实现类，如VfsResource、FileSystemResource等。
+				// 而每个resource和createRelative方式实现都不一样，所以这里先使用子类的方法尝试解析。
 				Resource relativeResource = getReaderContext().getResource().createRelative(location);
 				if (relativeResource.exists()) {
+					// 递归调用bean的解析过程，进行另一次解析。
 					importCount = getReaderContext().getReader().loadBeanDefinitions(relativeResource);
 					actualResources.add(relativeResource);
 				}
 				else {
+					// 如果解析不成功，则使用默认的解析器ResourcePatternResolver进行解析。
 					String baseLocation = getReaderContext().getResource().getURL().toString();
 					importCount = getReaderContext().getReader().loadBeanDefinitions(
 							StringUtils.applyRelativePath(baseLocation, location), actualResources);
@@ -338,15 +396,24 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 						ele, ex);
 			}
 		}
+		// 解析进行监听器激活处理。
 		Resource[] actResArray = actualResources.toArray(new Resource[actualResources.size()]);
 		getReaderContext().fireImportProcessed(location, actResArray, extractSource(ele));
 	}
 
 	/**
+	 * <p>对alias标签进行解析。
+	 * <p>alias标签是别名元素，是定义别名的其中一种方式。
+	 * 另外还有一种方式是在bean元素的name属性中定义，
+	 * 而这种的解析是在对bean元素的解析中完成的。
+	 * <hr>
+	 * 
 	 * Process the given alias element, registering the alias with the registry.
 	 */
 	protected void processAliasRegistration(Element ele) {
+		// 获取beanName
 		String name = ele.getAttribute(NAME_ATTRIBUTE);
+		// 获取alias
 		String alias = ele.getAttribute(ALIAS_ATTRIBUTE);
 		boolean valid = true;
 		if (!StringUtils.hasText(name)) {
@@ -359,12 +426,14 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 		}
 		if (valid) {
 			try {
+				// 注册alias
 				getReaderContext().getRegistry().registerAlias(name, alias);
 			}
 			catch (Exception ex) {
 				getReaderContext().error("Failed to register alias '" + alias +
 						"' for bean with name '" + name + "'", ele, ex);
 			}
+			// 别名注册后通知监听器做相应处理。
 			getReaderContext().fireAliasRegistered(name, alias, extractSource(ele));
 		}
 	}

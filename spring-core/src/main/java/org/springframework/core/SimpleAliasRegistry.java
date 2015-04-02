@@ -52,14 +52,16 @@ public class SimpleAliasRegistry implements AliasRegistry {
 	public void registerAlias(String name, String alias) {
 		Assert.hasText(name, "'name' must not be empty");
 		Assert.hasText(alias, "'alias' must not be empty");
+		// 如果beanName与alias相同的话，不记录alias，并删除对应的alias。
 		if (alias.equals(name)) {
-			// 如果名字与别名相同，则删除。
+			// 如果名字与别名相同，则删除原有的alias。
 			this.aliasMap.remove(alias);
 		}
 		else {
+			// 如果alias不允许被覆盖则抛出异常。
 			if (!allowAliasOverriding()) { // 
 				// 这里是不会进入if的，除非allowAliasOverriding被子类覆盖能返回false。
-				// 能进入这里时，说明注册过的名字与别名，是不允许被覆盖的。
+				// 能进入这里时，说明的名字与别名已经被注册过，是不允许被覆盖的。
 				String registeredName = this.aliasMap.get(alias);
 				if (registeredName != null && !registeredName.equals(name)) {
 					// registeredName != null说明别名被注册过；
@@ -71,6 +73,7 @@ public class SimpleAliasRegistry implements AliasRegistry {
 				}
 			}
 			// 检测名字和别名是否能注册。
+			// alias循环检查，当A->B存在时，若再次出现A->C->B时候则会抛出异常。
 			checkForAliasCircle(name, alias);
 			this.aliasMap.put(alias, name);
 		}

@@ -18,6 +18,8 @@ level: Spring focuses on the "plumbing" of enterprise applications so that teams
 can focus on application-level business logic, without unnecessary ties to
 specific deployment environments.
 
+Spring框架为当前在任何类型的平台上部署基于Java的企业应用程序提供了全面的编程和配置模型。Spring的一个关键内容是对应用层的基础支持：
+
 The framework also serves as the foundation for [Spring Integration][], [Spring
 Batch][] and the rest of the Spring [family of projects][]. Browse the
 repositories under the [SpringSource organization][] on GitHub for a full list.

@@ -378,6 +378,8 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 
 
 	/**
+	 * <p>主要两件事，第一步加载资源文件为Document实例，第二步就是对Document实例进行解析。
+	 * <hr>
 	 * Actually load bean definitions from the specified XML file.
 	 * @param inputSource the SAX InputSource to read from
 	 * @param resource the resource descriptor for the XML file
@@ -388,8 +390,10 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 			throws BeanDefinitionStoreException {
 		try {
 			int validationMode = getValidationModeForResource(resource);
+			// 加载资源文件为Document实例（简言就量创建Document对象）
 			Document doc = this.documentLoader.loadDocument(
 					inputSource, getEntityResolver(), this.errorHandler, validationMode, isNamespaceAware());
+			// 对Document实例进行解析（简言就量解析Document对象）
 			return registerBeanDefinitions(doc, resource);
 		}
 		catch (BeanDefinitionStoreException ex) {
@@ -477,10 +481,14 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 	}
 
 	/**
-	 * <p>对XML的文档Document进行解析。
-	 * <p>面向对象单一职责原则。将逻辑处理委托给单一的类进行处理。这个类是{@link BeanDefinitionDocumentReader}接口，
-	 * 而真正工作的实现类是{@link DefaultBeanDefinitionDocumentReader}类。
-	 * <hr>
+	 *<h3>对XML的文档Document进行解析</h3>
+	 *<p>工作只有一件事，就是解析Document。
+	 *<p>步骤可以说有两步，创建解析器BeanDefinitionDocumentReader，用解析器解析Document，最后没了结束，
+	 *就这么关键的两行代码。
+	 *<p>所以可以明确，实际解析工作不是当前类的责任，而是另外一个类{@link BeanDefinitionDocumentReader}。
+	 *这里将工作委托给了它，实际真正工作的实现类是{@link DefaultBeanDefinitionDocumentReader}类。
+	 *<p>而这正是使用了面向对象单一职责原则，将逻辑处理委托给单一的类进行处理。
+	 *<hr>
 	 * 
 	 * Register the bean definitions contained in the given DOM document.
 	 * Called by {@code loadBeanDefinitions}.
@@ -496,6 +504,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 	 */
 	public int registerBeanDefinitions(Document doc, Resource resource) throws BeanDefinitionStoreException {
 		// 一、 创建BeanDefinitionDocumentReader的实例。实际类是DefaultBeanDefinitionDocumentReader类。
+		// （简言就量创建BeanDefinitionDocumentReader对象）
 		BeanDefinitionDocumentReader documentReader = createBeanDefinitionDocumentReader();
 		
 			// 设置环境变量。
@@ -509,6 +518,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 			 */
 		
 		// 二、加载注册Bean。
+		// （简言就量使用BeanDefinitionDocumentReader对象解析Document对象）
 		documentReader.registerBeanDefinitions(doc, createReaderContext(resource));
 		
 			// 记录本次加载BeanDefinition的个数。
