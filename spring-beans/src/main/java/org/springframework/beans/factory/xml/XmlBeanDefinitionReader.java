@@ -486,7 +486,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 	 *<p>步骤可以说有两步，创建解析器BeanDefinitionDocumentReader，用解析器解析Document，最后没了结束，
 	 *就这么关键的两行代码。
 	 *<p>所以可以明确，实际解析工作不是当前类的责任，而是另外一个类{@link BeanDefinitionDocumentReader}。
-	 *这里将工作委托给了它，实际真正工作的实现类是{@link DefaultBeanDefinitionDocumentReader}类。
+	 *这里将工作又委托给了它，实际真正工作的实现类是{@link DefaultBeanDefinitionDocumentReader}类。
 	 *<p>而这正是使用了面向对象单一职责原则，将逻辑处理委托给单一的类进行处理。
 	 *<hr>
 	 * 
@@ -513,8 +513,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 			int countBefore = getRegistry().getBeanDefinitionCount();
 			/*
 			 * getRegistry()说明：返回BeanDefinitionRegistry接口实例，这个方法在BeanDefinitionReader接口中定义，
-			 * 而这个实例，是在实例化BeanDefinitionReader（父类继承了此接口）的时候传入的，默认使用
-			 * DefaultListableBeanFactory的子类。
+			 * 而这个实例，是在实例化的时候传入的，默认使用DefaultListableBeanFactory的子类。
 			 */
 		
 		// 二、加载注册Bean。
