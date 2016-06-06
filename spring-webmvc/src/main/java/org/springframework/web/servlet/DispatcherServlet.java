@@ -867,6 +867,9 @@ public class DispatcherServlet extends FrameworkServlet {
 	}
 
 	/**
+	 * <h3>前端控制器分派方法</h3>
+	 * 
+	 * <hr>
 	 * Process the actual dispatching to the handler.
 	 * <p>The handler will be obtained by applying the servlet's HandlerMappings in order.
 	 * The HandlerAdapter will be obtained by querying the servlet's installed HandlerAdapters
@@ -889,9 +892,11 @@ public class DispatcherServlet extends FrameworkServlet {
 			Exception dispatchException = null;
 
 			try {
+				// 检查是否是请求是否是multipart（如文件上传），如果是将通过MultipartResolver解析
 				processedRequest = checkMultipart(request);
 				multipartRequestParsed = processedRequest != request;
 
+				// 请求到处理器（页面控制器）的映射，通过HandlerMapping进行映射
 				// Determine handler for the current request.
 				mappedHandler = getHandler(processedRequest, false);
 				if (mappedHandler == null || mappedHandler.getHandler() == null) {
@@ -899,6 +904,7 @@ public class DispatcherServlet extends FrameworkServlet {
 					return;
 				}
 
+				// 处理器适配，即将我们的处理器包装成相应的适配器（从而支持多种类型的处理器）
 				// Determine handler adapter for the current request.
 				HandlerAdapter ha = getHandlerAdapter(mappedHandler.getHandler());
 
