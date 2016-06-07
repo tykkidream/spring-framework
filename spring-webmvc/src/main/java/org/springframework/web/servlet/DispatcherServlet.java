@@ -867,7 +867,7 @@ public class DispatcherServlet extends FrameworkServlet {
 	}
 
 	/**
-	 * <h3>Ç°¶Ë¿ØÖÆÆ÷·ÖÅÉ·½·¨</h3>
+	 * <h3>å‰ç«¯æ§åˆ¶å™¨åˆ†æ´¾æ–¹æ³•</h3>
 	 * 
 	 * <hr>
 	 * Process the actual dispatching to the handler.
@@ -892,11 +892,11 @@ public class DispatcherServlet extends FrameworkServlet {
 			Exception dispatchException = null;
 
 			try {
-				// ¼ì²éÊÇ·ñÊÇÇëÇóÊÇ·ñÊÇmultipart£¨ÈçÎÄ¼şÉÏ´«£©£¬Èç¹ûÊÇ½«Í¨¹ıMultipartResolver½âÎö
+				// æ£€æŸ¥æ˜¯å¦æ˜¯è¯·æ±‚æ˜¯å¦æ˜¯multipartï¼ˆå¦‚æ–‡ä»¶ä¸Šä¼ ï¼‰ï¼Œå¦‚æœæ˜¯å°†é€šè¿‡MultipartResolverè§£æ
 				processedRequest = checkMultipart(request);
 				multipartRequestParsed = processedRequest != request;
 
-				// ÇëÇóµ½´¦ÀíÆ÷£¨Ò³Ãæ¿ØÖÆÆ÷£©µÄÓ³Éä£¬Í¨¹ıHandlerMapping½øĞĞÓ³Éä
+				// è¯·æ±‚åˆ°å¤„ç†å™¨ï¼ˆé¡µé¢æ§åˆ¶å™¨ï¼‰çš„æ˜ å°„ï¼Œé€šè¿‡HandlerMappingè¿›è¡Œæ˜ å°„
 				// Determine handler for the current request.
 				mappedHandler = getHandler(processedRequest, false);
 				if (mappedHandler == null || mappedHandler.getHandler() == null) {
@@ -904,7 +904,7 @@ public class DispatcherServlet extends FrameworkServlet {
 					return;
 				}
 
-				// ´¦ÀíÆ÷ÊÊÅä£¬¼´½«ÎÒÃÇµÄ´¦ÀíÆ÷°ü×°³ÉÏàÓ¦µÄÊÊÅäÆ÷£¨´Ó¶øÖ§³Ö¶àÖÖÀàĞÍµÄ´¦ÀíÆ÷£©
+				// å¤„ç†å™¨é€‚é…ï¼Œå³å°†æˆ‘ä»¬çš„å¤„ç†å™¨åŒ…è£…æˆç›¸åº”çš„é€‚é…å™¨ï¼ˆä»è€Œæ”¯æŒå¤šç§ç±»å‹çš„å¤„ç†å™¨ï¼‰
 				// Determine handler adapter for the current request.
 				HandlerAdapter ha = getHandlerAdapter(mappedHandler.getHandler());
 
