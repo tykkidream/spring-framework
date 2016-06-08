@@ -27,7 +27,7 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
 /**
- * <h3>ÃèÊö ClassPath ÖĞµÄ×ÊÔ´¡£</h3>
+ * <h3>æè¿° ClassPath ä¸­çš„èµ„æºã€‚</h3>
  * 
  * <hr>
  * <p>{@link Resource} implementation for class path resources.
@@ -144,8 +144,8 @@ public class ClassPathResource extends AbstractFileResolvingResource {
 	}
 
 	/**
-	 * <p>en¡ãThis implementation opens an InputStream for the given class path resource.</p>
-	 * <p>zh¡ã´ËÊµÏÖ´ò¿ªÒ»¸öÊôÓÚ¸ø¶¨µÄÀàÂ·¾¶×ÊÔ´µÄ {@link java.io.InputStream InputStream} ¡£</p>
+	 * <p>enÂ°This implementation opens an InputStream for the given class path resource.</p>
+	 * <p>zhÂ°æ­¤å®ç°æ‰“å¼€ä¸€ä¸ªå±äºç»™å®šçš„ç±»è·¯å¾„èµ„æºçš„ {@link java.io.InputStream InputStream} ã€‚</p>
 	 * 
 	 * @see java.lang.ClassLoader#getResourceAsStream(String)
 	 * @see java.lang.Class#getResourceAsStream(String)
@@ -153,11 +153,11 @@ public class ClassPathResource extends AbstractFileResolvingResource {
 	public InputStream getInputStream() throws IOException {
 		InputStream is;
 		if (this.clazz != null) {
-			// Ê¹ÓÃ Class »ñÈ¡×ÊÔ´¡£
+			// ä½¿ç”¨ Class è·å–èµ„æºã€‚
 			is = this.clazz.getResourceAsStream(this.path);
 		}
 		else {
-			// Ê¹ÓÃ ClassLoader »ñÈ¡×ÊÔ´¡£
+			// ä½¿ç”¨ ClassLoader è·å–èµ„æºã€‚
 			is = this.classLoader.getResourceAsStream(this.path);
 		}
 		if (is == null) {

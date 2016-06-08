@@ -106,10 +106,10 @@ public class FileSystemResource extends AbstractResource implements WritableReso
 	}
 
 	/**
-	 * <p>zh¡ãºÜ¼òµ¥µÄ¹¦ÄÜ£¬½ö½öÊÇ£ºnew FileInputStream(this.file); £¬¿ÉÒÔ¿´³öÃ¿´ÎµÃµ½µÄÖµ¶¼²»ÏàÍ¬£¬ËùÒÔºÍÆäÏà¹ØµÄ {@link #isOpen()} ×ÜÊÇ false¡£</p>
+	 * <p>zhÂ°å¾ˆç®€å•çš„åŠŸèƒ½ï¼Œä»…ä»…æ˜¯ï¼šnew FileInputStream(this.file); ï¼Œå¯ä»¥çœ‹å‡ºæ¯æ¬¡å¾—åˆ°çš„å€¼éƒ½ä¸ç›¸åŒï¼Œæ‰€ä»¥å’Œå…¶ç›¸å…³çš„ {@link #isOpen()} æ€»æ˜¯ falseã€‚</p>
 	 * <hr>
-	 * <p>en¡ãThis implementation opens a FileInputStream for the underlying file.</p>
-	 * <p>zh¡ã´ËÊµÏÖÊÇ´ò¿ªÁËÒ»¸öÏà¹ØµÄµ×²ãÎÄ¼ş£¨{@link #getFile() this.getFile()}£©µÄ {@link java.io.FileInputStream FileInputStream}¡£</p>
+	 * <p>enÂ°This implementation opens a FileInputStream for the underlying file.</p>
+	 * <p>zhÂ°æ­¤å®ç°æ˜¯æ‰“å¼€äº†ä¸€ä¸ªç›¸å…³çš„åº•å±‚æ–‡ä»¶ï¼ˆ{@link #getFile() this.getFile()}ï¼‰çš„ {@link java.io.FileInputStream FileInputStream}ã€‚</p>
 	 * @see java.io.FileInputStream
 	 */
 	public InputStream getInputStream() throws IOException {
@@ -117,10 +117,10 @@ public class FileSystemResource extends AbstractResource implements WritableReso
 	}
 
 	/**
-	 * <p>zh¡ãºÜ¼òµ¥µÄ¹¦ÄÜ£¬½ö½öÊÇ£ºthis.file.toURI().toURL(); ¡£</p>
+	 * <p>zhÂ°å¾ˆç®€å•çš„åŠŸèƒ½ï¼Œä»…ä»…æ˜¯ï¼šthis.file.toURI().toURL(); ã€‚</p>
 	 * <hr>
 	 * <p>This implementation returns a URL for the underlying file.</p>
-	 * <p>´ËÊµÏÖÊÇ´ò¿ªÒ»¸öÏà¹ØµÄµ×²ãÎÄ¼ş£¨{@link #getFile() this.getFile()}£©µÄ {@link java.net.URL URL}¡£</p>
+	 * <p>æ­¤å®ç°æ˜¯æ‰“å¼€ä¸€ä¸ªç›¸å…³çš„åº•å±‚æ–‡ä»¶ï¼ˆ{@link #getFile() this.getFile()}ï¼‰çš„ {@link java.net.URL URL}ã€‚</p>
 	 * @see java.io.File#toURI()
 	 */
 	@Override
@@ -129,10 +129,10 @@ public class FileSystemResource extends AbstractResource implements WritableReso
 	}
 
 	/**
-	 * <p>zh¡ãºÜ¼òµ¥µÄ¹¦ÄÜ£¬½ö½öÊÇ£ºthis.file.toURI(); ¡£</p>
+	 * <p>zhÂ°å¾ˆç®€å•çš„åŠŸèƒ½ï¼Œä»…ä»…æ˜¯ï¼šthis.file.toURI(); ã€‚</p>
 	 * <hr>
-	 * <p>en¡ãThis implementation returns a URI for the underlying file.</p>
-	 * <p>zh¡ã´ËÊµÏÖÊÇ´ò¿ªÒ»¸öÏà¹ØµÄµ×²ãÎÄ¼ş£¨{@link #getFile() this.getFile()}£©µÄ {@link java.net.URI URI}¡£</p>
+	 * <p>enÂ°This implementation returns a URI for the underlying file.</p>
+	 * <p>zhÂ°æ­¤å®ç°æ˜¯æ‰“å¼€ä¸€ä¸ªç›¸å…³çš„åº•å±‚æ–‡ä»¶ï¼ˆ{@link #getFile() this.getFile()}ï¼‰çš„ {@link java.net.URI URI}ã€‚</p>
 	 * @see java.io.File#toURI()
 	 */
 	@Override
@@ -141,8 +141,8 @@ public class FileSystemResource extends AbstractResource implements WritableReso
 	}
 
 	/**
-	 * <p>en¡ãThis implementation returns the underlying File reference.</p>
-	 * <p>zh¡ã´ËÊµÏÖÊÇ·µ»ØÏà¹ØµÄµ×²ãÎÄ¼şµÄÒıÓÃ¡£</p>
+	 * <p>enÂ°This implementation returns the underlying File reference.</p>
+	 * <p>zhÂ°æ­¤å®ç°æ˜¯è¿”å›ç›¸å…³çš„åº•å±‚æ–‡ä»¶çš„å¼•ç”¨ã€‚</p>
 	 */
 	@Override
 	public File getFile() {
@@ -150,10 +150,10 @@ public class FileSystemResource extends AbstractResource implements WritableReso
 	}
 
 	/**
-	 * <p>zh¡ãºÜ¼òµ¥µÄ¹¦ÄÜ£¬½ö½öÊÇ£ºthis.file.length(); ¡£</p>
+	 * <p>zhÂ°å¾ˆç®€å•çš„åŠŸèƒ½ï¼Œä»…ä»…æ˜¯ï¼šthis.file.length(); ã€‚</p>
 	 * <hr>
-	 * <p>en¡ãThis implementation returns the underlying File's length.</p>
-	 * <p>zh¡ã´ËÊµÏÖÊÇ·µ»ØÏà¹ØµÄµ×²ãÎÄ¼şµÄ³¤¶È¡£</p>
+	 * <p>enÂ°This implementation returns the underlying File's length.</p>
+	 * <p>zhÂ°æ­¤å®ç°æ˜¯è¿”å›ç›¸å…³çš„åº•å±‚æ–‡ä»¶çš„é•¿åº¦ã€‚</p>
 	 * @see java.io.File#length()
 	 */
 	@Override
@@ -162,9 +162,9 @@ public class FileSystemResource extends AbstractResource implements WritableReso
 	}
 
 	/**
-	 * <p>en¡ãThis implementation creates a FileSystemResource, applying the given path
+	 * <p>enÂ°This implementation creates a FileSystemResource, applying the given path
 	 * relative to the path of the underlying file of this resource descriptor.</p>
-	 * <p>zh¡ã´ËÊµÏÖÊÇ´´½¨Ò»¸ö {@link FileSystemResource} ÀàĞÍµÄ×ÊÔ´¡£ÒÔ±¾×ÊÔ´Î»ÖÃÎª²Î¿¼£¬»ñÈ¡ÓÚÏà¶ÔÓÚ±¾×ÊÔ´Î»ÖÃ£¨´«µİµÄ²ÎÊıÊÇÏà¶ÔÂ·¾¶£©µÄ×ÊÔ´¡£</p>
+	 * <p>zhÂ°æ­¤å®ç°æ˜¯åˆ›å»ºä¸€ä¸ª {@link FileSystemResource} ç±»å‹çš„èµ„æºã€‚ä»¥æœ¬èµ„æºä½ç½®ä¸ºå‚è€ƒï¼Œè·å–äºç›¸å¯¹äºæœ¬èµ„æºä½ç½®ï¼ˆä¼ é€’çš„å‚æ•°æ˜¯ç›¸å¯¹è·¯å¾„ï¼‰çš„èµ„æºã€‚</p>
 	 * @see org.springframework.util.StringUtils#applyRelativePath(String, String)
 	 */
 	@Override
@@ -174,10 +174,10 @@ public class FileSystemResource extends AbstractResource implements WritableReso
 	}
 
 	/**                                                                                                                         
-	 * <p>zh¡ãºÜ¼òµ¥µÄ¹¦ÄÜ£¬½ö½öÊÇ£ºthis.file.getName(); ¡£</p>
+	 * <p>zhÂ°å¾ˆç®€å•çš„åŠŸèƒ½ï¼Œä»…ä»…æ˜¯ï¼šthis.file.getName(); ã€‚</p>
 	 * <hr>
-	 * <p>en¡ãThis implementation returns the name of the file.</p>
-	 * <p>zh¡ã´ËÊµÏÖÊÇ·µ»ØµÄÎÄ¼şµÄÃû³Æ¡£</p>
+	 * <p>enÂ°This implementation returns the name of the file.</p>
+	 * <p>zhÂ°æ­¤å®ç°æ˜¯è¿”å›çš„æ–‡ä»¶çš„åç§°ã€‚</p>
 	 * @see java.io.File#getName()
 	 */
 	@Override
@@ -186,11 +186,11 @@ public class FileSystemResource extends AbstractResource implements WritableReso
 	}
 
 	/**
-	 * <p>zh¡ãºÜ¼òµ¥µÄ¹¦ÄÜ£¬Ö÷ÒªÊÇ£ºthis.file.getName(); £¬ÔÚÆäÇ°ºó·Ö±ğÔö¼ÓÁË¡°file [¡±ºÍ¡°]¡±¡£</p>
+	 * <p>zhÂ°å¾ˆç®€å•çš„åŠŸèƒ½ï¼Œä¸»è¦æ˜¯ï¼šthis.file.getName(); ï¼Œåœ¨å…¶å‰ååˆ†åˆ«å¢åŠ äº†â€œfile [â€å’Œâ€œ]â€ã€‚</p>
 	 * <hr>
-	 * <p>en¡ãThis implementation returns a description that includes the absolute
+	 * <p>enÂ°This implementation returns a description that includes the absolute
 	 * path of the file.</p> 
-	 * <p>zh¡ã´ËÊµÏÖÊÇ·µ»Ø¸ÃÎÄ¼şµÄ¾ø¶ÔÂ·¾¶¡£</p>
+	 * <p>zhÂ°æ­¤å®ç°æ˜¯è¿”å›è¯¥æ–‡ä»¶çš„ç»å¯¹è·¯å¾„ã€‚</p>
 	 * @see java.io.File#getAbsolutePath()
 	 */
 	public String getDescription() {

@@ -22,39 +22,39 @@ import java.net.URI;
 import java.net.URL;
 
 /**
- * <h3>×ÊÔ´</h3>
+ * <h3>èµ„æº</h3>
  * <p>
- * ÊÇ¶Ô Spring Ê¹ÓÃµÄ×ÊÔ´µÄÃèÊö£¬±È½Ïµ×²ãµÄ·â×°¡£
+ * æ˜¯å¯¹ Spring ä½¿ç”¨çš„èµ„æºçš„æè¿°ï¼Œæ¯”è¾ƒåº•å±‚çš„å°è£…ã€‚
  * </p>
  * <ul>
- * <li>¿ÉÒÔ±íÊ¾°üÀ¨¸÷ÖÖÀàĞÍ¡¢¸÷ÖÖÎ»ÖÃµÄ×ÊÔ´£¬±ÈÈçÍøÂçÎ»ÖÃµÄ¡¢´ÅÅÌÎ»ÖÃµÄ¡¢ÄÚ´æÖĞµÄµÈµÈ¡£Õâ¸öĞÔÖÊÊÇÓÉ¸¸½Ó¿Ú {@link InputStreamSource} ¶¨ÒåµÄ£ºÊÇ
- * {@link java.io.InputStream InputStream} ÀàĞÍµÄ×ÊÔ´¡£</li>
- * <li>°üº¬Ò»Ğ©»ù±¾µÄ·½·¨£¬±ÈÈç×ÊÔ´ÊÇ·ñ±»´ò¿ª£»¿ÉÒÔÔÚ {@link java.net.URL URL}¡¢{@link java.net.URI URI}¡¢
- * {@link java.io.File File} Ö®¼ä×ª»»µÈ¡£</li>
+ * <li>å¯ä»¥è¡¨ç¤ºåŒ…æ‹¬å„ç§ç±»å‹ã€å„ç§ä½ç½®çš„èµ„æºï¼Œæ¯”å¦‚ç½‘ç»œä½ç½®çš„ã€ç£ç›˜ä½ç½®çš„ã€å†…å­˜ä¸­çš„ç­‰ç­‰ã€‚è¿™ä¸ªæ€§è´¨æ˜¯ç”±çˆ¶æ¥å£ {@link InputStreamSource} å®šä¹‰çš„ï¼šæ˜¯
+ * {@link java.io.InputStream InputStream} ç±»å‹çš„èµ„æºã€‚</li>
+ * <li>åŒ…å«ä¸€äº›åŸºæœ¬çš„æ–¹æ³•ï¼Œæ¯”å¦‚èµ„æºæ˜¯å¦è¢«æ‰“å¼€ï¼›å¯ä»¥åœ¨ {@link java.net.URL URL}ã€{@link java.net.URI URI}ã€
+ * {@link java.io.File File} ä¹‹é—´è½¬æ¢ç­‰ã€‚</li>
  * </ul>
  * <p>
- * ÊµÏÖÀà£º
+ * å®ç°ç±»ï¼š
  * </p>
  * <ul>
  * <li>
  * {@link AbstractResource}
  * <ul>
- * <li>{@link VfsResource} ÓÃÓÚÃèÊö VFS ×ÊÔ´</li>
+ * <li>{@link VfsResource} ç”¨äºæè¿° VFS èµ„æº</li>
  * <li>{@link DescriptiveResource}</li>
- * <li>{@link ByteArrayResource} ÓÃÓÚÃèÊö Byte Êı×é×ÊÔ´</li>
- * <li>{@link InputStreamResource} ÓÃÓÚÃèÊö InputStream ×ÊÔ´</li>
- * <li>{@link FileSystemResource} ÓÃÓÚÃèÊö´ÅÅÌÎÄ¼ş×ÊÔ´</li>
+ * <li>{@link ByteArrayResource} ç”¨äºæè¿° Byte æ•°ç»„èµ„æº</li>
+ * <li>{@link InputStreamResource} ç”¨äºæè¿° InputStream èµ„æº</li>
+ * <li>{@link FileSystemResource} ç”¨äºæè¿°ç£ç›˜æ–‡ä»¶èµ„æº</li>
  * <li>{@link AbstractFileResolvingResource }</li>
  * <ul>
- * <li>{@link ClassPathResource} ÓÃÓÚÃèÊö ClassPath ×ÊÔ´</li>
- * <li>{@link UrlResource} ÓÃÓÚÃèÊö URL ×ÊÔ´</li>
+ * <li>{@link ClassPathResource} ç”¨äºæè¿° ClassPath èµ„æº</li>
+ * <li>{@link UrlResource} ç”¨äºæè¿° URL èµ„æº</li>
  * </ul>
  * </li>
  * </ul>
  * </li> </ul>
  * <p>
- * ¿ÉÒÔ´ÓÉÏÃæµÄÊµÏÖÀà¿´³ö£¬×ÊÔ´ÖÖÀà¶àÑù£¬ÎªÁËÔÚÈÎºÎµØ·½ÄÜ·½±ãµØÊ¹ÓÃÕâĞ©×ÊÔ´£¬
- * ²¢ÇÒ²»ÓÃ¹ØĞÄ×ÊÔ´ÊÇÄÄÒ»ÖÖÖ»¹ÜÊ¹ÓÃ×ÊÔ´£¬ËùÒÔ±¾½Ó¿Ú°Ñ¹²ĞÔµÄµØ·½½øĞĞÁË³éÏó¶¨Òå¡£
+ * å¯ä»¥ä»ä¸Šé¢çš„å®ç°ç±»çœ‹å‡ºï¼Œèµ„æºç§ç±»å¤šæ ·ï¼Œä¸ºäº†åœ¨ä»»ä½•åœ°æ–¹èƒ½æ–¹ä¾¿åœ°ä½¿ç”¨è¿™äº›èµ„æºï¼Œ
+ * å¹¶ä¸”ä¸ç”¨å…³å¿ƒèµ„æºæ˜¯å“ªä¸€ç§åªç®¡ä½¿ç”¨èµ„æºï¼Œæ‰€ä»¥æœ¬æ¥å£æŠŠå…±æ€§çš„åœ°æ–¹è¿›è¡Œäº†æŠ½è±¡å®šä¹‰ã€‚
  * </p>
  * 
  * <hr>
@@ -89,7 +89,7 @@ public interface Resource extends InputStreamSource {
 	 * Return whether this resource actually exists in physical form.
 	 * </p>
 	 * <p>
-	 * ·µ»ØÕâ¸ö×ÊÔ´ÊÇ·ñÊµ¼ÊÎïÀí´æÔÚ¡£
+	 * è¿”å›è¿™ä¸ªèµ„æºæ˜¯å¦å®é™…ç‰©ç†å­˜åœ¨ã€‚
 	 * </p>
 	 * <p>
 	 * This method performs a definitive existence check, whereas the existence of a
@@ -104,7 +104,7 @@ public interface Resource extends InputStreamSource {
 	 * {@link #getInputStream()} or {@link #getFile()}.
 	 * </p>
 	 * <p>
-	 * ·µ»Ø´Ë×ÊÔ´µÄÄÚÈİÊÇ·ñ¿É¶Á£¬ÈçÄÜ·ñÍ¨¹ı {@link #getInputStream()} »ò {@link #getFile()} ¶ÁÈ¡×ÊÔ´¡£
+	 * è¿”å›æ­¤èµ„æºçš„å†…å®¹æ˜¯å¦å¯è¯»ï¼Œå¦‚èƒ½å¦é€šè¿‡ {@link #getInputStream()} æˆ– {@link #getFile()} è¯»å–èµ„æºã€‚
 	 * </p>
 	 * 
 	 * <p>
@@ -124,7 +124,7 @@ public interface Resource extends InputStreamSource {
 	 * resource leaks.
 	 * </p>
 	 * <p>
-	 * ·µ»ØÕâ¸ö×ÊÔ´ÊÇ·ñÓĞÒÑ´ò¿ªÁ÷µÄ¾ä±ú¡£Èç¹ûÎª true £¬InputStream µÄ²»ÄÜ±»¶ÁÈ¡¶à´Î£¬²¢ÇÒ±ØĞë¶ÁÈ¡ºÍ¹Ø±Õ£¬ÒÔ±ÜÃâ×ÊÔ´Ğ¹Â©¡£
+	 * è¿”å›è¿™ä¸ªèµ„æºæ˜¯å¦æœ‰å·²æ‰“å¼€æµçš„å¥æŸ„ã€‚å¦‚æœä¸º true ï¼ŒInputStream çš„ä¸èƒ½è¢«è¯»å–å¤šæ¬¡ï¼Œå¹¶ä¸”å¿…é¡»è¯»å–å’Œå…³é—­ï¼Œä»¥é¿å…èµ„æºæ³„æ¼ã€‚
 	 * </p>
 	 * 
 	 * <p>
@@ -135,15 +135,15 @@ public interface Resource extends InputStreamSource {
 
 	/**
 	 * <p>
-	 * {@link #getURL()}¡¢{@link #getURI()}¡¢{@link #getFile()} Õâ3¸ö·½·¨¿ÉÒÔÊµÏÖÎªÔÚ
-	 * {@link java.net.URL URL}¡¢{@link java.net.URI URI}¡¢{@link java.io.File File} Ö®¼ä×ª»» ¡£
+	 * {@link #getURL()}ã€{@link #getURI()}ã€{@link #getFile()} è¿™3ä¸ªæ–¹æ³•å¯ä»¥å®ç°ä¸ºåœ¨
+	 * {@link java.net.URL URL}ã€{@link java.net.URI URI}ã€{@link java.io.File File} ä¹‹é—´è½¬æ¢ ã€‚
 	 * </p>
 	 * <hr>
 	 * <p>
 	 * Return a URL handle for this resource.
 	 * </p>
 	 * <p>
-	 * ·µ»ØÒ»¸ö {@link java.net.URL URL} ´¦Àí´Ë×ÊÔ´¡£
+	 * è¿”å›ä¸€ä¸ª {@link java.net.URL URL} å¤„ç†æ­¤èµ„æºã€‚
 	 * </p>
 	 * 
 	 * @throws IOException if the resource cannot be resolved as URL, i.e. if the resource
@@ -153,15 +153,15 @@ public interface Resource extends InputStreamSource {
 
 	/**
 	 * <p>
-	 * {@link #getURL()}¡¢{@link #getURI()}¡¢{@link #getFile()} Õâ3¸ö·½·¨¿ÉÒÔÊµÏÖÎªÔÚ
-	 * {@link java.net.URL URL}¡¢{@link java.net.URI URI}¡¢{@link java.io.File File} Ö®¼ä×ª»» ¡£
+	 * {@link #getURL()}ã€{@link #getURI()}ã€{@link #getFile()} è¿™3ä¸ªæ–¹æ³•å¯ä»¥å®ç°ä¸ºåœ¨
+	 * {@link java.net.URL URL}ã€{@link java.net.URI URI}ã€{@link java.io.File File} ä¹‹é—´è½¬æ¢ ã€‚
 	 * </p>
 	 * <hr>
 	 * <p>
 	 * Return a URI handle for this resource.
 	 * </p>
 	 * <p>
-	 * ·µ»ØÒ»¸ö {@link java.net.URI URI} ´¦Àí´Ë×ÊÔ´¡£
+	 * è¿”å›ä¸€ä¸ª {@link java.net.URI URI} å¤„ç†æ­¤èµ„æºã€‚
 	 * </p>
 	 * 
 	 * @throws IOException if the resource cannot be resolved as URI, i.e. if the resource
@@ -171,15 +171,15 @@ public interface Resource extends InputStreamSource {
 
 	/**
 	 * <p>
-	 * {@link #getURL()}¡¢{@link #getURI()}¡¢{@link #getFile()} Õâ3¸ö·½·¨¿ÉÒÔÊµÏÖÎªÔÚ
-	 * {@link java.net.URL URL}¡¢{@link java.net.URI URI}¡¢{@link java.io.File File} Ö®¼ä×ª»» ¡£
+	 * {@link #getURL()}ã€{@link #getURI()}ã€{@link #getFile()} è¿™3ä¸ªæ–¹æ³•å¯ä»¥å®ç°ä¸ºåœ¨
+	 * {@link java.net.URL URL}ã€{@link java.net.URI URI}ã€{@link java.io.File File} ä¹‹é—´è½¬æ¢ ã€‚
 	 * </p>
 	 * <hr>
 	 * <p>
 	 * Return a File handle for this resource.
 	 * </p>
 	 * <p>
-	 * ·µ»ØÒ»¸ö {@link java.io.File File} ´¦Àí´Ë×ÊÔ´¡£
+	 * è¿”å›ä¸€ä¸ª {@link java.io.File File} å¤„ç†æ­¤èµ„æºã€‚
 	 * </p>
 	 * 
 	 * @throws IOException if the resource cannot be resolved as absolute file path, i.e.
@@ -192,7 +192,7 @@ public interface Resource extends InputStreamSource {
 	 * Determine the content length for this resource.
 	 * </p>
 	 * <p>
-	 * È·¶¨Õâ¸ö×ÊÔ´µÄÄÚÈİ³¤¶È¡£
+	 * ç¡®å®šè¿™ä¸ªèµ„æºçš„å†…å®¹é•¿åº¦ã€‚
 	 * </p>
 	 * 
 	 * @throws IOException if the resource cannot be resolved (in the file system or as
@@ -205,7 +205,7 @@ public interface Resource extends InputStreamSource {
 	 * Determine the last-modified timestamp for this resource.
 	 * </p>
 	 * <p>
-	 * È·¶¨Õâ¸ö×ÊÔ´µÄ×îºóÒ»´ÎĞŞ¸ÄµÄÊ±¼ä´Á¡£
+	 * ç¡®å®šè¿™ä¸ªèµ„æºçš„æœ€åä¸€æ¬¡ä¿®æ”¹çš„æ—¶é—´æˆ³ã€‚
 	 * </p>
 	 * 
 	 * @throws IOException if the resource cannot be resolved (in the file system or as
@@ -215,14 +215,14 @@ public interface Resource extends InputStreamSource {
 
 	/**
 	 * <p>
-	 * »òÕßÒÔÏà¶ÔÂ·¾¶È¥Àí½âÏà¶Ô×ÊÔ´¡£
+	 * æˆ–è€…ä»¥ç›¸å¯¹è·¯å¾„å»ç†è§£ç›¸å¯¹èµ„æºã€‚
 	 * </p>
 	 * <hr>
 	 * <p>
 	 * Create a resource relative to this resource.
 	 * </p>
 	 * <p>
-	 * ´´½¨»ùÓÚ¸Ã×ÊÔ´µÄÏà¶Ô×ÊÔ´¡£
+	 * åˆ›å»ºåŸºäºè¯¥èµ„æºçš„ç›¸å¯¹èµ„æºã€‚
 	 * </p>
 	 * 
 	 * @param relativePath the relative path (relative to this resource)
@@ -237,7 +237,7 @@ public interface Resource extends InputStreamSource {
 	 * for example, "myfile.txt".
 	 * </p>
 	 * <p>
-	 * È·¶¨Õâ¸ö×ÊÔ´µÄÎÄ¼şÃû£¬²»ÊÇÂ·¾¶£¬¶øÊÇÆä×îºóÒ»²¿·Ö£ºÀıÈç£¬¡°myfile.txt¡±¡£
+	 * ç¡®å®šè¿™ä¸ªèµ„æºçš„æ–‡ä»¶åï¼Œä¸æ˜¯è·¯å¾„ï¼Œè€Œæ˜¯å…¶æœ€åä¸€éƒ¨åˆ†ï¼šä¾‹å¦‚ï¼Œâ€œmyfile.txtâ€ã€‚
 	 * </p>
 	 * 
 	 * <p>
@@ -251,7 +251,7 @@ public interface Resource extends InputStreamSource {
 	 * with the resource.
 	 * </p>
 	 * <p>
-	 * ·µ»ØÕâ¸ö×ÊÔ´µÄÃèÊöĞÅÏ¢£¬ÔÚ×ÊÔ´¹¤×÷Ê±£¬½«ÓÃÓÚ´íÎóÊä³ö¡£
+	 * è¿”å›è¿™ä¸ªèµ„æºçš„æè¿°ä¿¡æ¯ï¼Œåœ¨èµ„æºå·¥ä½œæ—¶ï¼Œå°†ç”¨äºé”™è¯¯è¾“å‡ºã€‚
 	 * </p>
 	 * <p>
 	 * Implementations are also encouraged to return this value from their

@@ -95,7 +95,7 @@ public class XmlValidationModeDetector {
 			while ((content = reader.readLine()) != null) {
 				content = consumeCommentTokens(content);
 				
-				// Èç¹û¶ÁÈ¡µÄÊÇ¿ÕĞĞ£¬»òÕßÊÇ×¢ÊÍ£¬ÔòÌø¹ı¡£
+				// å¦‚æœè¯»å–çš„æ˜¯ç©ºè¡Œï¼Œæˆ–è€…æ˜¯æ³¨é‡Šï¼Œåˆ™è·³è¿‡ã€‚
 				if (this.inComment || !StringUtils.hasText(content)) {
 					continue;
 				}
@@ -103,7 +103,7 @@ public class XmlValidationModeDetector {
 					isDtdValidated = true;
 					break;
 				}
-				// ¶ÁÈ¡µ½ < ¿ªÊ¼·ûºÅ£¬
+				// è¯»å–åˆ° < å¼€å§‹ç¬¦å·ï¼Œ
 				if (hasOpeningTag(content)) {
 					// End of meaningful data...
 					break;

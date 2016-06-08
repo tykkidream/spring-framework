@@ -122,7 +122,7 @@ public abstract class AbstractBeanDefinitionReader implements EnvironmentCapable
 	}
 
 	/**
-	 * <h3>µÃµ½×ÊÔ´¼ÓÔØÆ÷</h3>
+	 * <h3>å¾—åˆ°èµ„æºåŠ è½½å™¨</h3>
 	 */
 	public ResourceLoader getResourceLoader() {
 		return this.resourceLoader;

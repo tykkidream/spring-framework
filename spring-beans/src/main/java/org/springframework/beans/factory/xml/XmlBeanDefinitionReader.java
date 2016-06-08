@@ -51,7 +51,7 @@ import org.springframework.util.xml.XmlValidationModeDetector;
 
 /**
  * <p>
- * ¶ÁÈ¡ XML ÅäÖÃÎÄ¼şµÄÊÇ Spring µÄÖØÒªµÄµÄ¹¦ÄÜ£¬ÒòÎª Spring µÄ´ó²¿·Ö¹¦ÄÜ¶¼±»ÅäÖÃÔÚ XML ÅäÖÃÎÄ¼ş¡£
+ * è¯»å– XML é…ç½®æ–‡ä»¶çš„æ˜¯ Spring çš„é‡è¦çš„çš„åŠŸèƒ½ï¼Œå› ä¸º Spring çš„å¤§éƒ¨åˆ†åŠŸèƒ½éƒ½è¢«é…ç½®åœ¨ XML é…ç½®æ–‡ä»¶ã€‚
  * </p>
  * 
  * 
@@ -93,7 +93,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 
 	/**
 	 * <p>
-	 * µÈÓÚ {@link XmlValidationModeDetector#VALIDATION_AUTO} ¡£ÖµÎª1¡£
+	 * ç­‰äº {@link XmlValidationModeDetector#VALIDATION_AUTO} ã€‚å€¼ä¸º1ã€‚
 	 * </p>
 	 * 
 	 * <hr>
@@ -101,7 +101,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 	 * Indicates that the validation mode should be detected automatically.
 	 * </p>
 	 * <p>
-	 * ±íÊ¾ÑéÖ¤Ä£Ê½Ó¦×Ô¶¯¼ì²â¡£
+	 * è¡¨ç¤ºéªŒè¯æ¨¡å¼åº”è‡ªåŠ¨æ£€æµ‹ã€‚
 	 * </p>
 	 */
 	public static final int VALIDATION_AUTO = XmlValidationModeDetector.VALIDATION_AUTO;
@@ -191,14 +191,14 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 
 	/**
 	 * <p>
-	 * Ä¬ÈÏµÄÑéÖ¤Ä£Ê½ÊÇ {@link #VALIDATION_AUTO} ¡£
+	 * é»˜è®¤çš„éªŒè¯æ¨¡å¼æ˜¯ {@link #VALIDATION_AUTO} ã€‚
 	 * </p>
 	 * <hr>
 	 * <p>
 	 * Return the validation mode to use.
 	 * <p>
 	 * <p>
-	 * ·µ»ØÑéÖ¤Ä£Ê½À´Ê¹ÓÃ¡£
+	 * è¿”å›éªŒè¯æ¨¡å¼æ¥ä½¿ç”¨ã€‚
 	 * </p>
 	 */
 	public int getValidationMode() {
@@ -300,17 +300,17 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 	 * Return the EntityResolver to use, building a default resolver if none specified.
 	 * </p>
 	 * <p>
-	 * ·µ»Ø¿ÉÓÃµÄ {@link EntityResolver}£¬Èç¹ûÎ´Ö¸¶¨Ôò¹¹½¨Ò»¸öÄ¬ÈÏµÄ½âÎöÆ÷¡£
+	 * è¿”å›å¯ç”¨çš„ {@link EntityResolver}ï¼Œå¦‚æœæœªæŒ‡å®šåˆ™æ„å»ºä¸€ä¸ªé»˜è®¤çš„è§£æå™¨ã€‚
 	 * </p>
 	 */
 	protected EntityResolver getEntityResolver() {
 		if (this.entityResolver == null) {
 			// Determine default EntityResolver to use.
-			// Èç¹ûµ±Ç° entityResolver ÊµÌå½âÎöÆ÷²»´æÔÚ£¬ÄÇ¾Í¶¨ÒåÒ»¸öÄ¬ÈÏµÄÊ¹ÓÃ¡£
-			// »ñÈ¡×ÊÔ´¼ÓÔØÆ÷
+			// å¦‚æœå½“å‰ entityResolver å®ä½“è§£æå™¨ä¸å­˜åœ¨ï¼Œé‚£å°±å®šä¹‰ä¸€ä¸ªé»˜è®¤çš„ä½¿ç”¨ã€‚
+			// è·å–èµ„æºåŠ è½½å™¨
 			ResourceLoader resourceLoader = getResourceLoader();
 			if (resourceLoader != null) {
-				// ¸ù¾İ
+				// æ ¹æ®
 				this.entityResolver = new ResourceEntityResolver(resourceLoader);
 			}
 			else {
@@ -353,32 +353,32 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 	}
 
 	/**
-	 * <h3>¼ÓÔØ¶¨Òå Bean µÄ×ÊÔ´ÎÄ¼ş</h3>
+	 * <h3>åŠ è½½å®šä¹‰ Bean çš„èµ„æºæ–‡ä»¶</h3>
 	 * <p>
-	 * Ê¹ÓÃ {@link EncodedResource} °ü×° {@link Resource} ²ÎÊı£¬È»ºóÓÉ
-	 * {@link #loadBeanDefinitions(EncodedResource)} ´¦Àí¡£
+	 * ä½¿ç”¨ {@link EncodedResource} åŒ…è£… {@link Resource} å‚æ•°ï¼Œç„¶åç”±
+	 * {@link #loadBeanDefinitions(EncodedResource)} å¤„ç†ã€‚
 	 * </p>
 	 * <hr>
 	 * <p>
 	 * Load bean definitions from the specified XML file.
 	 * </p>
 	 * <p>
-	 * ´ÓÖ¸¶¨µÄXMLÎÄ¼ş¼ÓÔØ Bean ¶¨Òå¡£
+	 * ä»æŒ‡å®šçš„XMLæ–‡ä»¶åŠ è½½ Bean å®šä¹‰ã€‚
 	 * </p>
 	 * 
-	 * @param resource <span>the resource descriptor for the XML file. </span><span>ÃèÊöÁË
-	 *        Bean ¶¨ÒåµÄ XML ÅäÖÃÎÄ¼ş¡£</span>
+	 * @param resource <span>the resource descriptor for the XML file. </span><span>æè¿°äº†
+	 *        Bean å®šä¹‰çš„ XML é…ç½®æ–‡ä»¶ã€‚</span>
 	 * @return <span>the number of bean definitions found.
-	 *         </span><span>·¢ÏÖµÄbean¶¨ÒåµÄÊı¡£</span>
+	 *         </span><span>å‘ç°çš„beanå®šä¹‰çš„æ•°ã€‚</span>
 	 * @throws BeanDefinitionStoreException in case of loading or parsing errors
 	 */
 	public int loadBeanDefinitions(Resource resource) throws BeanDefinitionStoreException {
-		// ÎªÁË´¦Àí±àÂë£¬Ê¹ÓÃ EncodedResource ¶Ô×ÊÔ´ÔÙ½øĞĞ°ü×°¡£
+		// ä¸ºäº†å¤„ç†ç¼–ç ï¼Œä½¿ç”¨ EncodedResource å¯¹èµ„æºå†è¿›è¡ŒåŒ…è£…ã€‚
 		return loadBeanDefinitions(new EncodedResource(resource));
 	}
 
 	/**
-	 * <h3>¼ÓÔØ¶¨Òå Bean µÄ±àÂë´¦ÀíµÄ×ÊÔ´ÎÄ¼ş</h3>
+	 * <h3>åŠ è½½å®šä¹‰ Bean çš„ç¼–ç å¤„ç†çš„èµ„æºæ–‡ä»¶</h3>
 	 * <p>
 	 * </p>
 	 * <hr>
@@ -386,7 +386,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 	 * Load bean definitions from the specified XML file.
 	 * </p>
 	 * <p>
-	 * ´ÓÖ¸¶¨µÄXMLÎÄ¼ş¼ÓÔØ bean ¶¨Òå¡£
+	 * ä»æŒ‡å®šçš„XMLæ–‡ä»¶åŠ è½½ bean å®šä¹‰ã€‚
 	 * </p>
 	 * 
 	 * @param encodedResource the resource descriptor for the XML file, allowing to
@@ -396,15 +396,15 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 	 */
 	public int loadBeanDefinitions(EncodedResource encodedResource)
 			throws BeanDefinitionStoreException {
-		// ÑéÖ¤±àÂë×ÊÔ´ÎÄ¼ş²»Îª Null ¡£
+		// éªŒè¯ç¼–ç èµ„æºæ–‡ä»¶ä¸ä¸º Null ã€‚
 		Assert.notNull(encodedResource, "EncodedResource must not be null");
 		if (logger.isInfoEnabled()) {
-			// Èç¹ûÈÕÖ¾¿ÉÓÃ£¬Êä³öĞÅÏ¢¡£
+			// å¦‚æœæ—¥å¿—å¯ç”¨ï¼Œè¾“å‡ºä¿¡æ¯ã€‚
 			logger.info("Loading XML bean definitions from "
 					+ encodedResource.getResource());
 		}
 
-		// ½«±àÂë×ÊÔ´ÎÄ¼şÌí¼Óµ½µ±Ç°¹ÜÀíµÄ×ÊÔ´ÎÄ¼ş¼¯ºÏÖĞ¡£
+		// å°†ç¼–ç èµ„æºæ–‡ä»¶æ·»åŠ åˆ°å½“å‰ç®¡ç†çš„èµ„æºæ–‡ä»¶é›†åˆä¸­ã€‚
 		Set<EncodedResource> currentResources = this.resourcesCurrentlyBeingLoaded.get();
 		if (currentResources == null) {
 			currentResources = new HashSet<EncodedResource>(4);
@@ -415,19 +415,19 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 					+ encodedResource + " - check your import definitions!");
 		}
 
-		// ÕâÀïÊÇ±¾·½·¨µÄÖ÷ÒªÒµÎñ£¬¹²3²½£º
+		// è¿™é‡Œæ˜¯æœ¬æ–¹æ³•çš„ä¸»è¦ä¸šåŠ¡ï¼Œå…±3æ­¥ï¼š
 		try {
-			// 1¡¢»ñÈ¡×ÊÔ´µÄ InputStream ÊäÈëÁ÷¡£
+			// 1ã€è·å–èµ„æºçš„ InputStream è¾“å…¥æµã€‚
 			InputStream inputStream = encodedResource.getResource().getInputStream();
 			try {
-				// 2¡¢·â×°×ÊÔ´µÄ InputStream ÊäÈëÁ÷³ÉÎª InputSource ¡£
-				// InputSource ÊÇ XML ÊµÌåµÄµ¥Ò»ÊäÈëÔ´¡£ÊÇ Java µÄ SAX ½âÎöµÄ API ¡£
+				// 2ã€å°è£…èµ„æºçš„ InputStream è¾“å…¥æµæˆä¸º InputSource ã€‚
+				// InputSource æ˜¯ XML å®ä½“çš„å•ä¸€è¾“å…¥æºã€‚æ˜¯ Java çš„ SAX è§£æçš„ API ã€‚
 				InputSource inputSource = new InputSource(inputStream);
 				if (encodedResource.getEncoding() != null) {
-					// ÉèÖÃ×Ö·û±àÂë¡£
+					// è®¾ç½®å­—ç¬¦ç¼–ç ã€‚
 					inputSource.setEncoding(encodedResource.getEncoding());
 				}
-				// 3¡¢ÕæÕıµÄ´Ó XML ÎÄ¼ş¼ÓÔØ bean ¶¨Òå¡£
+				// 3ã€çœŸæ­£çš„ä» XML æ–‡ä»¶åŠ è½½ bean å®šä¹‰ã€‚
 				return doLoadBeanDefinitions(inputSource, encodedResource.getResource());
 			}
 			finally {
@@ -476,7 +476,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 	}
 
 	/**
-	 * <h3>¼ÓÔØ¶¨Òå Bean µÄ SAX µÄ XML ÊäÈëÔ´</h3>
+	 * <h3>åŠ è½½å®šä¹‰ Bean çš„ SAX çš„ XML è¾“å…¥æº</h3>
 	 * 
 	 * Actually load bean definitions from the specified XML file.
 	 * 
@@ -488,13 +488,13 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 	protected int doLoadBeanDefinitions(InputSource inputSource, Resource resource)
 			throws BeanDefinitionStoreException {
 		try {
-			// µÃµ½ XMLµÄÑéÖ¤Ä£Ê½¡£
+			// å¾—åˆ° XMLçš„éªŒè¯æ¨¡å¼ã€‚
 			int validationMode = getValidationModeForResource(resource);
-			// ¼ÓÔØ XML £¬»ñÈ¡ËüµÄ Document ¡£
+			// åŠ è½½ XML ï¼Œè·å–å®ƒçš„ Document ã€‚
 			Document doc = this.documentLoader.loadDocument(inputSource,
 					getEntityResolver(), this.errorHandler, validationMode,
 					isNamespaceAware());
-			// ×¢²á Bean ¶¨Òå¡£
+			// æ³¨å†Œ Bean å®šä¹‰ã€‚
 			return registerBeanDefinitions(doc, resource);
 		}
 		catch (BeanDefinitionStoreException ex) {
@@ -524,16 +524,16 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 	}
 
 	/**
-	 * <h3>µÃµ½ XMLµÄÑéÖ¤Ä£Ê½</h3>
+	 * <h3>å¾—åˆ° XMLçš„éªŒè¯æ¨¡å¼</h3>
 	 * <p>
-	 * Ä¬ÈÏÊÇ×Ô¶¯¼ì²âÑéÖ¤Ä£Ê½£¬Ê×ÏÈ¿¼ÂÇÊ¹ÓÃÊÖ¹¤Ö¸¶¨µÄÑéÖ¤Ä£Ê½£¬Î´Ö¸¶¨Ê±¶ÁÈ¡ XML ÎÄ¼ş£¬¼ì²âÆäÖĞÅäÖÃµÄÑéÖ¤Ä£Ê½£¬ Èç¹ûÒ²Ã»ÓĞ¼ì²â³öÀ´£¬ÄÇ¾ÍÊ¹ÓÃ XSD µÄÑéÖ¤Ä£Ê½¡£
+	 * é»˜è®¤æ˜¯è‡ªåŠ¨æ£€æµ‹éªŒè¯æ¨¡å¼ï¼Œé¦–å…ˆè€ƒè™‘ä½¿ç”¨æ‰‹å·¥æŒ‡å®šçš„éªŒè¯æ¨¡å¼ï¼ŒæœªæŒ‡å®šæ—¶è¯»å– XML æ–‡ä»¶ï¼Œæ£€æµ‹å…¶ä¸­é…ç½®çš„éªŒè¯æ¨¡å¼ï¼Œ å¦‚æœä¹Ÿæ²¡æœ‰æ£€æµ‹å‡ºæ¥ï¼Œé‚£å°±ä½¿ç”¨ XSD çš„éªŒè¯æ¨¡å¼ã€‚
 	 * <p>
-	 * <h4>²Î¿¼</h4>
+	 * <h4>å‚è€ƒ</h4>
 	 * <ul>
-	 * <li>»ñÈ¡ÊÖ¹¤Ö¸¶¨µÄÑéÖ¤Ä£Ê½£º {@link #getValidationMode()} ¡£</li>
-	 * <li>Ä¬ÈÏµÄ×Ô¶¯¼ì²âÑéÖ¤Ä£Ê½£º {@link #VALIDATION_AUTO} ¡£</li>
-	 * <li>¼ì²â XML ÖĞµÄÑéÖ¤Ä£Ê½£º {@link #detectValidationMode(Resource)} ¡£</li>
-	 * <li>×îºóµÄ XSD ÑéÖ¤Ä£Ê½£º {@link #VALIDATION_XSD} ¡£</li>
+	 * <li>è·å–æ‰‹å·¥æŒ‡å®šçš„éªŒè¯æ¨¡å¼ï¼š {@link #getValidationMode()} ã€‚</li>
+	 * <li>é»˜è®¤çš„è‡ªåŠ¨æ£€æµ‹éªŒè¯æ¨¡å¼ï¼š {@link #VALIDATION_AUTO} ã€‚</li>
+	 * <li>æ£€æµ‹ XML ä¸­çš„éªŒè¯æ¨¡å¼ï¼š {@link #detectValidationMode(Resource)} ã€‚</li>
+	 * <li>æœ€åçš„ XSD éªŒè¯æ¨¡å¼ï¼š {@link #VALIDATION_XSD} ã€‚</li>
 	 * </ul>
 	 * <hr>
 	 * <p>
@@ -547,22 +547,22 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 	 * </p>
 	 */
 	protected int getValidationModeForResource(Resource resource) {
-		// Ê¹ÓÃÑéÖ¤Ä£Ê½¡£Ä¬ÈÏÊÇ×Ô¶¯¼ì²âÑéÖ¤Ä£Ê½¡£
+		// ä½¿ç”¨éªŒè¯æ¨¡å¼ã€‚é»˜è®¤æ˜¯è‡ªåŠ¨æ£€æµ‹éªŒè¯æ¨¡å¼ã€‚
 		int validationModeToUse = getValidationMode();
-		// Èç¹ûÊÖ¹¤Ö¸¶¨ÁËÑéÖ¤Ä£Ê½£¬²»Ê¹ÓÃ×Ô¶¯¼ì²â¡£
+		// å¦‚æœæ‰‹å·¥æŒ‡å®šäº†éªŒè¯æ¨¡å¼ï¼Œä¸ä½¿ç”¨è‡ªåŠ¨æ£€æµ‹ã€‚
 		if (validationModeToUse != VALIDATION_AUTO) {
-			// ÄÇÃ´Ê¹ÓÃÊÖ¹¤Ö¸¶¨µÄÑéÖ¤Ä£Ê½¡£
+			// é‚£ä¹ˆä½¿ç”¨æ‰‹å·¥æŒ‡å®šçš„éªŒè¯æ¨¡å¼ã€‚
 			return validationModeToUse;
 		}
 
-		// ¿ªÊ¼°æ¼ì²âÑéÖ¤Ä£Ê½£¬¶ÁÈ¡ XML ÖĞµÄÑéÖ¤Ä£Ê½¡£
+		// å¼€å§‹ç‰ˆæ£€æµ‹éªŒè¯æ¨¡å¼ï¼Œè¯»å– XML ä¸­çš„éªŒè¯æ¨¡å¼ã€‚
 		int detectedMode = detectValidationMode(resource);
-		// Èç¹û XML ÖĞÓĞÖ¸¶¨²¢¼ì²â³ö¿ÉÓÃµÄÑéÖ¤Ä£Ê½£¬²»ÊÇ×Ô¶¯¼ì²â¡£
+		// å¦‚æœ XML ä¸­æœ‰æŒ‡å®šå¹¶æ£€æµ‹å‡ºå¯ç”¨çš„éªŒè¯æ¨¡å¼ï¼Œä¸æ˜¯è‡ªåŠ¨æ£€æµ‹ã€‚
 		if (detectedMode != VALIDATION_AUTO) {
 			return detectedMode;
 		}
 
-		// XML ÖĞÓĞÒ²Ã»ÓĞÖ¸¶¨ÑéÖ¤Ä£Ê½£¬ÄÇ¾ÍÊ¹ÓÃ XSD µÄ·½Ê½¡£
+		// XML ä¸­æœ‰ä¹Ÿæ²¡æœ‰æŒ‡å®šéªŒè¯æ¨¡å¼ï¼Œé‚£å°±ä½¿ç”¨ XSD çš„æ–¹å¼ã€‚
 		// Hmm, we didn't get a clear indication... Let's assume XSD,
 		// since apparently no DTD declaration has been found up until
 		// detection stopped (before finding the document's root tag).
@@ -570,19 +570,19 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 	}
 
 	/**
-	 * <h3>¶ÁÈ¡£¨ XML £©×ÊÔ´£¬¼ì²âÆäÑéÖ¤Ä£Ê½</h3>
+	 * <h3>è¯»å–ï¼ˆ XML ï¼‰èµ„æºï¼Œæ£€æµ‹å…¶éªŒè¯æ¨¡å¼</h3>
 	 * <p>
-	 * Ê¹ÓÃÊ±£¬×ÊÔ´²»ÄÜÊÇ±»´ò¿ªµÄ£¬ÄÜ»ñÈ¡ÓĞĞ§µÄÊäÈëÁ÷£¬×îºóÓÉ¸øÄÚ²¿ XmlValidationModeDetector ÊµÀıÑéÖ¤£¬ÎŞ·¨ÑéÖ¤³öÊ±»á·µ»Ø
-	 * XmlValidationModeDetector.VALIDATION_AUTO ¡£ XmlValidationModeDetector ÀàÊôÓÚ SpringFramework µÄ Core Ä£¿é£¬×¨ÓÃÓÚ´¦Àí
-	 * XML ÎÄ¼ş£¬ËüµÄÊµÀıÔÚ±¾ÀàÊÇË½ÓĞµÄ£¬¶¨ÒåÊ±Í¬Ê±¾ÍÉùÃ÷ÊµÀı»¯ÁË£¬½öÔÚÕâÀï·¢»ÓÁË×÷ÓÃ¡£
+	 * ä½¿ç”¨æ—¶ï¼Œèµ„æºä¸èƒ½æ˜¯è¢«æ‰“å¼€çš„ï¼Œèƒ½è·å–æœ‰æ•ˆçš„è¾“å…¥æµï¼Œæœ€åç”±ç»™å†…éƒ¨ XmlValidationModeDetector å®ä¾‹éªŒè¯ï¼Œæ— æ³•éªŒè¯å‡ºæ—¶ä¼šè¿”å›
+	 * XmlValidationModeDetector.VALIDATION_AUTO ã€‚ XmlValidationModeDetector ç±»å±äº SpringFramework çš„ Core æ¨¡å—ï¼Œä¸“ç”¨äºå¤„ç†
+	 * XML æ–‡ä»¶ï¼Œå®ƒçš„å®ä¾‹åœ¨æœ¬ç±»æ˜¯ç§æœ‰çš„ï¼Œå®šä¹‰æ—¶åŒæ—¶å°±å£°æ˜å®ä¾‹åŒ–äº†ï¼Œä»…åœ¨è¿™é‡Œå‘æŒ¥äº†ä½œç”¨ã€‚
 	 * </p>
-	 * <h4>²Î¿¼</h4>
+	 * <h4>å‚è€ƒ</h4>
 	 * <ul>
-	 * <li>¼ì²é×ÊÔ´ÊÇ·ñÒÑ¾­±»´ò¿ª£º {@link Resource#isOpen()} ¡£</li>
-	 * <li>»ñÈ¡×ÊÔ´µÄÓĞĞ§µÄÊäÈëÁ÷£º {@link Resource#getInputStream()} ¡£</li>
-	 * <li>ÑéÖ¤ XML ÎÄ¼şµÄ¹¤¾ßÀà£º {@link XmlValidationModeDetector} ¡£</li>
-	 * <li>ÑéÖ¤ XML ÎÄ¼şµÄ·½·¨£º {@link XmlValidationModeDetector#detectValidationMode(InputStream)} ¡£</li>
-	 * <li>ÎŞ·¨µÃ³öÑéÖ¤µÄÑéÖ¤Ä£Ê½£º {@link XmlValidationModeDetector#VALIDATION_AUTO} ¡£</li>
+	 * <li>æ£€æŸ¥èµ„æºæ˜¯å¦å·²ç»è¢«æ‰“å¼€ï¼š {@link Resource#isOpen()} ã€‚</li>
+	 * <li>è·å–èµ„æºçš„æœ‰æ•ˆçš„è¾“å…¥æµï¼š {@link Resource#getInputStream()} ã€‚</li>
+	 * <li>éªŒè¯ XML æ–‡ä»¶çš„å·¥å…·ç±»ï¼š {@link XmlValidationModeDetector} ã€‚</li>
+	 * <li>éªŒè¯ XML æ–‡ä»¶çš„æ–¹æ³•ï¼š {@link XmlValidationModeDetector#detectValidationMode(InputStream)} ã€‚</li>
+	 * <li>æ— æ³•å¾—å‡ºéªŒè¯çš„éªŒè¯æ¨¡å¼ï¼š {@link XmlValidationModeDetector#VALIDATION_AUTO} ã€‚</li>
 	 * </ul>
 	 * 
 	 * <hr>
@@ -597,7 +597,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 	 * {@link #VALIDATION_AUTO} mode.
 	 */
 	protected int detectValidationMode(Resource resource) {
-		// Èç¹û×ÊÔ´ÒÑ¾­±»ÆäËüµØ·½´ò¿ªÊ¹ÓÃ¡£
+		// å¦‚æœèµ„æºå·²ç»è¢«å…¶å®ƒåœ°æ–¹æ‰“å¼€ä½¿ç”¨ã€‚
 		if (resource.isOpen()) {
 			throw new BeanDefinitionStoreException(
 					"Passed-in Resource ["
@@ -608,7 +608,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 							+ "on your XmlBeanDefinitionReader instance.");
 		}
 
-		// ×ÊÔ´µÄÊäÈëÔ´¡£
+		// èµ„æºçš„è¾“å…¥æºã€‚
 		InputStream inputStream;
 		try {
 			inputStream = resource.getInputStream();
@@ -624,7 +624,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 		}
 
 		try {
-			// Î¯ÍĞ¸ø XmlValidationModeDetector ½øĞĞÑéÖ¤¡£ 
+			// å§”æ‰˜ç»™ XmlValidationModeDetector è¿›è¡ŒéªŒè¯ã€‚ 
 			return this.validationModeDetector.detectValidationMode(inputStream);
 		}
 		catch (IOException ex) {

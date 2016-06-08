@@ -27,12 +27,12 @@ import org.springframework.util.Assert;
 import org.springframework.util.ObjectUtils;
 
 /**
- * <h3>������Դ</h3>
+ * <h3>编码资源</h3>
  * <p>
- * ��װһ�� {@link Resource} �����������д�����ת����
+ * 包装一个 {@link Resource} ，对其编码进行处理、转换。
  * </p>
  * <p>
- * ʵ�ַ��棬��Ȼ�������� Resource ���������� Resource �ӿڵ�ʵ�֣��ڲ���һ�������˽�еġ������޸ģ�final�������ã�Ҳûʵ�������ӿڡ�
+ * 实现方面，虽然名称中有 Resource ，但它不是 Resource 接口的实现，内部有一个对其的私有的、不可修改（final）的引用，也没实现其它接口。
  * </p>
  * 
  * <hr>

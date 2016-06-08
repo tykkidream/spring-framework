@@ -65,17 +65,17 @@ import org.springframework.util.StringUtils;
 
 /**
  * <p>
- * Õâ¸öÀàÊÇ Spring ×¢²á²¢¼ÓÔØ Bean µÄÄ¬ÈÏÊµÏÖ£¬³£¼ûµÄ¹¤³§±ÈÈç
- * {@link org.springframework.beans.factory.xml.XmlBeanFactory XmlBeanFactory} £¨ÌØ±ğ´¦Àí bean
- * ÅäÖÃÔÚ XMl ÖĞµÄ¹¤³§£©£¬¶¼ÊÇËüµÄ×ÓÀà¡£
+ * è¿™ä¸ªç±»æ˜¯ Spring æ³¨å†Œå¹¶åŠ è½½ Bean çš„é»˜è®¤å®ç°ï¼Œå¸¸è§çš„å·¥å‚æ¯”å¦‚
+ * {@link org.springframework.beans.factory.xml.XmlBeanFactory XmlBeanFactory} ï¼ˆç‰¹åˆ«å¤„ç† bean
+ * é…ç½®åœ¨ XMl ä¸­çš„å·¥å‚ï¼‰ï¼Œéƒ½æ˜¯å®ƒçš„å­ç±»ã€‚
  * </p>
- * <h3>¼Ì³ĞµÄÀàºÍ½Ó¿Ú£º</h3>
+ * <h3>ç»§æ‰¿çš„ç±»å’Œæ¥å£ï¼š</h3>
  * <ul>
  * <li>{@link org.springframework.beans.factory.ListableBeanFactory ListableBeanFactory}
- * Àà£º¸ù¾İ¸÷ÖÖÌõ¼ş»ñÈ¡ bean r ÅäÖÃÇåµ¥¡£</li>
- * <li>{@link BeanDefinitionRegistry} ½Ó¿Ú£º¶¨Òå¶Ô BeanDefainition µÄ¸÷ÖÖÔöÉ¾¸Ä²Ù×÷¡£</li>
+ * ç±»ï¼šæ ¹æ®å„ç§æ¡ä»¶è·å– bean r é…ç½®æ¸…å•ã€‚</li>
+ * <li>{@link BeanDefinitionRegistry} æ¥å£ï¼šå®šä¹‰å¯¹ BeanDefainition çš„å„ç§å¢åˆ æ”¹æ“ä½œã€‚</li>
  * <li>{@link org.springframework.beans.factory.config.ConfigurableListableBeanFactory
- * ConfigurableListableBeanFactory} ½Ó¿Ú£ºBeanFactory ÅäÖÃÇåµ¥£¬Ö¸¶¨µÄºöÂÔÀàĞÍ¼°½Ó¿Ú¡£</li>
+ * ConfigurableListableBeanFactory} æ¥å£ï¼šBeanFactory é…ç½®æ¸…å•ï¼ŒæŒ‡å®šçš„å¿½ç•¥ç±»å‹åŠæ¥å£ã€‚</li>
  * </ul>
  * <hr>
  * Default implementation of the
@@ -83,9 +83,9 @@ import org.springframework.util.StringUtils;
  * {@link BeanDefinitionRegistry} interfaces: a full-fledged bean factory based on bean
  * definition objects.
  * <p>
- * ÊÇÒ»¸öÄ¬ÈÏÊµÏÖ£¬Ö÷ÒªÊµÏÖÁË {@link org.springframework.beans.factory.ListableBeanFactory
- * ListableBeanFactory} ÀàºÍ {@link BeanDefinitionRegistry} ½Ó¿Ú¡£ÊÇÒ»¸öÍêÕûµÄ bean ¹¤³§£¬¿ÉÒÔÉú²ú bean
- * Ëù¶¨ÒåµÄ¶ÔÏó¡£
+ * æ˜¯ä¸€ä¸ªé»˜è®¤å®ç°ï¼Œä¸»è¦å®ç°äº† {@link org.springframework.beans.factory.ListableBeanFactory
+ * ListableBeanFactory} ç±»å’Œ {@link BeanDefinitionRegistry} æ¥å£ã€‚æ˜¯ä¸€ä¸ªå®Œæ•´çš„ bean å·¥å‚ï¼Œå¯ä»¥ç”Ÿäº§ bean
+ * æ‰€å®šä¹‰çš„å¯¹è±¡ã€‚
  * </p>
  * 
  * <p>

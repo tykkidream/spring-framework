@@ -20,24 +20,24 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * <h3>×ÊÔ´µÄ×Ö½ÚÁ÷ÊäÈëÔ´</h3>
+ * <h3>èµ„æºçš„å­—èŠ‚æµè¾“å…¥æº</h3>
  * <p>
- * ¶Ô×ÊÔ´µÄºÜ»ù´¡µÄ·â×°£¬±íÊ¾¸÷ÖÖÄÜ·µ»Ø {@link InputStream} ×ÊÔ´£¬±ÈÈçÓĞ {@link java.io.File File} ¡¢
- * {@link java.lang.Byte Byte}¡¢{@link java.lang.reflect.Array Array}¡£ÔÚ Spring ÖĞ¶Ô×ÊÔ´µÄÃèÊö£¬·¢¸ü´ó»Ó×÷ÓÃÊÇÆä×Ó½Ó¿Ú {@link Resource} ¡£
+ * å¯¹èµ„æºçš„å¾ˆåŸºç¡€çš„å°è£…ï¼Œè¡¨ç¤ºå„ç§èƒ½è¿”å› {@link InputStream} èµ„æºï¼Œæ¯”å¦‚æœ‰ {@link java.io.File File} ã€
+ * {@link java.lang.Byte Byte}ã€{@link java.lang.reflect.Array Array}ã€‚åœ¨ Spring ä¸­å¯¹èµ„æºçš„æè¿°ï¼Œå‘æ›´å¤§æŒ¥ä½œç”¨æ˜¯å…¶å­æ¥å£ {@link Resource} ã€‚
  * </p>
  * <hr>
  * <p>
  * Simple interface for objects that are sources for an {@link InputStream}.
  * </p>
  * <p>
- * ¼òµ¥µÄ½Ó¿Ú£¬·â×°ÁË {@link InputStream} ÀàĞÍµÄ×ÊÔ´¡£
+ * ç®€å•çš„æ¥å£ï¼Œå°è£…äº† {@link InputStream} ç±»å‹çš„èµ„æºã€‚
  * </p>
  * 
  * <p>
  * This is the base interface for Spring's more extensive {@link Resource} interface.
  * </p>
  * <p>
- * ÕâÖ»ÊÇ»ù±¾µÄ½Ó¿Ú£¬Æä×Ó½Ó¿Ú {@link Resource} ÓµÓĞ¶Ô Spring µÄ×ÊÔ´¸ü¹ã·ºÍ¨ÓÃµÄ·â×°¡£
+ * è¿™åªæ˜¯åŸºæœ¬çš„æ¥å£ï¼Œå…¶å­æ¥å£ {@link Resource} æ‹¥æœ‰å¯¹ Spring çš„èµ„æºæ›´å¹¿æ³›é€šç”¨çš„å°è£…ã€‚
  * </p>
  * 
  * <p>
@@ -61,7 +61,7 @@ public interface InputStreamSource {
 	 * Return an {@link InputStream}.
 	 * </p>
 	 * <p>
-	 * ·µ»ØÒ»¸ö×ÊÔ´µÄÊäÈëÁ÷ {@link InputStream} ¡£
+	 * è¿”å›ä¸€ä¸ªèµ„æºçš„è¾“å…¥æµ {@link InputStream} ã€‚
 	 * </p>
 	 * <p>
 	 * It is expected that each call creates a <i>fresh</i> stream.
