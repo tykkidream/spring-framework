@@ -8,6 +8,10 @@
 	<packaging>pom</packaging>
 	<name>Spring Framework 3.2.8</name>
 
+	<properties>
+		<project.build.sourceEncoding>utf-8</project.build.sourceEncoding>
+	</properties>
+
 	<modules>
 		<module>spring-aop</module>
 		<module>spring-aspects</module>

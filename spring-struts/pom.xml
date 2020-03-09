@@ -13,16 +13,7 @@
 	<packaging>jar</packaging>
 	<name>Spring Framework 3.2.8 - Struts</name>
 
-	<properties>
-		<project.build.sourceEncoding>utf-8</project.build.sourceEncoding>
-	</properties>
-
 	<dependencies>
-		<dependency>
-			<groupId>com.yunxi.framework.commons</groupId>
-			<artifactId>framework-commons-paging</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
 	</dependencies>
 
 
