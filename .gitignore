@@ -14,7 +14,6 @@ derby.log
 spring-test/test-output/读《Spring源码深度解析》，第2章和第3章的一部分时记录笔记。
 .gradle
 argfile*
-pom.xml
 
 /build
 buildSrc/build
