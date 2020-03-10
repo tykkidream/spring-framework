@@ -176,7 +176,7 @@ public abstract class StringUtils {
 	}
 
 	/**
-	 * <p>ÊÇ·ñ°üº¬¿Õ°××Ö·û¡£</p>
+	 * <p>æ˜¯å¦åŒ…å«ç©ºç™½å­—ç¬¦ã€‚</p>
 	 * <p><pre>
 	 * StringUtils.containsWhitespace(null)	= false;
 	 * StringUtils.containsWhitespace("")		= false;

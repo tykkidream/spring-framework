@@ -27,7 +27,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.util.StringValueResolver;
 
 /**
- * <p>Ö÷ÒªÊ¹ÓÃmap×÷Îª±ğÃûµÄ»º´æ£¬²¢¶Ô½Ó¿ÚAliasRegistry½øĞĞÊµÏÖ¡£
+ * <p>ä¸»è¦ä½¿ç”¨mapä½œä¸ºåˆ«åçš„ç¼“å­˜ï¼Œå¹¶å¯¹æ¥å£AliasRegistryè¿›è¡Œå®ç°ã€‚
  * <hr>
  * 
  * Simple implementation of the {@link AliasRegistry} interface.
@@ -41,7 +41,7 @@ import org.springframework.util.StringValueResolver;
 public class SimpleAliasRegistry implements AliasRegistry {
 
 	/**
-	 * <p>±ğÃû×¢²á±í£¬keyÎª±ğÃû£¬valueÎªÃû×Ö¡£
+	 * <p>åˆ«åæ³¨å†Œè¡¨ï¼Œkeyä¸ºåˆ«åï¼Œvalueä¸ºåå­—ã€‚
 	 * <hr>
 	 * 
 	 * Map from alias to canonical name.
@@ -52,28 +52,28 @@ public class SimpleAliasRegistry implements AliasRegistry {
 	public void registerAlias(String name, String alias) {
 		Assert.hasText(name, "'name' must not be empty");
 		Assert.hasText(alias, "'alias' must not be empty");
-		// Èç¹ûbeanNameÓëaliasÏàÍ¬µÄ»°£¬²»¼ÇÂ¼alias£¬²¢É¾³ı¶ÔÓ¦µÄalias¡£
+		// å¦‚æœbeanNameä¸aliasç›¸åŒçš„è¯ï¼Œä¸è®°å½•aliasï¼Œå¹¶åˆ é™¤å¯¹åº”çš„aliasã€‚
 		if (alias.equals(name)) {
-			// Èç¹ûÃû×ÖÓë±ğÃûÏàÍ¬£¬ÔòÉ¾³ıÔ­ÓĞµÄalias¡£
+			// å¦‚æœåå­—ä¸åˆ«åç›¸åŒï¼Œåˆ™åˆ é™¤åŸæœ‰çš„aliasã€‚
 			this.aliasMap.remove(alias);
 		}
 		else {
-			// Èç¹ûalias²»ÔÊĞí±»¸²¸ÇÔòÅ×³öÒì³£¡£
+			// å¦‚æœaliasä¸å…è®¸è¢«è¦†ç›–åˆ™æŠ›å‡ºå¼‚å¸¸ã€‚
 			if (!allowAliasOverriding()) { // 
-				// ÕâÀïÊÇ²»»á½øÈëifµÄ£¬³ı·ÇallowAliasOverriding±»×ÓÀà¸²¸ÇÄÜ·µ»Øfalse¡£
-				// ÄÜ½øÈëÕâÀïÊ±£¬ËµÃ÷µÄÃû×ÖÓë±ğÃûÒÑ¾­±»×¢²á¹ı£¬ÊÇ²»ÔÊĞí±»¸²¸ÇµÄ¡£
+				// è¿™é‡Œæ˜¯ä¸ä¼šè¿›å…¥ifçš„ï¼Œé™¤éallowAliasOverridingè¢«å­ç±»è¦†ç›–èƒ½è¿”å›falseã€‚
+				// èƒ½è¿›å…¥è¿™é‡Œæ—¶ï¼Œè¯´æ˜çš„åå­—ä¸åˆ«åå·²ç»è¢«æ³¨å†Œè¿‡ï¼Œæ˜¯ä¸å…è®¸è¢«è¦†ç›–çš„ã€‚
 				String registeredName = this.aliasMap.get(alias);
 				if (registeredName != null && !registeredName.equals(name)) {
-					// registeredName != nullËµÃ÷±ğÃû±»×¢²á¹ı£»
-					// !registeredName.equals(name)ËµÃ÷ÒÑ×¢²áµÄÃû×ÖÓë½«Òª×¢²áµÄÃû×Ö²»Í¬¡£
-					// µ±Á½¸öÌõ¼ş¶¼Âú×ãÊ±£¬²Ù×÷ÊÇ½«±ğÃûÖØĞÂ×¢²áµ½ÁíÍâÒ»¸öÃû×ÖÉÏ¡£
-					// ÕâÊÇ¸²¸Ç£¬Å×³öÒì³£×èÖ¹´Ë²Ù×÷¡£
+					// registeredName != nullè¯´æ˜åˆ«åè¢«æ³¨å†Œè¿‡ï¼›
+					// !registeredName.equals(name)è¯´æ˜å·²æ³¨å†Œçš„åå­—ä¸å°†è¦æ³¨å†Œçš„åå­—ä¸åŒã€‚
+					// å½“ä¸¤ä¸ªæ¡ä»¶éƒ½æ»¡è¶³æ—¶ï¼Œæ“ä½œæ˜¯å°†åˆ«åé‡æ–°æ³¨å†Œåˆ°å¦å¤–ä¸€ä¸ªåå­—ä¸Šã€‚
+					// è¿™æ˜¯è¦†ç›–ï¼ŒæŠ›å‡ºå¼‚å¸¸é˜»æ­¢æ­¤æ“ä½œã€‚
 					throw new IllegalStateException("Cannot register alias '" + alias + "' for name '" +
 							name + "': It is already registered for name '" + registeredName + "'.");
 				}
 			}
-			// ¼ì²âÃû×ÖºÍ±ğÃûÊÇ·ñÄÜ×¢²á¡£
-			// aliasÑ­»·¼ì²é£¬µ±A->B´æÔÚÊ±£¬ÈôÔÙ´Î³öÏÖA->C->BÊ±ºòÔò»áÅ×³öÒì³£¡£
+			// æ£€æµ‹åå­—å’Œåˆ«åæ˜¯å¦èƒ½æ³¨å†Œã€‚
+			// aliaså¾ªç¯æ£€æŸ¥ï¼Œå½“A->Bå­˜åœ¨æ—¶ï¼Œè‹¥å†æ¬¡å‡ºç°A->C->Bæ—¶å€™åˆ™ä¼šæŠ›å‡ºå¼‚å¸¸ã€‚
 			checkForAliasCircle(name, alias);
 			this.aliasMap.put(alias, name);
 		}
@@ -81,7 +81,7 @@ public class SimpleAliasRegistry implements AliasRegistry {
 
 	/**
 	 * Return whether alias overriding is allowed.
-	 * ·µ»Ø·ñÊÇÔÊĞí±ğÃû±»¸²¸Ç¡£ÕâÀïĞ´ËÀÎªtrue¡£
+	 * è¿”å›å¦æ˜¯å…è®¸åˆ«åè¢«è¦†ç›–ã€‚è¿™é‡Œå†™æ­»ä¸ºtrueã€‚
 	 * Default is {@code true}.
 	 */
 	protected boolean allowAliasOverriding() {
@@ -108,7 +108,7 @@ public class SimpleAliasRegistry implements AliasRegistry {
 	}
 
 	/**
-	 * <p>Ñ­»·×¢²á±í£¬²éÕÒÍ¬Ãû×ÖµÄ±ğÃû£¬±£´æµ½ListÖĞ¡£
+	 * <p>å¾ªç¯æ³¨å†Œè¡¨ï¼ŒæŸ¥æ‰¾åŒåå­—çš„åˆ«åï¼Œä¿å­˜åˆ°Listä¸­ã€‚
 	 * <hr>
 	 * 
 	 * Transitively retrieve all aliases for the given name.
@@ -120,9 +120,9 @@ public class SimpleAliasRegistry implements AliasRegistry {
 			String registeredName = entry.getValue();
 			if (registeredName.equals(name)) {
 				String alias = entry.getKey();
-				// ½«±ğÃû±£´æµ½ListÖĞ¡£
+				// å°†åˆ«åä¿å­˜åˆ°Listä¸­ã€‚
 				result.add(alias);
-				// µ±±ğÃû×÷ÎªÃû×Ö¶ø×¢²áÁËÁíÍâµÄ±ğÃûÊ±£¬¼ÌĞøÉî¶È²éÕÒ¡£
+				// å½“åˆ«åä½œä¸ºåå­—è€Œæ³¨å†Œäº†å¦å¤–çš„åˆ«åæ—¶ï¼Œç»§ç»­æ·±åº¦æŸ¥æ‰¾ã€‚
 				retrieveAliases(alias, result);
 			}
 		}
@@ -131,7 +131,7 @@ public class SimpleAliasRegistry implements AliasRegistry {
 	/**
 	 * Resolve all alias target names and aliases registered in this
 	 * factory, applying the given StringValueResolver to them.
-	 * ½âÎöËùÓĞµÄÃû×ÖºÍ±ğÃû£¬²¢Ó¦ÓÃStringValueResolverµ½ËùÓĞµÄÃû×ÖºÍ±ğÃûÉÏ¡£
+	 * è§£ææ‰€æœ‰çš„åå­—å’Œåˆ«åï¼Œå¹¶åº”ç”¨StringValueResolveråˆ°æ‰€æœ‰çš„åå­—å’Œåˆ«åä¸Šã€‚
 	 * <p>The value resolver may for example resolve placeholders
 	 * in target bean names and even in alias names.
 	 * @param valueResolver the StringValueResolver to apply
@@ -141,18 +141,18 @@ public class SimpleAliasRegistry implements AliasRegistry {
 		synchronized (this.aliasMap) {
 			Map<String, String> aliasCopy = new HashMap<String, String>(this.aliasMap);
 			for (String alias : aliasCopy.keySet()) {
-				// ¸ù¾İ±ğÃû»ñÈ¡Ãû×Ö¡£
+				// æ ¹æ®åˆ«åè·å–åå­—ã€‚
 				String registeredName = aliasCopy.get(alias);
-				// ¸ù¾İ±ğÃû½âÎöµÃµ½ĞÂ½âÎö±ğÃû¡£
+				// æ ¹æ®åˆ«åè§£æå¾—åˆ°æ–°è§£æåˆ«åã€‚
 				String resolvedAlias = valueResolver.resolveStringValue(alias);
-				// ¸ù¾İÃû×Ö½âÎöµÃµ½ĞÂ½âÎöÃû×Ö¡£
+				// æ ¹æ®åå­—è§£æå¾—åˆ°æ–°è§£æåå­—ã€‚
 				String resolvedName = valueResolver.resolveStringValue(registeredName);
 				if (resolvedAlias.equals(resolvedName)) {
-					// Èç¹ûĞÂ½âÎö±ğÃûÓëĞÂ½âÎöÃû×ÖÏàÍ¬£¬Ôò´Ó±ğÃû×¢²á±íÖĞÒÆ³ı¡£
+					// å¦‚æœæ–°è§£æåˆ«åä¸æ–°è§£æåå­—ç›¸åŒï¼Œåˆ™ä»åˆ«åæ³¨å†Œè¡¨ä¸­ç§»é™¤ã€‚
 					this.aliasMap.remove(alias);
 				}
 				else if (!resolvedAlias.equals(alias)) {
-					// Èç¹ûĞÂ½âÎö±ğÃûÓëÔ­Ê¼±ğÃû²»ÏàÍ¬£¬Ôò´Ó±ğÃû×¢²á±íÖĞ²éÕÒ¶ÔÓ¦µÄÃû×Ö¡£
+					// å¦‚æœæ–°è§£æåˆ«åä¸åŸå§‹åˆ«åä¸ç›¸åŒï¼Œåˆ™ä»åˆ«åæ³¨å†Œè¡¨ä¸­æŸ¥æ‰¾å¯¹åº”çš„åå­—ã€‚
 					String existingName = this.aliasMap.get(resolvedAlias);
 					if (existingName != null && !existingName.equals(resolvedName)) {
 						throw new IllegalStateException(
@@ -172,12 +172,12 @@ public class SimpleAliasRegistry implements AliasRegistry {
 	}
 
 	/**
-	 *<p>Ò»°ãÊ¹ÓÃÊ±ÊÇÎªÄ³¸öÃû×Ö×¢²áÒ»¸ö±ğÃû£¬ÊÇ¿ÉÒÔ×¢²á¶à¸ö±ğÃûµÄ¡£
-	 *Ò²ÓĞ¿ÉÄÜÕâ¸ö¡°Ãû×Ö¡±Êµ¼ÊÉÏÊÇÁíÍâÒ»¸öÕæÕıÃû×ÖµÄ±ğÃû£¬µ«ÊÇ×îÖÕÒª×¢²áÎªÕæÕıÃû×ÖµÄ±ğÃû¡£
-	 *Õâ¸ö·½·¨¾ÍÊÇÎªÁËÕÒµ½ÕæÕıÃû×ÖµÄ£¬ËùÒÔÊ¹ÓÃÊ±´«µİµÄ²ÎÊıÎª¼Ù¡°Ãû×Ö¡±£¬×÷Îª±ğÃû¼ìË÷×¢²á±í¡£
+	 *<p>ä¸€èˆ¬ä½¿ç”¨æ—¶æ˜¯ä¸ºæŸä¸ªåå­—æ³¨å†Œä¸€ä¸ªåˆ«åï¼Œæ˜¯å¯ä»¥æ³¨å†Œå¤šä¸ªåˆ«åçš„ã€‚
+	 *ä¹Ÿæœ‰å¯èƒ½è¿™ä¸ªâ€œåå­—â€å®é™…ä¸Šæ˜¯å¦å¤–ä¸€ä¸ªçœŸæ­£åå­—çš„åˆ«åï¼Œä½†æ˜¯æœ€ç»ˆè¦æ³¨å†Œä¸ºçœŸæ­£åå­—çš„åˆ«åã€‚
+	 *è¿™ä¸ªæ–¹æ³•å°±æ˜¯ä¸ºäº†æ‰¾åˆ°çœŸæ­£åå­—çš„ï¼Œæ‰€ä»¥ä½¿ç”¨æ—¶ä¼ é€’çš„å‚æ•°ä¸ºå‡â€œåå­—â€ï¼Œä½œä¸ºåˆ«åæ£€ç´¢æ³¨å†Œè¡¨ã€‚
 	 *<hr>
 	 * Determine the raw name, resolving aliases to canonical names.
-	 * È·¶¨Ô­ÁÏµÄÃû³Æ£¬½âÎö±ğÃû¹æ·¶Ãû³Æ¡£
+	 * ç¡®å®šåŸæ–™çš„åç§°ï¼Œè§£æåˆ«åè§„èŒƒåç§°ã€‚
 	 * @param name the user-specified name
 	 * @return the transformed name
 	 */
@@ -186,25 +186,25 @@ public class SimpleAliasRegistry implements AliasRegistry {
 		// Handle aliasing...
 		String resolvedName;
 		do {
-			// canonicalName×÷Îª±ğÃû£¬¼ìË÷±ğÃû×¢²á±í¡£
+			// canonicalNameä½œä¸ºåˆ«åï¼Œæ£€ç´¢åˆ«åæ³¨å†Œè¡¨ã€‚
 			resolvedName = this.aliasMap.get(canonicalName);
 			if (resolvedName != null) {
-				// resolvedNameÊÇÃû×Ö£¬µ«ÊÇÒ²×÷Îª±ğÃû¼ÌĞø´Ó×¢²á±íÖĞ¼ìË÷¡£
+				// resolvedNameæ˜¯åå­—ï¼Œä½†æ˜¯ä¹Ÿä½œä¸ºåˆ«åç»§ç»­ä»æ³¨å†Œè¡¨ä¸­æ£€ç´¢ã€‚
 				canonicalName = resolvedName;
 			}
 		}
-		while (resolvedName != null); // resolvedNameÎªnullÊ±£¬Í£Ö¹Ñ­»·£¬canonicalNameÎª×îºóµÄÃû×Ö¡£
+		while (resolvedName != null); // resolvedNameä¸ºnullæ—¶ï¼Œåœæ­¢å¾ªç¯ï¼ŒcanonicalNameä¸ºæœ€åçš„åå­—ã€‚
 		return canonicalName;
 	}
 
 	/**
-	 *<p>¼ì²âÃû×ÖºÍ±ğÃûÊÇ·ñÄÜ×¢²á¡£¼ì²âÊ¹ÓÃµ½ÁË{@link #canonicalName(String)}¡£
+	 *<p>æ£€æµ‹åå­—å’Œåˆ«åæ˜¯å¦èƒ½æ³¨å†Œã€‚æ£€æµ‹ä½¿ç”¨åˆ°äº†{@link #canonicalName(String)}ã€‚
 	 *<dl >
-	 *<dt>Step1</dt><dd>×¢²áÃû×ÖÎªa-name£¬±ğÃûÎªa-value¡£    ×¢²á±í½á¹ûÎªa-value £ºa-name¡£    Õı³£¡£</dd>
-	 *<dt>Step2</dt><dd>×¢²áÃû×ÖÎªb-name£¬±ğÃûÎªb-value¡£    ×¢²á±í½á¹ûÎªb-value £ºb-name¡£    Õı³£¡£</dd>
-	 *<dt>Step3</dt><dd>×¢²áÃû×ÖÎªa-value£¬±ğÃûÎªc-value¡£   ×¢²á±í½á¹ûÎªc-value£ºa-name¡£    Õı³£¡£</dd>
-	 *<dt>Step4</dt><dd>×¢²áÃû×ÖÎªa-value£¬±ğÃûÎªb-value¡£   ×¢²á±í½á¹ûÎªb-value £ºa-name¡£    Õı³££¬ÕâÒ»²½½«Setp2µÄ½á¹ûĞŞ¸Ä¡£</dd>
-	 *<dt>Step5</dt><dd>×¢²áÃû×ÖÎªa-value£¬±ğÃûÎªa-name¡£     ×¢²á±í½á¹ûÎªa-name  £ºa-name¡£    ´íÎó¡£</dd>
+	 *<dt>Step1</dt><dd>æ³¨å†Œåå­—ä¸ºa-nameï¼Œåˆ«åä¸ºa-valueã€‚    æ³¨å†Œè¡¨ç»“æœä¸ºa-value ï¼ša-nameã€‚    æ­£å¸¸ã€‚</dd>
+	 *<dt>Step2</dt><dd>æ³¨å†Œåå­—ä¸ºb-nameï¼Œåˆ«åä¸ºb-valueã€‚    æ³¨å†Œè¡¨ç»“æœä¸ºb-value ï¼šb-nameã€‚    æ­£å¸¸ã€‚</dd>
+	 *<dt>Step3</dt><dd>æ³¨å†Œåå­—ä¸ºa-valueï¼Œåˆ«åä¸ºc-valueã€‚   æ³¨å†Œè¡¨ç»“æœä¸ºc-valueï¼ša-nameã€‚    æ­£å¸¸ã€‚</dd>
+	 *<dt>Step4</dt><dd>æ³¨å†Œåå­—ä¸ºa-valueï¼Œåˆ«åä¸ºb-valueã€‚   æ³¨å†Œè¡¨ç»“æœä¸ºb-value ï¼ša-nameã€‚    æ­£å¸¸ï¼Œè¿™ä¸€æ­¥å°†Setp2çš„ç»“æœä¿®æ”¹ã€‚</dd>
+	 *<dt>Step5</dt><dd>æ³¨å†Œåå­—ä¸ºa-valueï¼Œåˆ«åä¸ºa-nameã€‚     æ³¨å†Œè¡¨ç»“æœä¸ºa-name  ï¼ša-nameã€‚    é”™è¯¯ã€‚</dd>
 	 *</dl>
 	 *<hr>
 	 * Check whether the given name points back to given alias as an alias
@@ -216,7 +216,7 @@ public class SimpleAliasRegistry implements AliasRegistry {
 	 */
 	protected void checkForAliasCircle(String name, String alias) {
 		if (alias.equals(canonicalName(name))) {
-			// Ãû×ÖÓë±ğÃûÊÇ²»ÄÜÒ»ÑùµÄ¡£
+			// åå­—ä¸åˆ«åæ˜¯ä¸èƒ½ä¸€æ ·çš„ã€‚
 			throw new IllegalStateException("Cannot register alias '" + alias +
 					"' for name '" + name + "': Circular reference - '" +
 					name + "' is a direct or indirect alias for '" + alias + "' already");

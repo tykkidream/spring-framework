@@ -17,7 +17,7 @@
 package org.springframework.core.env;
 
 /**
- * <p>¶¨Òå»ñÈ¡EnvironmentµÄ·½·¨¡£
+ * <p>å®šä¹‰è·å–Environmentçš„æ–¹æ³•ã€‚
  * <hr>
  * 
  * Interface indicating a component that contains and exposes an {@link Environment} reference.

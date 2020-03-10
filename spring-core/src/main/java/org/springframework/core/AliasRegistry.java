@@ -17,7 +17,7 @@
 package org.springframework.core;
 
 /**
- * <p>¶¨Òå¶Ô±ğÃûµÄ¼òµ¥ÔöÉ¾¸ÄµÈ²Ù×÷¡£
+ * <p>å®šä¹‰å¯¹åˆ«åçš„ç®€å•å¢åˆ æ”¹ç­‰æ“ä½œã€‚
  * <hr>
  * 
  * Common interface for managing aliases. Serves as super-interface for
@@ -30,7 +30,7 @@ public interface AliasRegistry {
 
 	/**
 	 * Given a name, register an alias for it.
-	 * ¸ø¸öÃû³Æ×¢²áÒ»¸ö±ğÃû¡£
+	 * ç»™ä¸ªåç§°æ³¨å†Œä¸€ä¸ªåˆ«åã€‚
 	 * @param name the canonical name
 	 * @param alias the alias to be registered
 	 * @throws IllegalStateException if the alias is already in use
@@ -40,7 +40,7 @@ public interface AliasRegistry {
 
 	/**
 	 * Remove the specified alias from this registry.
-	 * ´Ó×¢²á±íÖĞÉ¾³ıÖ¸¶¨µÄ±ğÃû¡£
+	 * ä»æ³¨å†Œè¡¨ä¸­åˆ é™¤æŒ‡å®šçš„åˆ«åã€‚
 	 * @param alias the alias to remove
 	 * @throws IllegalStateException if no such alias was found
 	 */
@@ -48,7 +48,7 @@ public interface AliasRegistry {
 
 	/**
 	 * Determine whether this given name is defines as an alias.
-	 * ÅĞ¶ÏÒ»¸öÃû³ÆÊÇ·ñÊÇ±ğÃû¡£
+	 * åˆ¤æ–­ä¸€ä¸ªåç§°æ˜¯å¦æ˜¯åˆ«åã€‚
 	 * (as opposed to the name of an actually registered component).
 	 * @param beanName the bean name to check
 	 * @return whether the given name is an alias
@@ -57,7 +57,7 @@ public interface AliasRegistry {
 
 	/**
 	 * Return the aliases for the given name, if defined.
-	 * ·µ»ØÖ¸¶¨Ãû³ÆµÄËùÓĞ±ğÃû£¬Èç¹ûÎªÆä¶¨ÒåÁËµÄ»°¡£
+	 * è¿”å›æŒ‡å®šåç§°çš„æ‰€æœ‰åˆ«åï¼Œå¦‚æœä¸ºå…¶å®šä¹‰äº†çš„è¯ã€‚
 	 * @param name the name to check for aliases
 	 * @return the aliases, or an empty array if none
 	 */

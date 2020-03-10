@@ -17,7 +17,7 @@
 package org.springframework.core;
 
 /**
- * <p>¶¨Òå¶ÔÈÎÒâ¶ÔÏó½øĞĞĞŞ¸Ä¡¢»ñÈ¡×î»ù±¾ÔªÊı¾İµÄ·½·¨¡£
+ * <p>å®šä¹‰å¯¹ä»»æ„å¯¹è±¡è¿›è¡Œä¿®æ”¹ã€è·å–æœ€åŸºæœ¬å…ƒæ•°æ®çš„æ–¹æ³•ã€‚
  * <hr>
  * Interface defining a generic contract for attaching and accessing metadata
  * to/from arbitrary objects.

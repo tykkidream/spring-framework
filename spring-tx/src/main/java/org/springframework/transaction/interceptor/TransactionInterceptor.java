@@ -50,7 +50,7 @@ import java.util.Properties;
 public class TransactionInterceptor extends TransactionAspectSupport implements MethodInterceptor, Serializable {
 
 	/**
-	 * Create a new TransactionInterceptor.
+	 * Create a new TransactionInterceptor.invokeWithinTransaction
 	 * <p>Transaction manager and transaction attributes still need to be set.
 	 * @see #setTransactionManager
 	 * @see #setTransactionAttributes(java.util.Properties)
