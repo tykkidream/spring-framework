@@ -15,7 +15,7 @@
  */
 package org.springframework.cglib.core;
 
-import org.objectweb.asm.Type;
+import org.springframework.asm.Type;
 
 public interface Customizer {
     void customize(CodeEmitter e, Type type);

@@ -24,6 +24,9 @@ import java.util.zip.ZipInputStream;
 import org.apache.tools.ant.*;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.ProjectComponent;
+import org.springframework.asm.Attribute;
+import org.springframework.asm.ClassReader;
+import org.springframework.asm.ClassWriter;
 import org.springframework.cglib.core.ClassNameReader;
 import org.springframework.cglib.core.DebuggingClassWriter;
 

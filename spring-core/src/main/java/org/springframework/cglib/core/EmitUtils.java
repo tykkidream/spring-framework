@@ -15,11 +15,12 @@
  */
 package org.springframework.cglib.core;
 
+import org.springframework.asm.Label;
+import org.springframework.asm.Type;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.*;
-import org.objectweb.asm.Label;
-import org.objectweb.asm.Type;
 
 public class EmitUtils {
     private static final Signature CSTRUCT_NULL =

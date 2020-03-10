@@ -15,10 +15,10 @@
  */
 package org.springframework.cglib.core;
 
-import org.objectweb.asm.ClassWriter;
-import org.objectweb.asm.ClassReader;
-import org.objectweb.asm.ClassVisitor;
-import org.objectweb.asm.Opcodes;
+import org.springframework.asm.ClassWriter;
+import org.springframework.asm.ClassReader;
+import org.springframework.asm.ClassVisitor;
+import org.springframework.asm.Opcodes;
 import org.objectweb.asm.util.TraceClassVisitor;
 
 import java.io.*;
