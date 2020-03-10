@@ -36,9 +36,9 @@
 		</dependency>-->
 
 		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-asm</artifactId>
-			<version>3.1.4.RELEASE</version>
+			<groupId>org.apache.ant</groupId>
+			<artifactId>com.springsource.org.apache.tools.ant</artifactId>
+			<version>1.8.3</version>
 		</dependency>
 
 		<dependency>
