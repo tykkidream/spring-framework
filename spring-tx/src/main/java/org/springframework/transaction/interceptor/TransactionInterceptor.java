@@ -29,6 +29,12 @@ import java.io.Serializable;
 import java.util.Properties;
 
 /**
+ * 继承 TransactionAspectSupport：增强事务管理。
+ * 实现 MethodInterceptor：方法拦截器，实现方法拦截。
+ *
+ * 当前类的工作主要都是从 {@link MethodInterceptor#invoke(MethodInvocation)} 此接口的实现开始的，即 {@link TransactionInterceptor#invoke(MethodInvocation)}。
+ *
+ * <br/>
  * AOP Alliance MethodInterceptor for declarative transaction
  * management using the common Spring transaction infrastructure
  * ({@link org.springframework.transaction.PlatformTransactionManager}).
@@ -83,16 +89,27 @@ public class TransactionInterceptor extends TransactionAspectSupport implements 
 		setTransactionAttributeSource(tas);
 	}
 
-
+	/**
+	 * 拦截代理目标的方法，在执行到代理目标的方法前，执行一些其它事情。
+	 *
+	 * @param invocation
+	 * @return
+	 * @throws Throwable
+	 */
 	public Object invoke(final MethodInvocation invocation) throws Throwable {
+		// 获取获取目标类
 		// Work out the target class: may be {@code null}.
 		// The TransactionAttributeSource should be passed the target class
 		// as well as the method, which may be from an interface.
 		Class<?> targetClass = (invocation.getThis() != null ? AopUtils.getTargetClass(invocation.getThis()) : null);
 
+		// 执行当前类 TransactionInterceptor 的父类 TransactionAspectSupport 的 invokeWithinTransaction 方法，并返回结果。
+		// 接下的的重点是 invokeWithinTransaction 。
 		// Adapt to TransactionAspectSupport's invokeWithinTransaction...
 		return invokeWithinTransaction(invocation.getMethod(), targetClass, new InvocationCallback() {
 			public Object proceedWithInvocation() throws Throwable {
+				// 执行执行目标方法
+				// proceed 方法来自 aopalliance 框架的 Joinpoint 接口，其有多个实现，比如使用 cglib 实现、动态代理的实现。
 				return invocation.proceed();
 			}
 		});
