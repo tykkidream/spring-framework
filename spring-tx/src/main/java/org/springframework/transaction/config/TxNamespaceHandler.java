@@ -21,6 +21,10 @@ import org.w3c.dom.Element;
 import org.springframework.beans.factory.xml.NamespaceHandlerSupport;
 
 /**
+ * Spring XML 配置文件中注册 Spring 事务标签
+ *
+ * ==============================================================================
+ *
  * {@code NamespaceHandler} allowing for the configuration of
  * declarative transaction management using either XML or using annotations.
  *
@@ -52,6 +56,7 @@ public class TxNamespaceHandler extends NamespaceHandlerSupport {
 
 	public void init() {
 		registerBeanDefinitionParser("advice", new TxAdviceBeanDefinitionParser());
+		// 注册 Spring 事务开关的 XML 标签
 		registerBeanDefinitionParser("annotation-driven", new AnnotationDrivenBeanDefinitionParser());
 		registerBeanDefinitionParser("jta-transaction-manager", new JtaTransactionManagerBeanDefinitionParser());
 	}
