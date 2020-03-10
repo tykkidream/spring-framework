@@ -16,10 +16,11 @@
 
 package org.springframework.cglib.core;
 
+import org.springframework.asm.ClassVisitor;
+import org.springframework.asm.Label;
+import org.springframework.asm.Type;
+
 import java.lang.reflect.Method;
-import org.objectweb.asm.ClassVisitor;
-import org.objectweb.asm.Label;
-import org.objectweb.asm.Type;
 
 /**
  * Generates classes to handle multi-valued keys, for use in things such as Maps and Sets.

@@ -15,14 +15,14 @@
  */
 package org.springframework.cglib.beans;
 
-import java.beans.PropertyDescriptor;
-import java.lang.reflect.*;
-import net.sf.cglib.core.*;
-import org.objectweb.asm.ClassVisitor;
-import org.objectweb.asm.Type;
+import org.springframework.asm.ClassVisitor;
+import org.springframework.asm.Type;
 import org.springframework.cglib.core.*;
 
-import java.util.*;
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.Modifier;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Chris Nokleberg

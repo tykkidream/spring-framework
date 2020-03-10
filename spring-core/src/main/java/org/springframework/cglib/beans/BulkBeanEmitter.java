@@ -15,13 +15,12 @@
  */
 package org.springframework.cglib.beans;
 
+import org.springframework.asm.ClassVisitor;
+import org.springframework.asm.Type;
+import org.springframework.cglib.core.*;
+
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-
-import net.sf.cglib.core.*;
-import org.objectweb.asm.ClassVisitor;
-import org.objectweb.asm.Type;
-import org.springframework.cglib.core.*;
 
 class BulkBeanEmitter extends ClassEmitter {
     private static final Signature GET_PROPERTY_VALUES =

@@ -15,12 +15,12 @@
  */
 package org.springframework.cglib.beans;
 
-import java.util.*;
-import net.sf.cglib.core.*;
-import org.objectweb.asm.ClassVisitor;
+import org.springframework.asm.ClassVisitor;
 import org.springframework.cglib.core.AbstractClassGenerator;
 import org.springframework.cglib.core.KeyFactory;
 import org.springframework.cglib.core.ReflectUtils;
+
+import java.util.*;
 
 /**
  * A <code>Map</code>-based view of a JavaBean.  The default set of keys is the

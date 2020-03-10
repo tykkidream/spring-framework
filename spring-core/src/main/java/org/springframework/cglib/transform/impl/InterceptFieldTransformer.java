@@ -15,9 +15,8 @@
  */
 package org.springframework.cglib.transform.impl;
 
-import net.sf.cglib.core.*;
-import org.objectweb.asm.Label;
-import org.objectweb.asm.Type;
+import org.springframework.asm.Label;
+import org.springframework.asm.Type;
 import org.springframework.cglib.core.*;
 import org.springframework.cglib.transform.ClassEmitterTransformer;
 

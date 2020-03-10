@@ -15,17 +15,11 @@
  */
 package org.springframework.cglib.transform.impl;
 
-import java.lang.reflect.Method;
-
-import org.springframework.cglib.core.CodeEmitter;
-import org.springframework.cglib.core.Constants;
-import org.springframework.cglib.core.MethodInfo;
-import org.springframework.cglib.core.ReflectUtils;
-import org.springframework.cglib.core.Signature;
+import org.springframework.asm.Type;
+import org.springframework.cglib.core.*;
 import org.springframework.cglib.transform.ClassEmitterTransformer;
 
-import org.objectweb.asm.Attribute;
-import org.objectweb.asm.Type;
+import java.lang.reflect.Method;
 
 /**
  * @author	Mark Hobson

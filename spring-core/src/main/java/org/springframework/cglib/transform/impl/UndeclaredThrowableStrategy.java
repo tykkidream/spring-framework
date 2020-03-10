@@ -15,8 +15,6 @@
  */
 package org.springframework.cglib.transform.impl;
 
-import net.sf.cglib.core.*;
-import org.objectweb.asm.Attribute;
 import org.springframework.cglib.core.ClassGenerator;
 import org.springframework.cglib.core.DefaultGeneratorStrategy;
 import org.springframework.cglib.core.GeneratorStrategy;

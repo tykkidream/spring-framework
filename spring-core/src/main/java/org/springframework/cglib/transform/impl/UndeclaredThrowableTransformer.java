@@ -15,13 +15,11 @@
  */
 package org.springframework.cglib.transform.impl;
 
-import java.lang.reflect.Constructor;
-import net.sf.cglib.core.*;
-import org.objectweb.asm.Attribute;
-import org.objectweb.asm.Type;
-import org.objectweb.asm.ClassVisitor;
+import org.springframework.asm.Type;
 import org.springframework.cglib.core.*;
 import org.springframework.cglib.transform.ClassEmitterTransformer;
+
+import java.lang.reflect.Constructor;
 
 public class UndeclaredThrowableTransformer extends ClassEmitterTransformer {
     private Type wrapper;

@@ -15,11 +15,11 @@
  */
 package org.springframework.cglib.transform.impl;
 
-import java.lang.reflect.Method;
-import net.sf.cglib.core.*;
-import org.objectweb.asm.Type;
+import org.springframework.asm.Type;
 import org.springframework.cglib.core.*;
 import org.springframework.cglib.transform.ClassEmitterTransformer;
+
+import java.lang.reflect.Method;
 
 /**
  * @author Juozas Baliuka, Chris Nokleberg

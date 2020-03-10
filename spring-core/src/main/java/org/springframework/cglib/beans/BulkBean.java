@@ -15,8 +15,7 @@
  */
 package org.springframework.cglib.beans;
 
-import net.sf.cglib.core.*;
-import org.objectweb.asm.ClassVisitor;
+import org.springframework.asm.ClassVisitor;
 import org.springframework.cglib.core.AbstractClassGenerator;
 import org.springframework.cglib.core.KeyFactory;
 import org.springframework.cglib.core.ReflectUtils;

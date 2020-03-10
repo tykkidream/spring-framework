@@ -15,11 +15,7 @@
  */
 package org.springframework.cglib.transform.impl;
 
-import net.sf.cglib.core.*;
-import org.objectweb.asm.ClassVisitor;
-import org.objectweb.asm.MethodVisitor;
-import org.objectweb.asm.Attribute;
-import org.objectweb.asm.Type;
+import org.springframework.asm.Type;
 import org.springframework.cglib.core.CodeEmitter;
 import org.springframework.cglib.core.Constants;
 import org.springframework.cglib.core.Signature;

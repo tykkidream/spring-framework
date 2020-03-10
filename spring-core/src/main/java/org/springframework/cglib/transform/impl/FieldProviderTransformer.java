@@ -15,13 +15,13 @@
  */
 package org.springframework.cglib.transform.impl;
 
-import java.util.*;
-import net.sf.cglib.core.*;
-import org.objectweb.asm.Attribute;
-import org.objectweb.asm.Label;
-import org.objectweb.asm.Type;
+import org.springframework.asm.Label;
+import org.springframework.asm.Type;
 import org.springframework.cglib.core.*;
 import org.springframework.cglib.transform.ClassEmitterTransformer;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class FieldProviderTransformer extends ClassEmitterTransformer {
     
