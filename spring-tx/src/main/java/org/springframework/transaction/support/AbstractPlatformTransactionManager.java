@@ -339,17 +339,23 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 	public final TransactionStatus getTransaction(TransactionDefinition definition) throws TransactionException {
 		// 获取事务实例，基于 JDBC 的事务实例。
 		// 如果当前线程存在关于 dataSource 的连接，则直接使用。
+		// 当前类 AbstractPlatformTransactionManager 没有真正实现 doGetTransaction， 实现主要在子类中，这里使用的使 DataSourceTransactionManager 的实现。
+		// DataSourceTransactionManager 返回一个新的 DataSourceTransactionObject 实例，这个实现拥有还原点，和数据库连接 ConnectionHolder 。
 		Object transaction = doGetTransaction();
 
 		// Cache debug flag to avoid repeated checks.
 		boolean debugEnabled = logger.isDebugEnabled();
 
 		if (definition == null) {
+			// 使用默认的事务定义
 			// Use defaults if no transaction definition given.
 			definition = new DefaultTransactionDefinition();
 		}
 
-		// 判断当前线程是否存在事务，判断依据为当前线程记录的连接不为空，且是连接中的 transactionAdvice 属性不为空。
+		// 当前类 AbstractPlatformTransactionManager 没有真正实现 isExistingTransaction， 实现主要在子类中，这里使用的使 DataSourceTransactionManager 的实现。
+		// 判断当前线程是否存在事务，判断依据为：当前线程是否已存在 ConnectionHolder ，如果存在必须是连接中的状态。
+		// 第一次开启事务时， transaction 中的 ConnectionHolder 必然是 null ，所以 isExistingTransaction 必然是 false 。
+		// 第二次开始，transaction 中的 ConnectionHolder 不为 null ，isExistingTransaction 返回 true ，以后都是嵌套处理。
 		if (isExistingTransaction(transaction)) {
 			// 当前线程已存在事务
 			// 嵌套事务
@@ -357,20 +363,26 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 			return handleExistingTransaction(definition, transaction, debugEnabled);
 		}
 
+		// 至此，说明当前线程不存在事务
+
 		// 事务超时设置验证
 		// Check definition settings for new transaction.
 		if (definition.getTimeout() < TransactionDefinition.TIMEOUT_DEFAULT) {
 			throw new InvalidTimeoutException("Invalid transaction timeout", definition.getTimeout());
 		}
 
+		// 如果事务定义的隔离级别为 PROPAGATION_MANDATORY， 则异常
 		// No existing transaction found -> check propagation behavior to find out how to proceed.
 		if (definition.getPropagationBehavior() == TransactionDefinition.PROPAGATION_MANDATORY) {
 			throw new IllegalTransactionStateException(
 					"No existing transaction found for transaction marked with propagation 'mandatory'");
 		}
+		// 为 PROPAGATION_REQUIRED、PROPAGATION_REQUIRES_NEW、PROPAGATION_NESTED 这三种隔离级别，开启新事务
 		else if (definition.getPropagationBehavior() == TransactionDefinition.PROPAGATION_REQUIRED ||
 				definition.getPropagationBehavior() == TransactionDefinition.PROPAGATION_REQUIRES_NEW ||
 			definition.getPropagationBehavior() == TransactionDefinition.PROPAGATION_NESTED) {
+			// 开启新事务
+
 			// 空挂起
 			SuspendedResourcesHolder suspendedResources = suspend(null);
 			if (debugEnabled) {
@@ -378,6 +390,8 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 			}
 			try {
 				boolean newSynchronization = (getTransactionSynchronization() != SYNCHRONIZATION_NEVER);
+
+				// 创建新事务的 DefaultTransactionStatus ，并且 newTransaction 设置为 true，后面一些回滚、提交时要使用此属性。
 				DefaultTransactionStatus status = newTransactionStatus(
 						definition, transaction, true, newSynchronization, debugEnabled, suspendedResources);
 
@@ -385,8 +399,9 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 				 * 构造 Transaction ，包括设置 ConnectionHolder、隔离级别、timeout
 				 * 如果是新连接，绑定到当前线程
 				 */
+				// 当前类 AbstractPlatformTransactionManager 没有真正实现 doBegin， 实现主要在子类中，这里使用的使 DataSourceTransactionManager 的实现。
 				doBegin(transaction, definition);
-				// 新同步事务的设置，针对于当前线程的设置
+				// 同步新事务状态，针对于当前线程的设置
 				prepareSynchronization(status, definition);
 				return status;
 			}

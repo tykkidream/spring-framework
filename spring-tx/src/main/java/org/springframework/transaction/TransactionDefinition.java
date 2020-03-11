@@ -19,6 +19,12 @@ package org.springframework.transaction;
 import java.sql.Connection;
 
 /**
+ * 事务定义
+ * ================================================================================
+ *
+ * 用于描述隔离级别、超时时间、是否为只读事务和事务传播规则
+ *
+ *
  * Interface that defines Spring-compliant transaction properties.
  * Based on the propagation behavior definitions analogous to EJB CMT attributes.
  *

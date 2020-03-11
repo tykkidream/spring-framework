@@ -176,9 +176,16 @@ public class DataSourceTransactionManager extends AbstractPlatformTransactionMan
 	@Override
 	protected Object doGetTransaction() {
 		DataSourceTransactionObject txObject = new DataSourceTransactionObject();
+		// 设置还原点
 		txObject.setSavepointAllowed(isNestedTransactionAllowed());
+		// 如果当前线程已有数据库连接，则直接使用
+		// 这一行中的 TransactionSynchronizationManager 很重要，是对 connection 的获取、持有、删除等
+		// 根据当前的 dataSource 获取 ConnectionHolder ，这个 ConnectionHolder 是从 TransactionSynchronizationManager 管理的 ThreadLocal 获取的。
+		// ThreadLocal 的数据是 Map ，其 key 是不同的 dataSource 实例，value 为各 dataSource 创建出来的 ConnectionHolder 。
+		// 如果是第一次来获取，肯定得到是 null，也就是没有 connection 。
 		ConnectionHolder conHolder =
 			(ConnectionHolder) TransactionSynchronizationManager.getResource(this.dataSource);
+		// 这里的 false 表示不是新创建的
 		txObject.setConnectionHolder(conHolder, false);
 		return txObject;
 	}

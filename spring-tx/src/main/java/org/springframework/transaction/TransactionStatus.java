@@ -17,6 +17,11 @@
 package org.springframework.transaction;
 
 /**
+ * 事务状态
+ * ===========================================================================
+ *
+ *
+ *
  * Representation of the status of a transaction.
  *
  * <p>Transactional code can use this to retrieve status information,
@@ -37,6 +42,8 @@ package org.springframework.transaction;
 public interface TransactionStatus extends SavepointManager {
 
 	/**
+	 * 判断当前的事务是否是新事务
+	 *
 	 * Return whether the present transaction is new (else participating
 	 * in an existing transaction, or potentially not running in an
 	 * actual transaction in the first place).
@@ -44,6 +51,8 @@ public interface TransactionStatus extends SavepointManager {
 	boolean isNewTransaction();
 
 	/**
+	 * 判断该事务里面是否含有还原点
+	 *
 	 * Return whether this transaction internally carries a savepoint,
 	 * that is, has been created as nested transaction based on a savepoint.
 	 * <p>This method is mainly here for diagnostic purposes, alongside
@@ -82,6 +91,8 @@ public interface TransactionStatus extends SavepointManager {
 	void flush();
 
 	/**
+	 * 不管是commit或者rollback了都算结束了
+	 *
 	 * Return whether this transaction is completed, that is,
 	 * whether it has already been committed or rolled back.
 	 * @see PlatformTransactionManager#commit
