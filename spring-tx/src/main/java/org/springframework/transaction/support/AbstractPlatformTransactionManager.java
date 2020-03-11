@@ -383,7 +383,7 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 			definition.getPropagationBehavior() == TransactionDefinition.PROPAGATION_NESTED) {
 			// 开启新事务
 
-			// 空挂起
+			// 建立新事务时，空挂现有的事务，当前是挂起空事务
 			SuspendedResourcesHolder suspendedResources = suspend(null);
 			if (debugEnabled) {
 				logger.debug("Creating new transaction with name [" + definition.getName() + "]: " + definition);
@@ -401,7 +401,7 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 				 */
 				// 当前类 AbstractPlatformTransactionManager 没有真正实现 doBegin， 实现主要在子类中，这里使用的使 DataSourceTransactionManager 的实现。
 				doBegin(transaction, definition);
-				// 同步新事务状态，针对于当前线程的设置
+				// 保存新事务状态到当前线程中
 				prepareSynchronization(status, definition);
 				return status;
 			}
@@ -839,6 +839,9 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 	}
 
 	/**
+	 * 回滚事务
+	 * ====================================================================
+	 *
 	 * This implementation of rollback handles participating in existing
 	 * transactions. Delegates to {@code doRollback} and
 	 * {@code doSetRollbackOnly}.

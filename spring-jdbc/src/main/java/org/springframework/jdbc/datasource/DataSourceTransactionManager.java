@@ -207,16 +207,20 @@ public class DataSourceTransactionManager extends AbstractPlatformTransactionMan
 		try {
 			if (txObject.getConnectionHolder() == null ||
 					txObject.getConnectionHolder().isSynchronizedWithTransaction()) {
+				// 从 dataSource 中获取一个 Connection
 				Connection newCon = this.dataSource.getConnection();
 				if (logger.isDebugEnabled()) {
 					logger.debug("Acquired Connection [" + newCon + "] for JDBC transaction");
 				}
+
+				// 为当前 Transaction 设置 ConnectionHolder，并且设置 newConnectionHolder 为 true
 				txObject.setConnectionHolder(new ConnectionHolder(newCon), true);
 			}
 
 			txObject.getConnectionHolder().setSynchronizedWithTransaction(true);
 			con = txObject.getConnectionHolder().getConnection();
 
+			// 这里主要是根据 definition 对 connection 进行一些设置
 			Integer previousIsolationLevel = DataSourceUtils.prepareConnectionForTransaction(con, definition);
 			txObject.setPreviousIsolationLevel(previousIsolationLevel);
 
@@ -228,17 +232,24 @@ public class DataSourceTransactionManager extends AbstractPlatformTransactionMan
 				if (logger.isDebugEnabled()) {
 					logger.debug("Switching JDBC Connection [" + con + "] to manual commit");
 				}
+				// 开启事务，设置 autoCommit 为 false
 				con.setAutoCommit(false);
+
 			}
+			// 设置 TransactionActive 为  true
+			// 上层 AbstractPlatformTransactionManager 执行 isExistingTransaction （实现主要是 DataSourceTransactionManager 提供）只判断是否已开启事务就用到这个进行了判断。
 			txObject.getConnectionHolder().setTransactionActive(true);
 
 			int timeout = determineTimeout(definition);
 			if (timeout != TransactionDefinition.TIMEOUT_DEFAULT) {
+				// 设置超时时间
 				txObject.getConnectionHolder().setTimeoutInSeconds(timeout);
 			}
 
 			// Bind the session holder to the thread.
 			if (txObject.isNewConnectionHolder()) {
+				// 这里将当前的 connection 放入 TransactionSynchronizationManager 的 ThreadLocal 中，如果下次调用可以判断为已有的事务
+				// 上层 AbstractPlatformTransactionManager 执行 doGetTransaction （实现主要是 DataSourceTransactionManager 提供） 使用 TransactionSynchronizationManager 获取。
 				TransactionSynchronizationManager.bindResource(getDataSource(), txObject.getConnectionHolder());
 			}
 		}
