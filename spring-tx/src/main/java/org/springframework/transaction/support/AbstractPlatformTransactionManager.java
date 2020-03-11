@@ -753,10 +753,13 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 			return;
 		}
 
+		// 真正提交在这里
 		processCommit(defStatus);
 	}
 
 	/**
+	 * 事务提交
+	 *
 	 * Process an actual commit.
 	 * Rollback-only flags have already been checked and applied.
 	 * @param status object representing the transaction
@@ -775,6 +778,7 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 					globalRollbackOnly = status.isGlobalRollbackOnly();
 				}
 				if (status.hasSavepoint()) {
+					// 如果有还原点，还原到还原点
 					if (status.isDebug()) {
 						logger.debug("Releasing transaction savepoint");
 					}
@@ -784,6 +788,7 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 					if (status.isDebug()) {
 						logger.debug("Initiating transaction commit");
 					}
+					// 执行提交
 					doCommit(status);
 				}
 				// Throw UnexpectedRollbackException if we have a global rollback-only
