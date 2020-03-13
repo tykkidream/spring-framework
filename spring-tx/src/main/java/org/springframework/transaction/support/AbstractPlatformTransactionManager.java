@@ -434,6 +434,7 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 		}
 
 		if (definition.getPropagationBehavior() == TransactionDefinition.PROPAGATION_NOT_SUPPORTED) {
+			// 当传播级别为 PROPAGATION_NOT_SUPPORTED 时，挂起当前事务
 			if (debugEnabled) {
 				logger.debug("Suspending current transaction");
 			}
@@ -444,6 +445,7 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 		}
 
 		if (definition.getPropagationBehavior() == TransactionDefinition.PROPAGATION_REQUIRES_NEW) {
+			// 当传播级别为 PROPAGATION_REQUIRES_NEW 时，挂起当前事务，并创建新事务
 			if (debugEnabled) {
 				logger.debug("Suspending current transaction, creating new transaction with name [" +
 						definition.getName() + "]");
@@ -451,6 +453,7 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 			SuspendedResourcesHolder suspendedResources = suspend(transaction);
 			try {
 				boolean newSynchronization = (getTransactionSynchronization() != SYNCHRONIZATION_NEVER);
+				// 创建新事务，使用新的事务状态，使用新的数据库连接
 				DefaultTransactionStatus status = newTransactionStatus(
 						definition, transaction, true, newSynchronization, debugEnabled, suspendedResources);
 				doBegin(transaction, definition);
@@ -468,6 +471,7 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 		}
 
 		if (definition.getPropagationBehavior() == TransactionDefinition.PROPAGATION_NESTED) {
+			// 当传播级别为 PROPAGATION_REQUIRES_NEW 时，使用当前事务，执行嵌套事务
 			if (!isNestedTransactionAllowed()) {
 				throw new NestedTransactionNotSupportedException(
 						"Transaction manager does not allow nested transactions by default - " +
@@ -477,6 +481,7 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 				logger.debug("Creating nested transaction with name [" + definition.getName() + "]");
 			}
 			if (useSavepointForNestedTransaction()) {
+				// 创建新的还原点
 				// Create savepoint within existing Spring-managed transaction,
 				// through the SavepointManager API implemented by TransactionStatus.
 				// Usually uses JDBC 3.0 savepoints. Never activates Spring synchronization.
